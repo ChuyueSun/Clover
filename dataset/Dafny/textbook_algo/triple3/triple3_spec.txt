@@ -1,0 +1,1 @@
+Triple the input. There are no restrictions on the input.

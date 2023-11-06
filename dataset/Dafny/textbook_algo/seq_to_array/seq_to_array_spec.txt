@@ -1,0 +1,1 @@
+Convert a sequence into an array in the original order. 

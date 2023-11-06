@@ -1,0 +1,1 @@
+Linearly search for an existing element that satisfies a predicate in an array. Return the index of its first appearance. Require that the input array contains such an element. Ensure that no previous elements satisfy such predicate.

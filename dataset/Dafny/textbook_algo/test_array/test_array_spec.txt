@@ -1,0 +1,1 @@
+Test an array assignment operation. Put no restrictions on unused inputs. Index j into array a and assign index j to be 60.

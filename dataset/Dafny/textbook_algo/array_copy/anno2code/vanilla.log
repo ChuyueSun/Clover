@@ -1,0 +1,2 @@
+/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/iter_copy/anno2code/iter_copy_vanilla.dfy(6,8): Error: Duplicate local-variable name: t
+1 resolution/type errors detected in iter_copy_vanilla.dfy

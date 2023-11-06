@@ -1,0 +1,1 @@
+Returns the maximum value m present in the array a. Ensure that such an element appears in the array and is the maximum element.

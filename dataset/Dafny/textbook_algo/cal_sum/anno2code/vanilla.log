@@ -1,0 +1,6 @@
+/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/cal_sum/anno2code/cal_sum_vanilla.dfy(7,4): Error: a postcondition could not be proved on this return path
+/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/cal_sum/anno2code/cal_sum_vanilla.dfy(3,9): Related location: this is the postcondition that could not be proved
+/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/cal_sum/anno2code/cal_sum_vanilla.dfy(8,25): Error: this loop invariant could not be proved on entry
+/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/cal_sum/anno2code/cal_sum_vanilla.dfy(8,25): Related message: loop invariant violation
+
+Dafny program verifier finished with 1 verified, 2 errors

@@ -1,0 +1,2 @@
+/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/compare/anno2code/compare_vanilla.dfy(5,7): Error: == can only be applied to expressions of types that support equality (got T) (perhaps try declaring type parameter 'T' on line 1 as 'T(==)', which says it can only be instantiated with a type that supports equality)
+1 resolution/type errors detected in compare_vanilla.dfy

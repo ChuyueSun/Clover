@@ -1,0 +1,1 @@
+Removes the front element from the array a and returns the resulting array c.
