@@ -15,13 +15,8 @@ We also empirically investigate its feasibility on a hand-designed dataset (Clov
  automatically generating formal specifications; and (ii) our consistency checker achieves a promising acceptance rate 
  (up to 87%) for correct instances while maintaining zero tolerance for incorrect ones (no false positives).
 
-## Example Run
-```
-```
 
 ## Evaluation
-
-### Settings
 
 
 ### Run Experiments
