@@ -33,9 +33,7 @@ Put one condition in one line. \
 Do not return the docstring and the function implementation. Do not use helper functions. Do not explain.\
 Below is the docstring and function signature:\n"
 
-DOC_EQUIV = "Determine if two docstrings describe the functional behavior of a dafny program equivalently. \
-Make sure the two docstrings can imply each other. \
-return YES or NO, and then explain.\n"
+DOC_EQUIV = "Determine if two docstrings can describe the same functional behavior of a dafny program. return YES or NO, and then explain.\n"
 
 
 if __name__ == "__main__":
