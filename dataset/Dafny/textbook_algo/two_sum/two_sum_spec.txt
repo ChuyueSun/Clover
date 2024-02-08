@@ -1,1 +1,4 @@
-Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. Require that each input would have exactly one solution, and you may not use the same element twice. Ensure that the returned indices are the first appearance.
+Given an array of integers nums and an integer target, return the first pair of indices i < j of the two numbers such that they add up to target. 
+Require that such pair (i , j) exist in the array. 
+Ensure for all i less than returned i and for all j, that no other i, j exists.
+Ensure for all j between returned i j, no other j exist.
