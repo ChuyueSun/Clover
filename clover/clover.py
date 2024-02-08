@@ -332,8 +332,8 @@ if __name__ == "__main__":
 
     # backend = OpenAI("gpt-3.5-turbo")
     # backend = OpenAI("gpt-4")
-    # set_default_backend(OpenAI("gpt-4-1106-preview"))
-    set_default_backend(OpenAI("gpt-4"))
+    set_default_backend(OpenAI("gpt-4-1106-preview"))
+    # set_default_backend(OpenAI("gpt-4"))
     program_path = (
         f"../dataset/Dafny/textbook_algo/{args.test_name}/{args.test_name}_strong.dfy"
     )
