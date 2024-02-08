@@ -22,12 +22,12 @@ predicate post_original(src: array<int>, sStart: nat, dest: array<int>, dStart: 
   (r.Length == dest.Length) &&
   (r[..dStart] == dest[..dStart]) &&
   (r[dStart + len..] == dest[dStart + len..]) &&
-  (forall k:int :: dStart<= k < len+dStart ==> r[k] == src[sStart + k-dStart])
+  (r[dStart..len+dStart] == src[sStart..len+sStart])
 }
 
 predicate post_gen(src: array<int>, sStart: nat, dest: array<int>, dStart: nat, len: nat, r:array<int>)
   requires pre_original(src, sStart, dest, dStart, len, r)
-  reads src, dest
+  reads src, dest, r
 {
   true // (#POST) && ... (#POST)
 }
