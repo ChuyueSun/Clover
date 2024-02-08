@@ -87,7 +87,7 @@ def extract_body(lines, oneline=True):
 
 def extract_annotations(program):
     d = {"preconditions": [], "postconditions": []}
-    req = "requires\s+(\S.*?)(;|//|\n)"
+    req = "requires\s+(.*?)(?=//|;|\n)"
     matches = re.finditer(req, program, re.MULTILINE)
     for matchNum, match in enumerate(matches, start=1):
         for groupNum in range(0, len(match.groups())):
@@ -97,7 +97,7 @@ def extract_annotations(program):
                 continue
             d["preconditions"].append("(" + match.group(groupNum) + ")")
 
-    ens = "ensures\s+(\S.*)(;|//|\n)"
+    ens = "ensures\s+(.*?)(?=//|;|\n)"
     matches = re.finditer(ens, program, re.MULTILINE)
     for matchNum, match in enumerate(matches, start=1):
         for groupNum in range(0, len(match.groups())):
