@@ -1,0 +1,1 @@
+Return the first value of the input array if it is non-empty. Otherwise 0.

@@ -1,0 +1,1 @@
+Merges two maps m1 and m2 in any way.

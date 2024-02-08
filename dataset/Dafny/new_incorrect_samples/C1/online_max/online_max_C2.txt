@@ -1,0 +1,1 @@
+Require that the input array to be non-empty and x is an index into the array. Return the index of the first element that is strictly larger than a[x].

@@ -1,0 +1,1 @@
+Linearly search for an existing element that satisfies a predicate in an array. Ensure that no previous elements satisfy such predicate.

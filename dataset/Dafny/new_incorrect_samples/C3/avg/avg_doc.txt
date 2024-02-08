@@ -1,0 +1,1 @@
+Given two integers a and b with the same value, return avg that has the same value with a. There are no restrictions nor overflow protection on the inputs.

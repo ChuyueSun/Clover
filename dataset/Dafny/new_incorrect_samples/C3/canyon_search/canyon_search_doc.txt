@@ -1,0 +1,1 @@
+Return a lower bound of the difference of any two values from two non-decreasing arrays. Require that two input arrays to be non-empty and sorted.

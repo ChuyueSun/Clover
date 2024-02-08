@@ -1,0 +1,1 @@
+Given two bitvectors X and Y, where Y equals 0. Return two bitvectors x and y, such that x equals to Y.

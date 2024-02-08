@@ -1,0 +1,1 @@
+Require the input x to be 0, return an integer which is equal to x.

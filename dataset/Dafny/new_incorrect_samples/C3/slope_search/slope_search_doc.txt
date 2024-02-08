@@ -1,0 +1,1 @@
+Given a slope represented by an 2-D array. Require the slope to be a plane whose height is non-decreasing on the same x-axis (horizontal line) or same y-axis (vertical line), and the lengths of the two dimension are all positive. Require that such an element exists. Return the two indices m and n which are in the range of the 2-D array.

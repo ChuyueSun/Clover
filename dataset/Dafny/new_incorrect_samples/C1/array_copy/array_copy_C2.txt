@@ -1,0 +1,1 @@
+Return an array of the same length as the input array.

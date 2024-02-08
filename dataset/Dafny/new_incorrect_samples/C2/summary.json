@@ -1,0 +1,12 @@
+{
+    "pre- too weak, post- too weak": ["two_sum","array_product", "convert_map_key", "min_array", "online_max", "update_array"],
+    "pre- good, post- too weak": ["copy_part","is_palindrome", "has_close_elements", "below_zero", "abs", "array_copy", "cal_ans", "cal_sum", "only_once", "return_seven"],
+    "pre- too strong, post- too weak": ["array_append", "count_lessthan", "find", "min_of_two", "slope_search", "swap_bitvector"],
+    "pre- too weak, post- good": ["insert", "array_sum", "binary_search","remove_front",  "modify_2d_array_element", "quotient", "rotate"],
+    "pre- too strong, post- good": ["array_concat", "compare", "linear_search1", "multi_return", "seq_to_array", "triple3"],
+    "pre- too weak, post- too strong": ["canyon_search", "linear_search2", "linear_search3", "swap_in_array", "test_array"],
+    "pre- good, post- too strong": ["bubble_sort", "even_list", "integer_square_root", "selectionsort", "set_to_seq", "swap_sim"],
+    "pre- too strong, post- too strong": ["avg", "double_quadruple", "longest_prefix", "swap", "triple2", "triple4"],
+    "pre or post wrong": ["all_digits","reverse","is_even", "max_array", "replace", "swap_arithmetic", "triple", "update_map"]
+
+}

@@ -1,0 +1,1 @@
+Return values s and n, where s equals the sum from 1 to n.

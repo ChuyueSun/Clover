@@ -1,0 +1,1 @@
+Return map r constructed from two maps m1 and m2, the value of a key in r is taking from m1 or m2 if the key exists, where keys present in m2 take precedence over m1. Ensure r contains all the keys from m1 and m2.

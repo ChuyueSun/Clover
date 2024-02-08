@@ -1,0 +1,1 @@
+Given a sequence, return an array that has the same length with the given sequence.

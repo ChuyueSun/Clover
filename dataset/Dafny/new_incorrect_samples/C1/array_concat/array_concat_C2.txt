@@ -1,0 +1,1 @@
+Concatenates two arrays a and b, returning the resulting array c. Require that a and b are non-empty.

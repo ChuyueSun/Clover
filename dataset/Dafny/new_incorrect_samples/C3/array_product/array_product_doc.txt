@@ -1,0 +1,1 @@
+Calculate the pair-wise product of two arrays with index starting from 1.

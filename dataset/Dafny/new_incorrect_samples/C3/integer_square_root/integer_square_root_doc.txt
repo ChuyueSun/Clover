@@ -1,0 +1,1 @@
+return a value that is smaller than or equal to the square root of the given natural number N.

@@ -1,0 +1,1 @@
+Returns a boolean value, which is `true` only if all characters in the string `s` are decimal digits (0-9).

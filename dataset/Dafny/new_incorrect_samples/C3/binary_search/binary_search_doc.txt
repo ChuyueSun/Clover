@@ -1,0 +1,1 @@
+Given a sorted possibly empty array with a key. Return the index such that array[j] < key for all j < index. Return a.Length only if all the elements in a is smaller than key.

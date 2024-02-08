@@ -1,0 +1,1 @@
+Given a non-empty array a, return array c which has one more elements than a.

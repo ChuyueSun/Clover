@@ -1,0 +1,1 @@
+Modify the array arr, so that new value at indices i and j are equal to the original value at indices j and i (i<j), respectively. All other elements equal to -1.

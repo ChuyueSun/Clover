@@ -1,0 +1,1 @@
+Given a set of integers and a threshold, returns the count which is non-negative and not larger than the size of the given set.

@@ -1,0 +1,1 @@
+If the given integer x is even, return true.

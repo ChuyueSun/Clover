@@ -1,0 +1,1 @@
+Insert integer b to anywhere of array a and returns the resulting array c.

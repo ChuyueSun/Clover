@@ -1,0 +1,1 @@
+If the input is equals to 1, the returned value should equals to 3.

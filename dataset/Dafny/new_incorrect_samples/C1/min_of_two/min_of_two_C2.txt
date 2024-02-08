@@ -1,0 +1,1 @@
+Return the min of two values. If it is negative, then return 0.

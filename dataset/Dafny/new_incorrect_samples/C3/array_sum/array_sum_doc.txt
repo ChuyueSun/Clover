@@ -1,0 +1,1 @@
+Given array a and b that have the same length, return array c that has the same length with array a.

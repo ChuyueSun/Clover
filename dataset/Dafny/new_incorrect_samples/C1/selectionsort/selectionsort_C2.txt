@@ -1,0 +1,1 @@
+Use selection sort to sort a non-empty array. Ensure that all elements remain the same.

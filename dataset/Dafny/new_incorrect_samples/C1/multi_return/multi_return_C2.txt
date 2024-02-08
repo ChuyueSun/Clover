@@ -1,0 +1,1 @@
+Return the sum and product of two integers.

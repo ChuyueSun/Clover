@@ -1,0 +1,1 @@
+Return true if two elements are equal. Require that inputs are natural numbers.

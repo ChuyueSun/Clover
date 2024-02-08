@@ -1,0 +1,1 @@
+Given two integers, return two values. The first value is equals to the sum of the two given integers.

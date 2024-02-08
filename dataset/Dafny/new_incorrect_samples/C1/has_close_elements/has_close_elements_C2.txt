@@ -1,0 +1,1 @@
+Check if in given list of numbers, are any two numbers is further to each other than given threshold.
