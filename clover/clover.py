@@ -275,14 +275,14 @@ def clover(
     doc, spec, body = get_clover_components(program)
     ret = [None] * 6
     # doc & body consistency
-    # ret[0] = doc_to_body_reconstruct(
-    #     doc,
-    #     body,
-    #     input_sample,
-    #     feedback_turn=feedback_turn,
-    #     num_trial=num_trial,
-    #     verbose=verbose,
-    # )
+    ret[0] = doc_to_body_reconstruct(
+        doc,
+        body,
+        input_sample,
+        feedback_turn=feedback_turn,
+        num_trial=num_trial,
+        verbose=verbose,
+    )
     if early_quit and not ret[0]:
         return False, ret
     body_with_pre = merge_pre_and_body(spec, body)
