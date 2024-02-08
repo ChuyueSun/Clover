@@ -1,1 +1,1 @@
-Replace all elements in an array arr strictly greater than k with -1. Ensure all other elements remain unchanged.
+Replace all elements in an array arr strictly greater than k with -1. Elements less than or equal to k remain unchanged.
