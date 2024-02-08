@@ -18,9 +18,16 @@ We also empirically investigate its feasibility on a hand-designed dataset (Clov
 
 ## Evaluation
 
-
+## Install requirements
+Install [sglang](https://github.com/sgl-project/sglang)
+```
+pip install "sglang[openai]"
+```
+Set the OpenAI API Key
+```
+export OPENAI_API_KEY=sk-******
+```
 ### Run Experiments
-
 ```
 cd clover
 python3 exps.py --num-trial 1
