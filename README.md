@@ -33,8 +33,6 @@ python3 exps.py --num-trial 1
 
 ### Results
 
-- num-trail=1: 23/60
-
 - num-trail=5: 42/60
 
 
