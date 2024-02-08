@@ -1,0 +1,1 @@
+Given two natural number x and y. Return an integer z, which should be equals to y if x > y.

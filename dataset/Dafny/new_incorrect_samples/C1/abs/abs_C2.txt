@@ -1,0 +1,1 @@
+Calculate the absolute value and ensure output is non-zero.

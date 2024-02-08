@@ -1,0 +1,1 @@
+Returns an upper bound value m for the given array a. Ensure that such an element is larger than or equal to all the element in a.

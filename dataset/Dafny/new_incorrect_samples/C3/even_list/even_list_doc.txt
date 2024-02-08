@@ -1,0 +1,1 @@
+Extracts and returns an array containing all the even numbers from the provided arr. An element appears in the output if and only if it is even and in the input.

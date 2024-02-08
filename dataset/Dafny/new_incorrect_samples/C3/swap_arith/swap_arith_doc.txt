@@ -1,0 +1,1 @@
+Given two integers X and Y. Return two integers x and y, which have the same sum with the inputs.

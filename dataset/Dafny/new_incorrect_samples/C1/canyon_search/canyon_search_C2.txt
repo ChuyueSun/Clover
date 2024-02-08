@@ -1,0 +1,1 @@
+Calculate the biggest difference of any two values from two non-decreasing arrays. Require that two input arrays to be non-empty and sorted. Ensure that the return value exists as one difference and is the largest one.

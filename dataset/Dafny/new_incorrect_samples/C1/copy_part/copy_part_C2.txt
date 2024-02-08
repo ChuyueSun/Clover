@@ -1,0 +1,1 @@
+Copies `len` elements from `src` array starting at `sStart` to `dest` array starting at `dStart` and returns the modified `dest` array.

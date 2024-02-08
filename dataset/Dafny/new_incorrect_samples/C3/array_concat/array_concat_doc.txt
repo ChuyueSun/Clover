@@ -1,0 +1,1 @@
+Given two arrays a and b, returning the resulting array c that has array a as prefix and has length equals to the sum of lengths of array a and b.

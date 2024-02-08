@@ -1,0 +1,1 @@
+Given two natural numbers x and y. Return two integer numbers r and q. Ensure that q * y + r equals x.

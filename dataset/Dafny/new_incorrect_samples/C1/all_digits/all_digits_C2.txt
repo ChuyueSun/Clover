@@ -1,0 +1,1 @@
+Returns `true` if all characters in the string `s` are decimal digits 1 to 9 exculding 0.

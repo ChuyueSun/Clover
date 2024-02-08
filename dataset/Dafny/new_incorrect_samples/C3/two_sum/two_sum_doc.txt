@@ -1,0 +1,1 @@
+Given an array with length greater than 1 and a target, return two indices in the range of the given array.

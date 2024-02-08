@@ -1,0 +1,1 @@
+Return an array c which has the number of elements greater than the number of elements in the input array a by 1.

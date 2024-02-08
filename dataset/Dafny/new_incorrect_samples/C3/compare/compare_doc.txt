@@ -1,0 +1,1 @@
+If two elements are equal, the return value should be true. No requirements on inputs.

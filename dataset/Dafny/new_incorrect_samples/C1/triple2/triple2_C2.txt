@@ -1,0 +1,1 @@
+Triple the input. Input number is positive.

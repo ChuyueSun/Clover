@@ -1,0 +1,1 @@
+Given two integers X and Y. Return two integers x and y such that x equals Y.

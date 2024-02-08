@@ -1,0 +1,1 @@
+Test an array assignment operation. All input integers are in array index range. Index j into array a and assign index j to be 50.

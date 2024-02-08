@@ -1,0 +1,1 @@
+Removes the first two elements from the array a and returns the resulting array c.

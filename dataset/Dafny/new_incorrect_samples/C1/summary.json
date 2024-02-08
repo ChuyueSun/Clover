@@ -1,0 +1,5 @@
+{
+"doc- too weak":["insert","two_sum", "copy_part", "array_append", "array_copy", "triple3", "update_array", "update_map", "swap_arith", "swap", "slope_search", "rotate", "quotient", "online_max", "longest_prefix", "linear_search3", "even_list", "convert_map_key", "bubble_sort", "binary_search"],
+"doc- too strong": ["all_digits", "abs", "array_concat", "array_product", "array_sum", "triple2", "triple4",  "swap_in_array", "swap_bitvectors", "selectionsort", "remove_front", "min_of_two", "is_even", "integer_square_root", "double_quadruple", "compare", "avg"],
+"doc- wrong": ["reverse", "is_palindrome", "has_close_elements","below_zero", "triple", "swap_sim", "set_to_seq", "seq_to_array", "return_seven", "replace", "test_array", "only_once", "multi_return", "modify_2d_array", "min_array", "max_array", "linear_search2", "linear_search1", "find", "count_lessthan", "canyon_search", "cal_sum", "cal_ans"]
+}

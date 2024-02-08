@@ -1,0 +1,1 @@
+Calculate the average value of two integers. There are no restrictions nor overflow protection on the inputs. If the average is positive, then return zero.

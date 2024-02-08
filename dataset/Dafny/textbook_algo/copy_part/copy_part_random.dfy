@@ -12,6 +12,8 @@ method abcd(wxyz: array<int>, mnop: nat, efgh: array<int>, ijkl: nat, qrst: nat)
         yzab := yzab + 1;
     }
 
+    assert uvwx[..] == efgh[..];
+
     yzab := 0;
     while (yzab < qrst)
       invariant yzab <= qrst

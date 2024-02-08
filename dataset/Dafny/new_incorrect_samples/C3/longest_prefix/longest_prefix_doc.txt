@@ -1,0 +1,1 @@
+This method returns a common prefix between two possibly empty sequences of characters. Ensure first that the prefix is shorter than two inputs, then ensure that it is equal to the first few chars of the two inputs.

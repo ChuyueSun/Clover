@@ -1,0 +1,2 @@
+pre- good
+post- weak

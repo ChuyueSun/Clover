@@ -1,0 +1,1 @@
+Return the value of the maximum element in a non-empty array.

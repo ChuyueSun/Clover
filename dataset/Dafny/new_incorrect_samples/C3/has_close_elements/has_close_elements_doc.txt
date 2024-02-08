@@ -1,0 +1,1 @@
+Given a list of numbers, return true if there are any two numbers closer to each other than given threshold.

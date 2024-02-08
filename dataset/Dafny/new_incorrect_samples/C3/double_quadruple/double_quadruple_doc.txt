@@ -1,0 +1,1 @@
+Returns two integers, where the second one b is double the first one a.

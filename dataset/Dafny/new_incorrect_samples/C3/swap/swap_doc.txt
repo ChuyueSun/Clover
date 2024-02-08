@@ -1,0 +1,1 @@
+Given two integers X and Y in which X equals 0. Return x and y, in which y equals 0.

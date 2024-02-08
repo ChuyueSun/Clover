@@ -1,0 +1,1 @@
+Return a lower bound for the elements in the given non-empty array a. Ensure that such an element is smaller than or equal to all the elements in a.

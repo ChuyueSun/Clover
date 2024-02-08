@@ -1,0 +1,1 @@
+Linearly search for an element in a possibly empty array and return the index of any appearance. Return the length of the array if not found.

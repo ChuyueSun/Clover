@@ -1,0 +1,1 @@
+Linearly search for an element in a possibly empty array and return the index of its first appearance. Return -1 of the array if not found.

@@ -1,0 +1,1 @@
+Given array s, return an array t that has the same length with s.

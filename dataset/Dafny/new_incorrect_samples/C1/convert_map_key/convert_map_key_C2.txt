@@ -1,0 +1,1 @@
+Converts the keys of the inputs map using the function f. 

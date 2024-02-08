@@ -1,0 +1,1 @@
+Given an array which guaranteed to have an element equals to e. Return an index n such that all elements of the given array before n is not equal to e.

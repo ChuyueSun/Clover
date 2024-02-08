@@ -1,0 +1,1 @@
+Require that the input array to be non-empty and x is an non-zero index into the array. Return the index of any element that is strictly larger than the maximum element in the first x elements, or return the last index. Ensure the returned index is larger than or equal to x. 

@@ -1,0 +1,1 @@
+Find a key in a possibly empty array. Return the index of its last occurance. 
