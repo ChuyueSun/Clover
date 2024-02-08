@@ -10,7 +10,7 @@ Do not modify the function signature and specifications. Do not explain.\
 Below is the function head with specifications:\n"
 
 GEN_DOC_FROM_BODY = "Given a Dafny program. \
-Please return an one line docstring of the given dafny code's complete functional behavior. \
+Please return an detailed docstring of the given dafny code's complete functional behavior. \
 Do not mention implementation details. Mention 'assert' as preconditions in the docstring. Describe every detail. \
 Please only return the docstring. Do not explain.\
 Below is the Dafny program:\n"

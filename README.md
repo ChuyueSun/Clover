@@ -33,10 +33,6 @@ cd clover
 python3 exps.py --num-trial 1
 ```
 
-### Results
-
-- num-trail=5: 42/60
-
 
 ## Roadmap
 - [ ] ...

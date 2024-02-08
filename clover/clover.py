@@ -29,7 +29,7 @@ from utils import (
 def gen_doc_from_body(s, body):
     s += system(SYS_DAFNY)
     s += user(GEN_DOC_FROM_BODY + body)
-    s += assistant(gen("new_doc", max_tokens=128))
+    s += assistant(gen("new_doc", max_tokens=512))
     return s["new_doc"]
 
 
@@ -37,7 +37,7 @@ def gen_doc_from_body(s, body):
 def gen_doc_from_spec(s, spec):
     s += system(SYS_DAFNY)
     s += user(GEN_DOC_FROM_SPEC + spec)
-    s += assistant(gen("new_doc", max_tokens=128))
+    s += assistant(gen("new_doc", max_tokens=512))
     return s["new_doc"]
 
 
@@ -274,7 +274,7 @@ def clover(
 ):
     doc, spec, body = get_clover_components(program)
     ret = [None] * 6
-    # # doc & body consistency
+    # doc & body consistency
     # ret[0] = doc_to_body_reconstruct(
     #     doc,
     #     body,
@@ -283,14 +283,14 @@ def clover(
     #     num_trial=num_trial,
     #     verbose=verbose,
     # )
-    # if early_quit and not ret[0]:
-    #     return False, ret
-    # body_with_pre = merge_pre_and_body(spec, body)
-    # ret[1] = body_to_doc_reconstruct(
-    #     doc, body_with_pre, num_trial=num_trial, verbose=verbose
-    # )
-    # if early_quit and not ret[1]:
-    #     return False, ret
+    if early_quit and not ret[0]:
+        return False, ret
+    body_with_pre = merge_pre_and_body(spec, body)
+    ret[1] = body_to_doc_reconstruct(
+        doc, body_with_pre, num_trial=num_trial, verbose=verbose
+    )
+    if early_quit and not ret[1]:
+        return False, ret
 
     # doc & spec consistency
     ret[2] = doc_to_spec_reconstruct(
