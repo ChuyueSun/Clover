@@ -23,6 +23,7 @@ We also empirically investigate its feasibility on a hand-designed dataset (Clov
 
 ### Settings
 
+
 ### Run Experiments
 
 ```
@@ -32,8 +33,9 @@ python3 exps.py --num-trial 1
 
 ### Results
 
-k=1: 23/60
-k=5: 42/60
+- num-trail=1: 23/60
+
+- num-trail=5: 42/60
 
 
 ## Roadmap
