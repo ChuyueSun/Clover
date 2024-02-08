@@ -35,4 +35,3 @@ twostate lemma post_eq(arr: array<int>, k: int)
   ensures post_original(arr ,k ) <==> post_gen(arr ,k )
 {
 }
-
