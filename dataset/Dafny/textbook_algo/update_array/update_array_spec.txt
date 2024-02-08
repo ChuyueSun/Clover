@@ -1,1 +1,1 @@
-Verify some array assignment operations. Ensure that index 8 stays the same. Index 7 is assigned to 516. Index 4 increments by 3.
+Verify some array assignment operations. Index 7 is assigned to 516. Index 4 increments by 3. All other elements stay the same. The array is at least 8 in length.
