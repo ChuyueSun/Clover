@@ -1,0 +1,1 @@
+Calculate the absolute value. If input is positive, return the input. Otherwise, return the negation of the input.

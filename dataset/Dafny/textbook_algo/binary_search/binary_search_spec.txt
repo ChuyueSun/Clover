@@ -1,0 +1,1 @@
+Binary search a sorted possibly empty array for a key. Return the index such that array[index-1] < key <= array[index].

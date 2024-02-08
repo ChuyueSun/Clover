@@ -1,0 +1,3 @@
+/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/swap/anno2code/swap_vanilla.dfy(6,2): Error: LHS of assignment must denote a mutable variable
+/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/swap/anno2code/swap_vanilla.dfy(7,2): Error: LHS of assignment must denote a mutable variable
+2 resolution/type errors detected in swap_vanilla.dfy

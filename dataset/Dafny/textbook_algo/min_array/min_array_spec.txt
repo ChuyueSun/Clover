@@ -1,0 +1,1 @@
+Return the value of the minimum element in a non-empty array. Ensure that such an element appears in the array and is the minimum element.

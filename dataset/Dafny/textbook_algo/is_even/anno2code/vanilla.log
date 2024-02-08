@@ -1,0 +1,2 @@
+/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/is_even/anno2code/is_even_vanilla.dfy(2,10): Error: unresolved identifier: IsEven
+1 resolution/type errors detected in is_even_vanilla.dfy

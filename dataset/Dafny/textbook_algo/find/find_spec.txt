@@ -1,0 +1,1 @@
+Find a key in a possibly empty array. Return the index of its first occurance. Ensure index is in range. If not found, return -1.
