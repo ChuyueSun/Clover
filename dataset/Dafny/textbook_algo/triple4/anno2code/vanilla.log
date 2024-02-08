@@ -1,0 +1,4 @@
+/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/triple/anno2code/triple_vanilla.dfy(8,16): Error: this loop invariant could not be proved on entry
+/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/triple/anno2code/triple_vanilla.dfy(8,16): Related message: loop invariant violation
+
+Dafny program verifier finished with 0 verified, 1 error

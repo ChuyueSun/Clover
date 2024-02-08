@@ -1,0 +1,1 @@
+Converts the keys of the inputs map using the function f. Require that f is an injective function from domain natural numbers to range natural numbers. Ensure that returned new map r has f(key) as the new key and the same value.

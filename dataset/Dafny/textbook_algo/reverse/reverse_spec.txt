@@ -1,0 +1,1 @@
+This method reverses the provided integer array `a` in-place.
