@@ -73,6 +73,8 @@ def equiv_test_spec(spec, new_spec, anno_check_template, verbose=0):
         anno_check_template["pre_gen"], extract_pre(new_spec)
     )
     check_template += fill_template(anno_check_template["pre_eq"], None)
+    print("original spec: ", extract_post(spec))
+    print("new spec: ", extract_post(new_spec))
     check_template += fill_template(
         anno_check_template["post_original"], extract_post(spec)
     )

@@ -1,1 +1,4 @@
-Modifies a specified element of an array of arrays arr with the provided val. Require that no two array references are equal. Ensure other elements remain unchanged.
+Modifies the value at one specified index of a 2D array of natural numbers.
+Require each inner array is unique.
+Ensure all first-order arraies is the same.
+Ensure that only 'arr[index1][index2]' is set to `val` and no other elements are changed.
