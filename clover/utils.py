@@ -51,14 +51,26 @@ def extract_doc(lines):
 def extract_spec(lines, oneline=True):
     spec = ""
     for line in lines:
+        if (
+            line.strip().startswith("method")
+            or line.strip().startswith("returns")
+            or line.strip().startswith("function")
+        ):
+            spec += line + "\n"
+            continue
         if "include" in line or is_doc(line):
             continue
         if line.strip() == "{":
             break
-        if oneline:
-            spec += line
-        else:
+        if not is_anno(line.strip()):
+            if spec.endswith('\n'):
+                spec = spec[:-1]
             spec += line + "\n"
+        else:
+            if oneline:
+                spec += line
+            else:
+                spec += line + "\n"
     return spec
 
 

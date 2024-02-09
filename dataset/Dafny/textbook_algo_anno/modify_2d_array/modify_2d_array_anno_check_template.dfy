@@ -18,24 +18,22 @@ lemma pre_eq(arr: array<array<nat>>,index1: nat,index2: nat,val: nat)
 
 twostate predicate post_original(arr: array<array<nat>>,index1: nat,index2: nat,val: nat)
   reads arr, arr[..]
-  requires forall i :: 0 <= i < arr.Length ==> arr[i].Length <= old(arr[i].Length)
   requires pre_original(arr,index1,index2,val)
 {
-  forall i: nat, j: nat ::
-    (0 <= i < arr.Length && 0 <= j < arr[i].Length) ==>
-      (arr[i][j] == (if index1 == index1 && index2 == index2
-                     then val else old(arr[i][j])))
+  (arr[index1][index2] == val) &&
+  (forall i :: 0 <= i < arr.Length ==> arr[i] == old(arr[i])) &&
+  (forall i: nat, j: nat :: 0 <= i < arr.Length && 0 <= j < arr[i].Length && (i != index1 || j != index2) ==> arr[i][j] == old(arr[i][j]))
+
 }
 
 twostate predicate post_gen(arr: array<array<nat>>,index1: nat,index2: nat,val: nat)
   reads arr, arr[..]
-  requires forall i :: 0 <= i < arr.Length ==> arr[i].Length <= old(arr[i].Length)
   requires pre_original(arr,index1,index2,val)
 {
   true // (#POST) && ... (#POST)
 }
 
-lemma post_eq(arr: array<array<nat>>,index1: nat,index2: nat,val: nat,i: nat,j:nat,some_index1: nat,some_index2: nat)
+twostate lemma post_eq(arr: array<array<nat>>,index1: nat,index2: nat,val: nat,i: nat,j:nat,some_index1: nat,some_index2: nat)
   requires pre_original(arr,index1,index2,val)
   requires pre_gen(arr,index1,index2,val )
   ensures post_original(arr,index1,index2,val ) <==> post_gen(arr,index1,index2,val)
