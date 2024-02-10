@@ -1,1 +1,3 @@
-Find the quotient and remainder of a division of a dividsor and a non-zero dividend. Ensure that the divisor equals to quotient times dividend plus remainder. Ensure that the quotient and remainder are positive.
+Find the quotient and remainder of a division of a dividsor and a dividend. 
+Require the dividend to be non-zero.
+Ensure that the divisor equals to quotient times dividend plus remainder. Ensure that the quotient and remainder are positive. Ensure the remainder less than th dividend.
