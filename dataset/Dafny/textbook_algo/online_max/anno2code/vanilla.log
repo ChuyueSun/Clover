@@ -1,8 +1,0 @@
-/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/online_max/anno2code/online_max_vanilla.dfy(32,4): Error: a postcondition could not be proved on this return path
-/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/online_max/anno2code/online_max_vanilla.dfy(4,12): Related location: this is the postcondition that could not be proved
-/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/online_max/anno2code/online_max_vanilla.dfy(32,4): Error: a postcondition could not be proved on this return path
-/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/online_max/anno2code/online_max_vanilla.dfy(6,8): Related location: this is the postcondition that could not be proved
-/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/online_max/anno2code/online_max_vanilla.dfy(6,25): Related location
-/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/online_max/anno2code/online_max_vanilla.dfy(6,33): Related location
-
-Dafny program verifier finished with 1 verified, 2 errors

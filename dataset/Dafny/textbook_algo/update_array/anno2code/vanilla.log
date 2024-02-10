@@ -1,4 +1,0 @@
-/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/update_array/anno2code/update_array_vanilla.dfy(7,0): Error: a postcondition could not be proved on this return path
-/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/update_array/anno2code/update_array_vanilla.dfy(4,23): Related location: this is the postcondition that could not be proved
-
-Dafny program verifier finished with 1 verified, 1 error
