@@ -1,3 +1,0 @@
-// specification: Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. Require that each input would have exactly one solution, and you may not use the same element twice. Ensure that the returned indices are the first appearance.
-method twoSum(nums: array<int>, target: int) returns (i: int, j: int)
-//TOFILL

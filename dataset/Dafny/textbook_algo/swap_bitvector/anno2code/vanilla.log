@@ -1,4 +1,0 @@
-/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/swap_bitvector/anno2code/swap_bitvector_vanilla.dfy(7,2): Error: LHS of assignment must denote a mutable variable
-/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/swap_bitvector/anno2code/swap_bitvector_vanilla.dfy(8,2): Error: LHS of assignment must denote a mutable variable
-/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/swap_bitvector/anno2code/swap_bitvector_vanilla.dfy(9,2): Error: number of return parameters does not match declaration (found 1, expected 2)
-3 resolution/type errors detected in swap_bitvector_vanilla.dfy

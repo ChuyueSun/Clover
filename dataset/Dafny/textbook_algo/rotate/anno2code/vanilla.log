@@ -1,2 +1,0 @@
-/home/ubuntu/llm4dafny/dataset/Dafny/textbook_algo/rotate/anno2code/rotate_vanilla.dfy(7,6): Error: Duplicate local-variable name: b
-1 resolution/type errors detected in rotate_vanilla.dfy
