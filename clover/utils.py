@@ -2,7 +2,7 @@ import os
 import re
 
 dafny_path = "dafny"
-helper_functions = "\nfunction abs(a: real) : real {if a>0.0 then a else -a}"
+helper_functions = "\nfunction abs(a: real) : real {if a>0.0 then a else -a}\n"
 
 def is_anno(line):
     if "requires" in line or "ensures" in line or "reads" in line or "modifies" in line:
