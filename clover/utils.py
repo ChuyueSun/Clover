@@ -2,7 +2,7 @@ import os
 import re
 
 dafny_path = "dafny"
-
+helper_functions = "\nfunction abs(a: real) : real {if a>0.0 then a else -a}"
 
 def is_anno(line):
     if "requires" in line or "ensures" in line or "reads" in line or "modifies" in line:
@@ -84,6 +84,7 @@ def extract_body(lines, oneline=True):
             or line.strip().startswith("function")
         ):
             body += line + "\n"
+            continue
         if "include" in line or is_doc(line):
             continue
         if line.strip() == "{":
@@ -291,7 +292,7 @@ def dump_tmp_file(program):
 def run_dafny(program):
     import subprocess
 
-    tmp_file = dump_tmp_file(program)
+    tmp_file = dump_tmp_file(program + helper_functions )
     try:
         s = subprocess.run(
             f"{dafny_path} /compile:0  /deprecation:0  {tmp_file}",
@@ -320,7 +321,7 @@ def is_dafny_verified(msg: str):
 def compile_dafny(body):
     import subprocess
 
-    program = body
+    program = body + helper_functions
 
     tmp_file = dump_tmp_file(program)
     try:
@@ -338,7 +339,7 @@ def compile_dafny(body):
 def execute(body, input_sample):
     import subprocess
 
-    program = body + "\n" + input_sample
+    program = body + helper_functions + input_sample
 
     tmp_file = dump_tmp_file(program)
     try:

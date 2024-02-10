@@ -2,7 +2,7 @@ SYS_DAFNY = "You are an expert in Dafny. \
 You will be given tasks dealing with Dafny programs including precise docstrings and annotations.\n"
 
 GEN_BODY_FROM_SPEC = "Given an empty Dafny program with function head and specifications.\
-You are asking to generate the full Dafny code so that it can be verified by Dafny with the given specification. \
+You are asked to generate the full Dafny code so that it can be verified by Dafny with the given specification. \
 Please return the whole program.\
 If loop is needed, use while instead of for. \
 Do not use helper functions. \
@@ -30,7 +30,7 @@ Below is the Dafny signature and its specifications:\n"
 GEN_SPEC_FROM_DOC = "Given the function signature and its docstring for a Dafny program. \
 Please return the function signature along with specifications include pre- and post- conditions. \
 Put one condition in one line. \
-Do not return the docstring and the function implementation. Do not use helper functions. Do not explain.\
+Do not return the docstring and the function implementation. Do not use helper functions. Use abs for absolute value. Do not explain.\
 Below is the docstring and function signature:\n"
 
 DOC_EQUIV = "Determine if two docstrings can describe the same functional behavior of a dafny program. return YES or NO, and then explain.\n"
