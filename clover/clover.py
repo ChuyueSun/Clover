@@ -274,7 +274,7 @@ def clover(
 ):
     doc, spec, body = get_clover_components(program)
     ret = [None] * 6
-    # doc & body consistency
+    # # doc & body consistency
     ret[0] = doc_to_body_reconstruct(
         doc,
         body,
@@ -283,29 +283,29 @@ def clover(
         num_trial=num_trial,
         verbose=verbose,
     )
-    if early_quit and not ret[0]:
-        return False, ret
-    body_with_pre = merge_pre_and_body(spec, body)
-    ret[1] = body_to_doc_reconstruct(
-        doc, body_with_pre, num_trial=num_trial, verbose=verbose
-    )
-    if early_quit and not ret[1]:
-        return False, ret
+    # if early_quit and not ret[0]:
+    #     return False, ret
+    # body_with_pre = merge_pre_and_body(spec, body)
+    # ret[1] = body_to_doc_reconstruct(
+    #     doc, body_with_pre, num_trial=num_trial, verbose=verbose
+    # )
+    # if early_quit and not ret[1]:
+    #     return False, ret
 
-    # doc & spec consistency
-    ret[2] = doc_to_spec_reconstruct(
-        doc, spec, anno_check_template, num_trial=num_trial, verbose=verbose
-    )
-    if early_quit and not ret[2]:
-        return False, ret
-    ret[3] = spec_to_doc_reconstruct(doc, spec, num_trial=num_trial, verbose=verbose)
-    if early_quit and not ret[3]:
-        return False, ret
+    # # doc & spec consistency
+    # ret[2] = doc_to_spec_reconstruct(
+    #     doc, spec, anno_check_template, num_trial=num_trial, verbose=verbose
+    # )
+    # if early_quit and not ret[2]:
+    #     return False, ret
+    # ret[3] = spec_to_doc_reconstruct(doc, spec, num_trial=num_trial, verbose=verbose)
+    # if early_quit and not ret[3]:
+    #     return False, ret
 
-    # spec & body consistency
-    ret[4] = spec_soundness(spec, body, verbose=verbose)
-    if early_quit and not ret[4]:
-        return False, ret
+    # # spec & body consistency
+    # ret[4] = spec_soundness(spec, body, verbose=verbose)
+    # if early_quit and not ret[4]:
+    #     return False, ret
     ret[5] = spec_to_body_reconstruct(
         spec,
         body,
