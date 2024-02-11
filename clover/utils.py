@@ -1,7 +1,6 @@
 import os
 import re
 
-dafny_path = "dafny"
 helper_functions = "\nfunction abs(a: real) : real {if a>0.0 then a else -a}\n"
 
 def is_anno(line):
@@ -289,7 +288,7 @@ def dump_tmp_file(program):
     return tmp_file
 
 
-def run_dafny(program):
+def run_dafny(program, dafny_path):
     import subprocess
 
     tmp_file = dump_tmp_file(program + helper_functions )
@@ -318,7 +317,7 @@ def is_dafny_verified(msg: str):
     return False
 
 
-def compile_dafny(body):
+def compile_dafny(body, dafny_path):
     import subprocess
 
     program = body + helper_functions
@@ -336,7 +335,7 @@ def compile_dafny(body):
     return mask_file_names(str(result.stdout))
 
 
-def execute(body, input_sample):
+def execute(body, input_sample, dafny_path):
     import subprocess
 
     program = body + helper_functions + input_sample
