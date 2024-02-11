@@ -42,7 +42,7 @@ def gen_doc_from_spec(s, spec):
 
 
 @sgl.function
-def gen_body_from_doc(s, doc, head, input_sample, feedback_turn=3):
+def gen_body_from_doc(s, doc, head, input_sample, dafny_path, feedback_turn=3):
     s += system(SYS_DAFNY)
     s += user(GEN_BODY_FROM_DOC + doc + "\n" + head)
     for i in range(feedback_turn):
@@ -51,7 +51,7 @@ def gen_body_from_doc(s, doc, head, input_sample, feedback_turn=3):
             body = extract_code_from_llm_output(tmp["new_body"])
         body = extract_body(body.strip().split("\n"), False)
         s += assistant(body)
-        out = compile_dafny(body)
+        out = compile_dafny(body, dafny_path)
         if no_compile_error(str(out)):
             return body
         with s.user():
@@ -61,7 +61,7 @@ def gen_body_from_doc(s, doc, head, input_sample, feedback_turn=3):
 
 
 @sgl.function
-def gen_body_from_spec(s, spec, feedback_turn=3):
+def gen_body_from_spec(s, spec, dafny_path, feedback_turn=3):
     s += system(SYS_DAFNY)
     s += user(GEN_BODY_FROM_SPEC + spec)
     body = ""
@@ -71,7 +71,7 @@ def gen_body_from_spec(s, spec, feedback_turn=3):
             body = extract_code_from_llm_output(tmp["body"])
         body = extract_body(body.strip().split("\n"), False)
         s += assistant(body)
-        out = compile_dafny(body)
+        out = compile_dafny(body, dafny_path)
         if no_compile_error(str(out)):
             return True, body
         with s.user():
@@ -82,7 +82,7 @@ def gen_body_from_spec(s, spec, feedback_turn=3):
 
 
 @sgl.function
-def gen_spec_from_doc(s, doc, head, feedback_turn=3):
+def gen_spec_from_doc(s, doc, head, dafny_path, feedback_turn=3):
     s += system(SYS_DAFNY)
     s += user(GEN_SPEC_FROM_DOC + doc + "\n" + head)
     for i in range(feedback_turn):
@@ -92,7 +92,7 @@ def gen_spec_from_doc(s, doc, head, feedback_turn=3):
         spec = extract_spec(spec.strip().split("\n"), False)
         s += assistant(spec)
 
-        out = compile_dafny(spec)
+        out = compile_dafny(spec, dafny_path)
         if no_compile_error(str(out)):
             return spec
         with s.user():
@@ -103,18 +103,18 @@ def gen_spec_from_doc(s, doc, head, feedback_turn=3):
 
 
 def doc_to_body_reconstruct(
-    doc: str, body: str, input_sample: str, feedback_turn=3, num_trial=1, verbose=0
+    doc: str, body: str, input_sample: str, dafny_path, feedback_turn=3, num_trial=1, verbose=0
 ):
     head = body.split("\n")[0]
     success = False
     for k in range(num_trial):
         s = gen_body_from_doc(
-            doc, head, input_sample, feedback_turn=feedback_turn, stream=(verbose >= 2)
+            doc, head, input_sample, dafny_path, feedback_turn=feedback_turn, stream=(verbose >= 2)
         )
         if verbose >= 2:
             stream_print(s)
         new_body = str(s.ret_value)
-        if not equiv_test_code(body, new_body, input_sample, verbose=verbose):
+        if not equiv_test_code(body, new_body, input_sample, dafny_path, verbose=verbose):
             if verbose >= 2:
                 print(
                     f"\n###### Clover Info::Attempt ({k+1}) Doc -> body reconstruction failed.\n"
@@ -161,16 +161,16 @@ def body_to_doc_reconstruct(doc: str, body: str, num_trial=1, verbose=0):
 
 
 def doc_to_spec_reconstruct(
-    doc: str, spec: str, anno_check_template: Dict[str, str], num_trial=1, verbose=0
+    doc: str, spec: str, anno_check_template: Dict[str, str], dafny_path, num_trial=1, verbose=0
 ):
     head = spec.split("\n")[0]
     success = False
     for k in range(num_trial):
-        s = gen_spec_from_doc(doc, head, stream=(verbose >= 2))
+        s = gen_spec_from_doc(doc, head, dafny_path, stream=(verbose >= 2))
         if verbose >= 2:
             stream_print(s)
         new_spec = str(s.ret_value)
-        if not equiv_test_spec(spec, new_spec, anno_check_template, verbose=verbose):
+        if not equiv_test_spec(spec, new_spec, anno_check_template, dafny_path, verbose=verbose):
             if verbose >= 2:
                 print(
                     f"\n###### Clover Info::Attempt ({k+1}) Doc -> spec reconstruction failed.\n"
@@ -217,9 +217,9 @@ def spec_to_doc_reconstruct(doc: str, spec: str, num_trial=1, verbose=0):
     return success
 
 
-def spec_soundness(spec: str, body: str, verbose=0):
+def spec_soundness(spec: str, body: str, dafny_path, verbose=0):
     body_with_spec = merge_spec_and_body(spec, body)
-    out, err = run_dafny(body_with_spec)
+    out, err = run_dafny(body_with_spec, dafny_path)
     if not is_dafny_verified(str(out)):
         if verbose >= 1:
             print("\n###### Clover Info::Dafny verifier failed.\n")
@@ -230,12 +230,12 @@ def spec_soundness(spec: str, body: str, verbose=0):
 
 
 def spec_to_body_reconstruct(
-    spec: str, body: str, input_sample: str, feedback_turn=3, num_trial=1, verbose=0
+    spec: str, body: str, input_sample: str, dafny_path, feedback_turn=3, num_trial=1, verbose=0
 ):
     # completeness (spec -> body)
     success = False
     for k in range(num_trial):
-        s = gen_body_from_spec(spec, feedback_turn=feedback_turn, stream=(verbose >= 2))
+        s = gen_body_from_spec(spec, dafny_path, feedback_turn=feedback_turn, stream=(verbose >= 2))
         if verbose >= 2:
             stream_print(s)
         verified, new_body = s.ret_value
@@ -244,7 +244,7 @@ def spec_to_body_reconstruct(
                 print(
                     f"\n###### Clover Info::Attempt ({k+1}) Failed to reconstruct a body that can be verified.\n"
                 )
-        elif not equiv_test_code(body, new_body, input_sample, verbose=verbose):
+        elif not equiv_test_code(body, new_body, input_sample, dafny_path, verbose=verbose):
             if verbose >= 2:
                 print(
                     f"\n###### Clover Info::Attempt ({k+1}) Spec -> body reconstruction failed.\n"
@@ -267,6 +267,7 @@ def clover(
     program: List[str],
     input_sample,
     anno_check_template,
+    dafny_path,
     feedback_turn=3,
     num_trial=1,
     verbose=0,
@@ -274,42 +275,44 @@ def clover(
 ):
     doc, spec, body = get_clover_components(program)
     ret = [None] * 6
-    # # doc & body consistency
+    # doc & body consistency
     ret[0] = doc_to_body_reconstruct(
         doc,
         body,
         input_sample,
+        dafny_path,
         feedback_turn=feedback_turn,
         num_trial=num_trial,
         verbose=verbose,
     )
-    # if early_quit and not ret[0]:
-    #     return False, ret
-    # body_with_pre = merge_pre_and_body(spec, body)
-    # ret[1] = body_to_doc_reconstruct(
-    #     doc, body_with_pre, num_trial=num_trial, verbose=verbose
-    # )
-    # if early_quit and not ret[1]:
-    #     return False, ret
+    if early_quit and not ret[0]:
+        return False, ret
+    body_with_pre = merge_pre_and_body(spec, body)
+    ret[1] = body_to_doc_reconstruct(
+        doc, body_with_pre, num_trial=num_trial, verbose=verbose
+    )
+    if early_quit and not ret[1]:
+        return False, ret
 
-    # # doc & spec consistency
-    # ret[2] = doc_to_spec_reconstruct(
-    #     doc, spec, anno_check_template, num_trial=num_trial, verbose=verbose
-    # )
-    # if early_quit and not ret[2]:
-    #     return False, ret
-    # ret[3] = spec_to_doc_reconstruct(doc, spec, num_trial=num_trial, verbose=verbose)
-    # if early_quit and not ret[3]:
-    #     return False, ret
+    # doc & spec consistency
+    ret[2] = doc_to_spec_reconstruct(
+        doc, spec, anno_check_template, dafny_path, num_trial=num_trial, verbose=verbose
+    )
+    if early_quit and not ret[2]:
+        return False, ret
+    ret[3] = spec_to_doc_reconstruct(doc, spec, num_trial=num_trial, verbose=verbose)
+    if early_quit and not ret[3]:
+        return False, ret
 
-    # # spec & body consistency
-    # ret[4] = spec_soundness(spec, body, verbose=verbose)
-    # if early_quit and not ret[4]:
-    #     return False, ret
+    # spec & body consistency
+    ret[4] = spec_soundness(spec, body, dafny_path, verbose=verbose)
+    if early_quit and not ret[4]:
+        return False, ret
     ret[5] = spec_to_body_reconstruct(
         spec,
         body,
         input_sample,
+        dafny_path,
         feedback_turn=feedback_turn,
         num_trial=num_trial,
         verbose=verbose,
@@ -328,6 +331,7 @@ if __name__ == "__main__":
     parser.add_argument("--test-name", type=str, default="abs.dfy")
     parser.add_argument("--verbose", type=int, default=1)
     parser.add_argument("--early-quit", action="store_true")
+    parser.add_argument("--dafny-path", type=str, required=True)
     args = parser.parse_args()
 
     # backend = OpenAI("gpt-3.5-turbo")
@@ -356,6 +360,7 @@ if __name__ == "__main__":
             program,
             input_sample,
             anno_check_template,
+            args.dafny_path,
             verbose=args.verbose,
             early_quit=args.early_quit,
         ),
