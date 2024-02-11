@@ -22,11 +22,11 @@ def extract_exe_result(text):
         return "Uncompiled"
 
 
-def equiv_test_code(body, new_body, input_sample, verbose=0):
+def equiv_test_code(body, new_body, input_sample, dafny_path, verbose=0):
     body = str(body)
     new_body = str(new_body)
-    output = execute(body, input_sample)
-    new_output = execute(new_body, input_sample)
+    output = execute(body, input_sample, dafny_path)
+    new_output = execute(new_body, input_sample, dafny_path)
     if verbose >= 1:
         print("Below are outputs for checking code equivalence")
         print(extract_exe_result(output))
@@ -64,7 +64,7 @@ def fill_template(head, spec):
     return ret
 
 
-def equiv_test_spec(spec, new_spec, anno_check_template, verbose=0):
+def equiv_test_spec(spec, new_spec, anno_check_template, dafny_path, verbose=0):
     check_template = ""
     check_template += fill_template(
         anno_check_template["pre_original"], extract_pre(spec)
@@ -81,7 +81,7 @@ def equiv_test_spec(spec, new_spec, anno_check_template, verbose=0):
     )
     check_template += fill_template(anno_check_template["post_eq"], None)
 
-    out, err = run_dafny(check_template)
+    out, err = run_dafny(check_template, dafny_path)
     if verbose >= 1:
         print(str(out))
         print(str(err))
