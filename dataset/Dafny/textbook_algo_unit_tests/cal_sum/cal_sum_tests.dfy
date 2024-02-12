@@ -1,9 +1,11 @@
-method Sum() returns (s:int, n:int)
-  ensures s == n * (n + 1) / 2
-  ensures n==33
+method Sum(N:int) returns (s:int)
+  requires N >= 0
+  ensures s == N * (N + 1) / 2
 {
-  n, s := 0, 0;
-  while n != 33
+  var n := 0;
+  s := 0;
+  while n != N
+  invariant 0 <= n <= N
     invariant s == n * (n + 1) / 2
   {
     n := n + 1;
@@ -12,8 +14,16 @@ method Sum() returns (s:int, n:int)
 }
 
 method TestSum(){
-  var s, n := Sum();
-  print(s, n);
+  var s := Sum(33);
+  print(s);
+  s := Sum(10);
+  print(s);
+  s := Sum(0);
+  print(s);
+  s := Sum(4);
+  print(s);
+  s := Sum(7);
+  print(s);
 }
 
 method Main(){

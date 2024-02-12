@@ -1,30 +1,29 @@
-predicate pre_original(s:int,n:int){
-  true
+predicate pre_original(N:int, s:int){
+  N >= 0
 }
 
-predicate pre_gen(s:int,n:int){
+predicate pre_gen(N:int, s:int){
   true // (#PRE) && ... (#PRE)
 }
 
-lemma pre_eq(s:int,n:int)
-  ensures pre_original(s,n ) <==> pre_gen(s,n )
+lemma pre_eq(N:int, s:int)
+  ensures pre_original(N, s) <==> pre_gen(N, s)
 {
 }
 
-predicate post_original(s:int,n:int)
-  requires pre_original(s,n){
-  ( s == n * (n + 1) / 2) && ( n==33)
+predicate post_original(N:int, s:int)
+  requires pre_original(N, s){
+  s == N * (N + 1) / 2
 }
 
-predicate post_gen(s:int,n:int)
-  requires pre_original(s,n){
+predicate post_gen(N:int, s:int)
+  requires pre_original(N, s){
   true // (#POST) && ... (#POST)
 }
 
-lemma post_eq(s:int,n:int)
-  requires pre_original(s,n )
-  requires pre_gen(s,n )
-  ensures post_original(s,n ) <==> post_gen(s,n )
+lemma post_eq(N:int, s:int)
+  requires pre_original(N, s)
+  ensures post_original(N, s) <==> post_gen(N, s)
 {
 }
 
