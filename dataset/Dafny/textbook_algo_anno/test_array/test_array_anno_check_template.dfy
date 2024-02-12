@@ -1,38 +1,38 @@
-predicate pre_original(a:array<int>,j: nat,k: nat)
+predicate pre_original(a:array<int>,j: nat)
   reads a
 {
   ( 0<=j < a.Length)
 }
 
-predicate pre_gen(a:array<int>,j: nat,k: nat)
+predicate pre_gen(a:array<int>,j: nat)
   reads a
 {
   true // (#PRE) && ... (#PRE)
 }
 
-lemma pre_eq(a:array<int>,j: nat,k: nat)
-  ensures pre_original(a,j,k ) <==> pre_gen(a,j,k )
+lemma pre_eq(a:array<int>,j: nat)
+  ensures pre_original(a,j) <==> pre_gen(a,j )
 {
 }
 
-predicate post_original(a:array<int>,j: nat,k: nat)
-  requires pre_original(a,j,k)
+twostate predicate post_original(a:array<int>,j: nat)
+  requires pre_original(a,j)
   reads a
 {
-  ( a[j] == 60)
+  ( a[j] == 60) && (forall k :: 0 <= k < a.Length && k != j ==> a[k] == old(a[k]))
 }
 
-predicate post_gen(a:array<int>,j: nat,k: nat)
-  requires pre_original(a,j,k)
+twostate predicate post_gen(a:array<int>,j: nat)
+  requires pre_original(a,j)
   reads a
 {
   true // (#POST) && ... (#POST)
 }
 
-lemma post_eq(a:array<int>,j: nat,k: nat)
-  requires pre_original(a,j,k )
-  requires pre_gen(a,j,k )
-  ensures post_original(a,j,k ) <==> post_gen(a,j,k )
+twostate lemma post_eq(a:array<int>,j: nat)
+  requires pre_original(a,j)
+  requires pre_gen(a,j )
+  ensures post_original(a,j) <==> post_gen(a,j )
 {
 }
 

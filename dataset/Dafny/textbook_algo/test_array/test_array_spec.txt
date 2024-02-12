@@ -1,1 +1,1 @@
-Test an array assignment operation. Index j is within range of array. Assign index j to be 60.
+Test an array assignment operation. Index j is within range of array. Assign index j to be 60. All other elements remain unchanged.
