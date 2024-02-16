@@ -34,10 +34,6 @@ python3 exps.py --num-trial 1
 ```
 
 
-## Roadmap
-- [ ] ...
-- [ ] ...
-
 
 ## Citation
 ```bibtex

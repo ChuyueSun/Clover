@@ -328,7 +328,7 @@ def clover(
 # debug purpose
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--test-name", type=str, default="abs.dfy")
+    parser.add_argument("--test-name", type=str, default="abs")
     parser.add_argument("--verbose", type=int, default=1)
     parser.add_argument("--early-quit", action="store_true")
     parser.add_argument("--dafny-path", type=str, required=True)
