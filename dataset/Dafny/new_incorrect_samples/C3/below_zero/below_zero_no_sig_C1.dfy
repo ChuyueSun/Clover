@@ -14,7 +14,7 @@ method foo(operations: seq<int>) returns (s:array<int>, result:bool)
     invariant forall x :: 0 <= x < i-1 ==> s[x+1]==s[x]+operations[x]
   {
     if i>0{
-        s[i] := s[i - 1] + operations[i - 1];
+      s[i] := s[i - 1] + operations[i - 1];
     }
     i := i + 1;
   }

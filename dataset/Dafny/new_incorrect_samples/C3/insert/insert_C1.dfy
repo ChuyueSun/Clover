@@ -1,9 +1,9 @@
 method insert(line:array<char>, l:int, nl:array<char>, p:int, at:int)
-  requires 0 <= l+p <= line.Length 
-  requires 0 <= p <= nl.Length 
-  requires 0 <= at <= l 
+  requires 0 <= l+p <= line.Length
+  requires 0 <= p <= nl.Length
+  requires 0 <= at <= l
   modifies line
-  ensures forall i :: (0<=i<p) ==> line[at+i] == nl[i] 
+  ensures forall i :: (0<=i<p) ==> line[at+i] == nl[i]
   ensures forall i :: (0<=i<at) ==> line[i] == old(line[i])
 {
   ghost var initialLine := line[..];

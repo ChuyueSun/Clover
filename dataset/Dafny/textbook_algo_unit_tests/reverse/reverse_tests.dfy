@@ -22,8 +22,8 @@ method reverse(a: array<int>)
     invariant forall k :: 0 <= k < aLength ==> b[k] == old(a[aLength - 1 - k])
     invariant forall k :: 0 <= k < i ==> a[k] == b[k]
   {
-      a[i] := b[i];
-      i := i + 1;
+    a[i] := b[i];
+    i := i + 1;
   }
 }
 

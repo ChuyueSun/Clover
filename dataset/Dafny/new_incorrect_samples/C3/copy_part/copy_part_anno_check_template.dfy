@@ -20,7 +20,7 @@ predicate post_original(src: array<int>, sStart: nat, dest: array<int>, dStart: 
   reads src, dest, r
 {
   (r.Length == dest.Length) &&
-  (r[..dStart] == dest[..dStart]) 
+  (r[..dStart] == dest[..dStart])
 }
 
 predicate post_gen(src: array<int>, sStart: nat, dest: array<int>, dStart: nat, len: nat, r:array<int>)

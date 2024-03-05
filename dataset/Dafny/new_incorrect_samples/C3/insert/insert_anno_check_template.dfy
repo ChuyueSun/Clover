@@ -16,7 +16,7 @@ lemma pre_eq(line:array<char>, l:int, nl:array<char>, p:int, at:int)
 twostate predicate post_original(line:array<char>, l:int, nl:array<char>, p:int, at:int)
   requires pre_original(line,l,nl,p,at)
   reads line, nl
-  {
+{
   (forall i :: (0<=i<p) ==> line[at+i] == nl[i] )&&
   (forall i :: (0<=i<at) ==> line[i] == old(line[i]))
 }
