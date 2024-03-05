@@ -5,7 +5,7 @@ method Sum(N:int) returns (s:int)
   var n := 0;
   s := 0;
   while n != N
-  invariant 0 <= n <= N
+    invariant 0 <= n <= N
     invariant s == n * (n + 1) / 2
   {
     n := n + 1;

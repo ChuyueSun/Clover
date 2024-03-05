@@ -18,7 +18,7 @@ ghost predicate post_original(nums: array<int>, target: int, i:int, j:int)
   requires pre_original(nums,target,i, j)
   reads nums
 {
-true
+  true
 }
 ghost predicate post_gen(nums: array<int>, target: int, i:int, j:int)
   requires pre_original(nums,target,i, j)

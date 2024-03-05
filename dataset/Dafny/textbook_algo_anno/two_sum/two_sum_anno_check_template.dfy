@@ -23,8 +23,8 @@ ghost predicate post_original(nums: array<int>, target: int, i:int, j:int)
   (0 <= i < j < nums.Length && nums[i] + nums[j] == target) &&
   (forall ii,jj:: (0 <= ii < i && ii < jj < nums.Length)  ==> nums[ii] + nums[jj] != target) &&
   (forall jj:: i < jj < j ==> nums[i] + nums[jj] != target)
-  
-  }
+
+}
 
 ghost predicate post_gen(nums: array<int>, target: int, i:int, j:int)
   requires pre_original(nums,target,i, j)

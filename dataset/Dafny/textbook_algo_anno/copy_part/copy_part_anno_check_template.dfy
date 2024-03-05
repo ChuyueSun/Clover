@@ -34,8 +34,19 @@ predicate post_gen(src: array<int>, sStart: nat, dest: array<int>, dStart: nat, 
 
 lemma post_eq(src: array<int>, sStart: nat, dest: array<int>, dStart: nat, len: nat, r:array<int>)
   requires pre_original(src, sStart, dest, dStart, len, r)
-  requires pre_gen(src, sStart, dest, dStart, len, r)
   ensures post_original(src, sStart, dest, dStart, len, r) <==> post_gen(src, sStart, dest, dStart, len, r)
 {
+  {
+    if post_gen(src, sStart, dest, dStart, len, r) {
+      assert post_original(src, sStart, dest, dStart, len, r) by {
+        assert r[dStart..len+dStart] == src[sStart..len+sStart] by {
+          forall k | 0 <= k < len
+            ensures r[dStart..len+dStart][k] == src[sStart..len+sStart][k]
+          {
+          }
+        }
+      }
+    }
+  }
 }
 

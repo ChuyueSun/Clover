@@ -1,9 +1,9 @@
 method insert(line:array<char>, l:int, nl:array<char>, p:int, at:int)
-  requires 0 <= l+p <= line.Length 
-  requires 0 <= p <= nl.Length 
-  requires 0 <= at <= l 
+  requires 0 <= l+p <= line.Length
+  requires 0 <= p <= nl.Length
+  requires 0 <= at <= l
   modifies line
-  ensures forall i :: (0<=i<p) ==> line[at+i] == nl[i] 
+  ensures forall i :: (0<=i<p) ==> line[at+i] == nl[i]
   ensures forall i :: (0<=i<at) ==> line[i] == old(line[i])
   ensures forall i :: (at+p<=i<l+p) ==> line[i] == old(line[i-p])
 {
@@ -49,20 +49,20 @@ method Test1() {
   var line: array<char> := new char[]['a', 'b', 'c', '_', '_']; // Extra spaces to accommodate inserted characters
   var nl: array<char> := new char[]['x', 'y'];
   insert(line, 3, nl, 2, 0);
-print_array(line);
+  print_array(line);
 }
 method Test2() {
   var line: array<char> := new char[]['a', 'b', 'c', '_', '_'];
   var nl: array<char> := new char[]['x', 'y'];
   insert(line, 3, nl, 2, 3);
-print_array(line);
+  print_array(line);
 
 }
 method Test3() {
   var line: array<char> := new char[]['a', 'b', 'c', '_', '_'];
   var nl: array<char> :=new char[] ['x', 'y'];
   insert(line, 3, nl, 2, 1);
-print_array(line);
+  print_array(line);
 
 }
 
@@ -70,14 +70,14 @@ method Test4() {
   var line: array<char> := new char[]['a', 'b', 'c', '_'];
   var nl: array<char> := new char[]['x'];
   insert(line, 3, nl, 1, 2);
-print_array(line);
+  print_array(line);
 
 }
 method Test5() {
   var line: array<char> :=new char[] ['_', '_'];
   var nl: array<char> := new char[]['x', 'y'];
   insert(line, 0, nl, 2, 0);
-print_array(line);
+  print_array(line);
 
 }
 

@@ -21,7 +21,7 @@ twostate predicate post_original(arr: array<int>,i: int,j: int)
 {
   ( arr[i] == old(arr[j])) && ( arr[j] == old(arr[i]))
   && ( forall ii:: 0<=ii<arr.Length ==> ii!=i && ii!=j ==> arr[ii]==old(arr[ii])
-)
+  )
 }
 
 twostate predicate post_gen(arr: array<int>,i: int,j: int)

@@ -14,7 +14,7 @@ lemma pre_eq(a: array<int>)
 twostate predicate post_original(a: array<int>)
   reads a
   requires pre_original(a){
-forall i :: 0 <= i < a.Length ==> a[i] == old(a[a.Length - 1 - i])
+  forall i :: 0 <= i < a.Length ==> a[i] == old(a[a.Length - 1 - i])
 }
 
 twostate predicate post_gen(a: array<int>)

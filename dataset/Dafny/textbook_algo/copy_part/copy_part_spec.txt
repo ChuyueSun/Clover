@@ -1,1 +1,1 @@
-Copies `len` elements from `src` array starting at `sStart` to `dest` array starting at `dStart` and returns the modified `dest` array; maintains original `dest` elements outside copied range. Ensure r and dest have the same length.
+Copies `len` elements from `src` array starting at `sStart` to `dest` array starting at `dStart` and returns the modified `dest` array. Ensure r and dest have the same length. Ensure original `dest` elements outside copied range stay the same.

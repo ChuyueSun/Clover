@@ -13,7 +13,7 @@ method replace(arr: array<int>, k: int)
   {
     if arr[i] > k {
       arr[i] := -1;
-    } 
+    }
     i := i + 1;
   }
 }
