@@ -1,7 +1,7 @@
 # Quick Start
 Clover APIs in `clover.py`. Run single example:
 ```
-python clover.py
+python clover.py  --test-name array_append
 ```
 
 Run Experiments:
