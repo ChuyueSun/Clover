@@ -1,0 +1,1 @@
+The inputs are negative numbers. Returns two integers, where the first is double the input value x and the second is quadruple the input value x.
