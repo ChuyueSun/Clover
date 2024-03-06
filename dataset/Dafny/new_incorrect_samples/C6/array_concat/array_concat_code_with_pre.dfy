@@ -1,6 +1,6 @@
 method concat(a:array<int>, b:array<int>) returns (c:array<int>)
 {
-  assert a.Length == b.Length
+  assert a.Length == b.Length;
   c:= new int[a.Length];
   var i:=0;
   while i<a.Length

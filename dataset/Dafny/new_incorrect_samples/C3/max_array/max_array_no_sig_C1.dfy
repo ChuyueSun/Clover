@@ -6,8 +6,8 @@ method foo(a: array<int>) returns (m: int)
   var index := 1;
   while (index < a.Length)
     invariant 0 <= index <= a.Length
-    invariant forall k :: 0 <= k < index ==> m >= a[k];
-    invariant exists k :: 0 <= k < index && m == a[k];
+    invariant forall k :: 0 <= k < index ==> m >= a[k]
+    invariant exists k :: 0 <= k < index && m == a[k]
     decreases a.Length - index
   {
     m := if m>a[index] then  m else a[index];

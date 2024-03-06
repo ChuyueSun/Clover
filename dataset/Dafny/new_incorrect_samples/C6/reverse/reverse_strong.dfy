@@ -7,7 +7,7 @@ method reverse(a: array<int>)
 
   while i < aLength
     invariant 0 <= i && i <= aLength
-    invariant forall k :: 0 <= k < i ==> a[k] == (a[aLength - 1 - k]);
+    invariant forall k :: 0 <= k < i ==> a[k] == (a[aLength - 1 - k])
   {
     a[aLength - 1 - i] := a[i];
 
