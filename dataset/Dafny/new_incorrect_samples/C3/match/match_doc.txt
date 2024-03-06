@@ -1,0 +1,1 @@
+Input strings p and s are of equal length. If return is true, then for every character in s, it matches the corresponding character in p or the character in p is a '?' or 'a'.
