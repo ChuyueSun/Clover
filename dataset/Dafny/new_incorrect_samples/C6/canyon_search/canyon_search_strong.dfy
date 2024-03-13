@@ -20,7 +20,6 @@ method CanyonSearch(a: array<int>, b: array<int>) returns (d:nat)
       m:=m+1;
     case b[n]<=a[m] =>
       n:=n+1;
-
   }
 }
 
