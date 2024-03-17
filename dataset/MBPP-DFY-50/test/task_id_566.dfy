@@ -6,7 +6,7 @@ method SumOfDigits(number: nat) returns (sum: nat)
   sum := 0;
   var n: nat := number;
 
-  // Let's find out the number of digits, which is the same as powers of ten for the given number
+  
   ghost var ndigits := NumberOfDigits(number);
   X(number);
   assert Power10(ndigits) > number;
@@ -17,7 +17,7 @@ method SumOfDigits(number: nat) returns (sum: nat)
   assert pmax == PowersOfTen[|PowersOfTen|-1];
   assert pmax > number;
 
-  // Let's compute the values of n
+  
   ghost var ValuesOfn := seq(ndigits+1, i requires 0 <= i <= ndigits => number / PowersOfTen[i]);
   assert forall j :: 0 < j <= ndigits ==> ValuesOfn[j] == ValuesOfn[j-1]/10;
   assert ValuesOfn[0] == number;
@@ -28,8 +28,8 @@ method SumOfDigits(number: nat) returns (sum: nat)
   assert PowersOfTen[0] == p;
   ghost var i := 0;
   while n > 0
-    //        invariant 1 <= p <= pmax
-    //        invariant n in ValuesOfn
+    
+    
     invariant 0 <= i <= ndigits
     invariant ValuesOfn[i] == n
     invariant PowersOfTen[i] == p
@@ -41,13 +41,13 @@ method SumOfDigits(number: nat) returns (sum: nat)
     sum := sum + digit;
     n := n / 10;
     i := i + 1;
-    //        assert ValuesOfn[i] == ValuesOfn[i-1]/10;
-    //        assert ValuesOfn[i] == n;
-    p := PowersOfTen[i]; //p * 10;
+    
+    
+    p := PowersOfTen[i]; 
     assert n == 0 ==> p == pmax;
   }
   assert n == 0;
-  //    assert i == ndigits;
+  
   assert p == pmax;
   NumberIdentity(number, p);
   assert number == number % p;
@@ -65,7 +65,7 @@ lemma X(x: nat)
     assert Power10(NumberOfDigits(x)) == 10;
     assert Power10(NumberOfDigits(x)) > x;
   }
-  else // >= 10
+  else 
   {
     assert NumberOfDigits(x) >= 2;
     X(x/10);
@@ -85,7 +85,7 @@ lemma NumberIdentity(number: nat, pmax: nat)
     assert pmax == 10;
     assert number == number % pmax;
   }
-  else // > 1
+  else 
   {
     assert pmax == Power10(NumberOfDigits(number)) ==> pmax/10 == Power10(NumberOfDigits(number/10));
     NumberIdentity(number/10, pmax/10);
@@ -105,17 +105,17 @@ lemma InIntValues(n: nat)
   ensures n/10 in IntValues(n)
 {}
 
-// ghost function ValuesOfn(number: nat, ndigits: nat) : (r: seq<nat>)
-// {
-//   seq(ndigits+1, i requires 0 <= i <= ndigits => number / PowersOfTen[i])
-// }
+
+
+
+
 
 ghost function IntValues(n: int) : (r: seq<int>)
   requires n >= 0
   ensures 0 in r
   ensures n in r
   ensures n/10 in r
-  //    ensures forall p :: p in powersOfTen ==> n/p in r
+  
 {
   if n == 0 then [0]
   else [n] + IntValues(n/10)

@@ -23,8 +23,8 @@ method SumMinMax(a: array<int>) returns (sum: int)
   sum := minVal + maxVal;
 }
 
-// The order of the recursion in these two functions
-// must match the order of the iteration in the algorithm above
+
+
 function Min(a: seq<int>) : int
   requires |a| > 0
 {

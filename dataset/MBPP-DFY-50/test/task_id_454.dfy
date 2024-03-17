@@ -16,15 +16,15 @@ method ContainsZ(s: string) returns (result: bool)
 method ContainsZTest(){
   var out1:=ContainsZ("pythonz");
   print(out1);print("\n");
-              //assert out1==true;
+              
 
   var out2:=ContainsZ("xyz.");
   print(out2);print("\n");
-              //assert out2==true;
+              
 
   var out3:=ContainsZ("  lang  .");
   print(out3);print("\n");
-              //assert out3==false;
+              
 
 }
 

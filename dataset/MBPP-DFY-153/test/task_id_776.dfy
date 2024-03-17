@@ -15,15 +15,15 @@ method CountVowelNeighbors(s: string) returns (count: int)
 method IsVowelTest(){
   var out1:=CountVowelNeighbors("bestinstareels");
   print(out1);print("\n");
-              //assert out1==7;
+              
 
-  //   var out2:=CountVowelNeighbors("partofthejourneyistheend");
-  //   print(out2);print("\n");
-  //               //assert out2==12;
+  
+  
+  
 
-  //   var out3:=CountVowelNeighbors("amazonprime");
-  //   print(out3);print("\n");
-  //               //assert out3==5;
+  
+  
+  
 }
 
 method Main(){

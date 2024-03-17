@@ -55,18 +55,18 @@ method ReverseUptoKTest(){
   var a1:= new int[] [1, 2, 3, 4, 5, 6];
   ReverseUptoK(a1,4);
   PrintArray(a1);
-  //expected [4, 3, 2, 1, 5, 6]
+  
 
   var a2:= new int[] [4, 5, 6, 7];
   ReverseUptoK(a2,2);
   PrintArray(a2);
-  //expected [5, 4, 6, 7]
+  
 
   var a3:= new int[] [9, 8, 7, 6, 5];
   var e3:= new int[] [7, 8, 9, 6, 5];
   ReverseUptoK(a3,3);
   PrintArray(a3);
-  //expected [7, 8, 9, 6, 5]
+  
 
 
 }

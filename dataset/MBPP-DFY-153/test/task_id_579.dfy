@@ -5,9 +5,9 @@ predicate InArray(a: array<int>, x: int)
 }
 
 method DissimilarElements(a: array<int>, b: array<int>) returns (result: seq<int>)
-  // All elements in the output are either in a or b, but not in both or neither
+  
   ensures forall x :: x in result ==> (InArray(a, x) != InArray(b, x))
-  // The elements in the output are all different
+  
   ensures forall i, j :: 0 <= i < j < |result| ==> result[i] != result[j]
 {
   var res: seq<int> := [];
@@ -45,19 +45,19 @@ method DissimilarElementsTest(){
   var a2:= new int[] [5, 7, 4, 10];
   var res1:=DissimilarElements(a1,a2);
   print(res1);print("\n");
-              //expected  [3, 6, 7, 10];
+              
 
   var a3:= new int[] [1, 2, 3, 4];
   var a4:= new int[] [7, 2, 3, 9];
   var res2:=DissimilarElements(a3,a4);
   print(res2);print("\n");
-              //expected  [1, 4, 7, 9];
+              
 
   var a5:= new int[] [21, 11, 25, 26];
   var a6:= new int[] [26, 34, 21, 36];
   var res3:=DissimilarElements(a5,a6);
   print(res3);print("\n");
-              //expected[34, 36, 11, 25];
+              
 
 }
 

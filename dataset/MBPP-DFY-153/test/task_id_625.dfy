@@ -30,17 +30,17 @@ method SwapFirstAndLastTest(){
   var a1:= new int[] [1,2,3];
   SwapFirstAndLast(a1);
   PrintArray(a1);
-  //expected [3,2,1]
+  
 
   var a2:= new int[] [1,2,3,4,4];
   SwapFirstAndLast(a2);
   PrintArray(a2);
-  //expected [4,2,3,4,1];
+  
 
   var a3:= new int[] [4,5,6];
   SwapFirstAndLast(a3);
   PrintArray(a3);
-  //expected [6,5,4];
+  
 
 }
 

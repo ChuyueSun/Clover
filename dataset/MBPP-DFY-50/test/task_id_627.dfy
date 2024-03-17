@@ -36,17 +36,17 @@ method SmallestMissingNumberTest(){
   var a1:seq<int>:= [0,1,2,3];
   var out1:=SmallestMissingNumber(a1);
   print(out1);print("\n");
-              //assert out1==-2;
+              
 
   var a2:seq<int>:= [0,1,2,6,9];
   var out2:=SmallestMissingNumber(a2);
   print(out2);print("\n");
-              //assert out2==1;
+              
 
   var a3:seq<int>:= [2,3,5,8,9];
   var out3:=SmallestMissingNumber(a3);
   print(out3);print("\n");
-              //assert out3==-2;
+              
 
 }
 

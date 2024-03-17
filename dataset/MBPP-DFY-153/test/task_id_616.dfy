@@ -39,19 +39,19 @@ method ElementWiseModuloTest(){
   var a2:= new int[] [5, 6, 7, 5];
   var res1:=ElementWiseModulo(a1,a2);
   PrintArray(res1);
-  //expected [0, 4, 5, 1]
+  
 
   var a3:= new int[] [11, 5, 6, 7];
   var a4:= new int[] [6, 7, 8, 6];
   var res2:=ElementWiseModulo(a3,a4);
   PrintArray(res2);
-  //expected [5, 5, 6, 1]
+  
 
   var a5:= new int[] [12, 6, 7, 8];
   var a6:= new int[] [7, 8, 9, 7];
   var res3:=ElementWiseModulo(a5,a6);
   PrintArray(res3);
-  //expected [5, 6, 7, 1]
+  
 
 }
 
