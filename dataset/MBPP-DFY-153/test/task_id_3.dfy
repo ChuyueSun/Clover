@@ -21,14 +21,14 @@ method IsNonPrime(n: int) returns (result: bool)
 method IsNonPrimeTest(){
   var res1:=IsNonPrime(2);
   print(res1);print("\n");
-              //assert res1==false;
+              
   var res2:=IsNonPrime(10);
   print(res2);print("\n");
-              //assert res2==true;
+              
 
   var res3:=IsNonPrime(35);
   print(res3);print("\n");
-              //assert res3==true;
+              
 }
 
 method Main(){

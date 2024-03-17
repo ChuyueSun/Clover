@@ -24,15 +24,15 @@ method CountTrueTest(){
   var a1:= new bool[] [true, false, true];
   var out1:=CountTrue(a1);
   print(out1);print("\n");
-              //assert out1==2;
+              
   var a2:= new bool[] [false, false];
   var out2:=CountTrue(a2);
   print(out2);print("\n");
-              //assert out2==0;
+              
   var a3:= new bool[] [true, true, true];
   var out3:=CountTrue(a3);
   print(out3);print("\n");
-              //assert out3==3;
+              
 
 
 }

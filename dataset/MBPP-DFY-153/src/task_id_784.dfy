@@ -29,7 +29,7 @@ method FirstEvenOddIndices(lst : seq<int>) returns (evenIndex: int, oddIndex : i
   requires exists i :: 0 <= i < |lst| && IsOdd(lst[i])
   ensures 0 <= evenIndex < |lst|
   ensures 0 <= oddIndex < |lst|
-  // This is the postcondition that ensures that it's the first, not just any
+  
   ensures IsEven(lst[evenIndex]) && IsFirstEven(evenIndex, lst)
   ensures IsOdd(lst[oddIndex]) && IsFirstOdd(oddIndex, lst)
 {

@@ -29,7 +29,7 @@ method FirstEvenOddIndices(lst : seq<int>) returns (evenIndex: int, oddIndex : i
   requires exists i :: 0 <= i < |lst| && IsOdd(lst[i])
   ensures 0 <= evenIndex < |lst|
   ensures 0 <= oddIndex < |lst|
-  // This is the postcondition that ensures that it's the first, not just any
+  
   ensures IsEven(lst[evenIndex]) && IsFirstEven(evenIndex, lst)
   ensures IsOdd(lst[oddIndex]) && IsFirstOdd(oddIndex, lst)
 {
@@ -71,17 +71,17 @@ method ProductEvenOddTest(){
   var a1:seq<int>:= [1,3,5,7,4,1,6,8];
   var out1:=ProductEvenOdd(a1);
   print(out1);print("\n");
-              //assert out1==4;
+              
 
   var a2:seq<int>:= [1,2,3,4,5,6,7,8,9,10];
   var out2:=ProductEvenOdd(a2);
   print(out2);print("\n");
-              //assert out2==2;
+              
 
   var a3:seq<int>:= [1,5,7,9,10];
   var out3:=ProductEvenOdd(a3);
   print(out3);print("\n");
-              //assert out3==10;
+              
 
 
 }

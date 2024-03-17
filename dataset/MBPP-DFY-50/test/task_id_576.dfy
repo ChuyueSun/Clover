@@ -21,19 +21,19 @@ method IsSublistTest(){
   var a2:seq<int>:= [1,2];
   var out1:=IsSublist(a2,a1);
   print(out1);print("\n");
-              //assert out1==false;
+              
 
   var a3:seq<int>:=  [1,2,1];
   var a4:seq<int>:=  [1,2,1];
   var out2:=IsSublist(a4,a3);
   print(out2);print("\n");
-              //assert out2==true;
+              
 
   var a5:seq<int>:=  [1,0,2,2];
   var a6:seq<int>:=  [0,2,2];
   var out3:=IsSublist(a6,a5);
   print(out3);print("\n");
-              //assert out3==false;
+              
 
 }
 

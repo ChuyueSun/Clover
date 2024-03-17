@@ -9,9 +9,9 @@ method FindFirstRepeatedChar(s: string) returns (found: bool, c: char)
   while i < |s| && !found
     invariant 0 <= i <= |s|
     invariant found == inner_found
-    // Found: there exists number ii less or equal to i, that we looked above it and found it. And, btw, that didn't happen for any number less than ii
+    
     invariant found ==> exists ii, jj :: 0 <= ii < i && ii < jj < |s| && s[ii] == s[jj] && s[ii] == c && (forall k, l :: 0 <= k < l < jj && s[k] == s[l] ==> k >= ii)
-    // Not found: for every number up to i, we looked above it, and didn't find it
+    
     invariant !found <==> (forall ii, jj :: 0 <= ii < i && ii < jj < |s| ==> s[ii] != s[jj])
   {
     var j := i + 1;
