@@ -3,6 +3,7 @@ import re
 
 helper_functions = "\nfunction abs(a: real) : real {if a>0.0 then a else -a}\n"
 
+
 def is_anno(line):
     if "requires" in line or "ensures" in line or "reads" in line or "modifies" in line:
         return True
@@ -99,7 +100,7 @@ def extract_body(lines, oneline=True):
 
 def extract_annotations(program):
     d = {"preconditions": [], "postconditions": []}
-    req = "requires\s+(.*?)(?=//|;|\n)"
+    req = r"requires\s+(.*?)(?=//|;|\n)"
     matches = re.finditer(req, program, re.MULTILINE)
     for matchNum, match in enumerate(matches, start=1):
         for groupNum in range(0, len(match.groups())):
@@ -109,7 +110,7 @@ def extract_annotations(program):
                 continue
             d["preconditions"].append("(" + match.group(groupNum) + ")")
 
-    ens = "ensures\s+(.*?)(?=//|;|\n)"
+    ens = r"ensures\s+(.*?)(?=//|;|\n)"
     matches = re.finditer(ens, program, re.MULTILINE)
     for matchNum, match in enumerate(matches, start=1):
         for groupNum in range(0, len(match.groups())):
@@ -230,7 +231,7 @@ def merge_pre_and_body(spec, body):
     ret = (
         body.strip().split("\n")[: i + 1]
         + ["    assert " + pre + ";" for pre in preconditions]
-        + body.strip().split("\n")[i + 1 :]
+        + body.strip().split("\n")[i + 1:]
     )
     return "\n".join(ret)
 
@@ -243,25 +244,25 @@ def merge_spec_and_body(spec, body):
 def extract_code_from_llm_output(reply):
     i = reply.find("<answer>")
     if i != -1:
-        reply = reply[i + 8 :]
+        reply = reply[i + 8:]
         i = reply.find("</answer>")
         reply = reply[:i]
         return reply
     i = reply.find("```dafny")
     if i != -1:
-        reply = reply[i + 8 :]
+        reply = reply[i + 8:]
         i = reply.find("```")
         reply = reply[:i]
         return reply
     i = reply.find("```Dafny")
     if i != -1:
-        reply = reply[i + 8 :]
+        reply = reply[i + 8:]
         i = reply.find("```")
         reply = reply[:i]
         return reply
     i = reply.find("```")
     if i != -1:
-        reply = reply[i + 3 :]
+        reply = reply[i + 3:]
         i = reply.find("```")
         reply = reply[:i]
         return reply
@@ -291,7 +292,7 @@ def dump_tmp_file(program):
 def run_dafny(program, dafny_path):
     import subprocess
 
-    tmp_file = dump_tmp_file(program + helper_functions )
+    tmp_file = dump_tmp_file(program + helper_functions)
     try:
         s = subprocess.run(
             f"{dafny_path} /compile:0  /deprecation:0  {tmp_file}",
