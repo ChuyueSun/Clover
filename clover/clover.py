@@ -1,12 +1,11 @@
 import argparse
-import os
 from typing import Dict, List
 
 import sglang as sgl
 from sglang import OpenAI, assistant, gen, set_default_backend, system, user
 
 from equiv_tests import equiv_test_code, equiv_test_doc, equiv_test_spec
-from sys_prompts import *
+import sys_prompts
 from utils import (
     compile_dafny,
     extract_body,
@@ -27,24 +26,24 @@ from utils import (
 
 @sgl.function
 def gen_doc_from_body(s, body):
-    s += system(SYS_DAFNY)
-    s += user(GEN_DOC_FROM_BODY + body)
+    s += system(sys_prompts.SYS_DAFNY)
+    s += user(sys_prompts.GEN_DOC_FROM_BODY + body)
     s += assistant(gen("new_doc", max_tokens=512))
     return s["new_doc"]
 
 
 @sgl.function
 def gen_doc_from_spec(s, spec):
-    s += system(SYS_DAFNY)
-    s += user(GEN_DOC_FROM_SPEC + spec)
+    s += system(sys_prompts.SYS_DAFNY)
+    s += user(sys_prompts.GEN_DOC_FROM_SPEC + spec)
     s += assistant(gen("new_doc", max_tokens=512))
     return s["new_doc"]
 
 
 @sgl.function
 def gen_body_from_doc(s, doc, head, input_sample, dafny_path, feedback_turn=3):
-    s += system(SYS_DAFNY)
-    s += user(GEN_BODY_FROM_DOC + doc + "\n" + head)
+    s += system(sys_prompts.SYS_DAFNY)
+    s += user(sys_prompts.GEN_BODY_FROM_DOC + doc + "\n" + head)
     for i in range(feedback_turn):
         with s.copy() as tmp:
             tmp += assistant(gen("new_body", max_tokens=1024))
@@ -62,8 +61,8 @@ def gen_body_from_doc(s, doc, head, input_sample, dafny_path, feedback_turn=3):
 
 @sgl.function
 def gen_body_from_spec(s, spec, dafny_path, feedback_turn=3):
-    s += system(SYS_DAFNY)
-    s += user(GEN_BODY_FROM_SPEC + spec)
+    s += system(sys_prompts.SYS_DAFNY)
+    s += user(sys_prompts.GEN_BODY_FROM_SPEC + spec)
     body = ""
     for i in range(feedback_turn):
         with s.copy() as tmp:
@@ -83,8 +82,8 @@ def gen_body_from_spec(s, spec, dafny_path, feedback_turn=3):
 
 @sgl.function
 def gen_spec_from_doc(s, doc, head, dafny_path, feedback_turn=3):
-    s += system(SYS_DAFNY)
-    s += user(GEN_SPEC_FROM_DOC + doc + "\n" + head)
+    s += system(sys_prompts.SYS_DAFNY)
+    s += user(sys_prompts.GEN_SPEC_FROM_DOC + doc + "\n" + head)
     for i in range(feedback_turn):
         with s.copy() as tmp:
             tmp += assistant(gen("new_spec", max_tokens=512))
@@ -109,7 +108,8 @@ def doc_to_body_reconstruct(
     success = False
     for k in range(num_trial):
         s = gen_body_from_doc(
-            doc, head, input_sample, dafny_path, feedback_turn=feedback_turn, stream=(verbose >= 2)
+            doc, head, input_sample, dafny_path, feedback_turn=feedback_turn, stream=(
+                verbose >= 2)
         )
         if verbose >= 2:
             stream_print(s)
@@ -235,7 +235,8 @@ def spec_to_body_reconstruct(
     # completeness (spec -> body)
     success = False
     for k in range(num_trial):
-        s = gen_body_from_spec(spec, dafny_path, feedback_turn=feedback_turn, stream=(verbose >= 2))
+        s = gen_body_from_spec(
+            spec, dafny_path, feedback_turn=feedback_turn, stream=(verbose >= 2))
         if verbose >= 2:
             stream_print(s)
         verified, new_body = s.ret_value
@@ -300,7 +301,8 @@ def clover(
     )
     if early_quit and not ret[2]:
         return False, ret
-    ret[3] = spec_to_doc_reconstruct(doc, spec, num_trial=num_trial, verbose=verbose)
+    ret[3] = spec_to_doc_reconstruct(
+        doc, spec, num_trial=num_trial, verbose=verbose)
     if early_quit and not ret[3]:
         return False, ret
 
@@ -353,7 +355,8 @@ if __name__ == "__main__":
 
     program = get_clover_complete_program(program_path, doc_path)
     input_sample = get_clover_input_sample(input_sample_path)
-    anno_check_template = get_clover_anno_check_template(anno_check_template_path)
+    anno_check_template = get_clover_anno_check_template(
+        anno_check_template_path)
     print(
         "Passed the Clover test?",
         clover(
