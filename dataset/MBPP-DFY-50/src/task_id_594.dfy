@@ -1,13 +1,3 @@
-predicate IsEven(n: int)
-{
-  n % 2 == 0
-}
-
-predicate IsOdd(n: int)
-{
-  n % 2 != 0
-}
-
 method FirstEvenOddDifference(a: array<int>) returns (diff: int)
   requires a.Length >= 2
   requires exists i :: 0 <= i < a.Length && IsEven(a[i])
@@ -42,3 +32,13 @@ method FirstEvenOddDifference(a: array<int>) returns (diff: int)
   }
   diff := a[firstEven] - a[firstOdd];
 }
+predicate IsEven(n: int)
+{
+  n % 2 == 0
+}
+
+predicate IsOdd(n: int)
+{
+  n % 2 != 0
+}
+
