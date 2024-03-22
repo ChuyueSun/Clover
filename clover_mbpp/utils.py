@@ -1,5 +1,5 @@
 import os
-import re
+import re, json
 
 
 def is_anno(line):
@@ -149,10 +149,11 @@ def get_clover_components(lines):
     return doc, spec, body
 
 
-def get_clover_complete_program(program_file, doc_file):
-    with open(doc_file, "r") as f:
-        lines = [line.strip() for line in f.readlines() if line.strip()]
-        lines = ["/* " + line + " */\n" for line in lines]
+def get_clover_mbpp_program(program_file, doc_file, task_id):
+    lines = []
+    with open(doc_file, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+        lines += ["// task_description: "+ data[task_id]["task_description"]]
     with open(program_file, "r") as f:
         lines += f.readlines()
     return lines
@@ -237,6 +238,42 @@ def merge_pre_and_body(spec, body):
 def merge_spec_and_body(spec, body):
     ret = spec.strip().split("\n")[:-1] + body.strip().split("\n")[1:]
     return "\n".join(ret)
+
+
+def execute(body, input_sample, dafny_path):
+    import subprocess
+
+    program = body + input_sample
+
+    tmp_file = dump_tmp_file(program)
+    try:
+        result = subprocess.run(
+            f"{dafny_path} run --no-verify --unicode-char=false " f"{tmp_file}",
+            shell=True,
+            capture_output=True,
+            timeout=20,
+        )
+    except Exception as e:
+        return str(e)
+    return str(result.stdout)
+
+
+def compile_dafny(body, dafny_path):
+    import subprocess
+
+    program = body 
+
+    tmp_file = dump_tmp_file(program)
+    try:
+        result = subprocess.run(
+            f"{dafny_path} /compile:0 /noVerify /deprecation:0  {tmp_file}",
+            shell=True,
+            capture_output=True,
+        )
+
+    except Exception as e:
+        return str(e)
+    return mask_file_names(str(result.stdout))
 
 
 def extract_code_from_llm_output(reply):

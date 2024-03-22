@@ -1,5 +1,5 @@
 method IsGreater(n: int, a: array<int>) returns (result: bool)
-  ensures result ==> forall i :: 0 <= i < a.Length ==> n > a[i]
+  ensures result <==> forall i :: 0 <= i < a.Length ==> n > a[i]
   ensures !result ==> exists i :: 0 <= i < a.Length && n <= a[i]
 {
   result := true;

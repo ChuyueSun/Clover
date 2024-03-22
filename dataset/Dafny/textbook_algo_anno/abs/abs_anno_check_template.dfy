@@ -12,7 +12,8 @@ lemma pre_eq(x: int,y: int)
 }
 
 predicate post_original(x: int,y: int)
-  requires pre_original(x,y){
+  requires pre_original(x,y)
+{
   ( x>=0 ==> x==y) && ( x<0 ==> x+y==0)
 }
 
