@@ -1,19 +1,3 @@
-method Reverse(a: array<int>)
-  modifies a
-  ensures forall k :: 0 <= k < a.Length ==> a[k] == old(a[(a.Length-1) - k])
-{
-  var l := a.Length - 1;
-  var i := 0;
-  while (i < l-i)
-    invariant 0 <= i <= (l+1)/2
-    invariant forall k :: 0 <= k < i || l-i < k <= l ==> a[k] == old(a[l-k])
-    invariant forall k :: i <= k <= l-i ==> a[k] == old(a[k])
-  {
-    a[i], a[l-i] := a[l-i], a[i];
-    i := i + 1;
-  }
-}
-
 method ReverseUptoK(s: array<int>, k: int)
   modifies s
   requires 2 <= k <= s.Length

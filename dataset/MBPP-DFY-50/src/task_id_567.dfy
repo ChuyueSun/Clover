@@ -12,8 +12,8 @@ method IsSorted(a: array<int>) returns (sorted: bool)
     if a[i] > a[i + 1]
     {
       sorted := false;
-      break;
+      return;
+      assert  a[i] <= a[i + 1];
     }
   }
-  sorted := sorted;
 }

@@ -294,9 +294,9 @@
     "specification": {
       "method_signature": "method ContainsConsecutiveNumbers(a: array<int>) returns (result: bool)",
       "preconditions": "- There are no preconditions, the method will always work. Arrays can be empty or non-empty.",
-      "postconditions": "- If the array contains consecutive numbers, the result is true\n- If the array does not contain consecutive numbers, the result is false"
+      "postconditions": "- If the array contains any increasing-order consecutive numbers, the result is true\n- If the array does not contain consecutive numbers, the result is false"
     },
-    "task_description": "Write a method in Dafny to check whether the given integer array contains consecutive numbers or not.",
+    "task_description": "Write a method in Dafny to check whether the integer array in the given order contains any two increasing-order consecutive numbers. Do not sort the array.",
     "task_id": "472"
   },
   "798": {
