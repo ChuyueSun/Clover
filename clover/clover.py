@@ -273,58 +273,78 @@ def clover(
     num_trial=1,
     verbose=0,
     early_quit=False,
+    just_body=False
 ):
     doc, spec, body = get_clover_components(program)
-    ret = [None] * 6
-    # doc & body consistency
-    ret[0] = doc_to_body_reconstruct(
-        doc,
-        body,
-        input_sample,
-        dafny_path,
-        feedback_turn=feedback_turn,
-        num_trial=num_trial,
-        verbose=verbose,
-    )
-    if early_quit and not ret[0]:
-        return False, ret
-    body_with_pre = merge_pre_and_body(spec, body)
-    ret[1] = body_to_doc_reconstruct(
-        doc, body_with_pre, num_trial=num_trial, verbose=verbose
-    )
-    if early_quit and not ret[1]:
-        return False, ret
+    if just_body:
+        ret = [None] * 1
 
-    # doc & spec consistency
-    ret[2] = doc_to_spec_reconstruct(
-        doc, spec, anno_check_template, dafny_path, num_trial=num_trial, verbose=verbose
-    )
-    if early_quit and not ret[2]:
-        return False, ret
-    ret[3] = spec_to_doc_reconstruct(
-        doc, spec, num_trial=num_trial, verbose=verbose)
-    if early_quit and not ret[3]:
-        return False, ret
+        # doc & body consistency
+        ret[0] = doc_to_body_reconstruct(
+            doc,
+            body,
+            input_sample,
+            dafny_path,
+            feedback_turn=feedback_turn,
+            num_trial=num_trial,
+            verbose=verbose,
+        )
+        if verbose >= 2:
+            print("\n###### Final Clover Result: ", all(ret), ret)
 
-    # spec & body consistency
-    ret[4] = spec_soundness(spec, body, dafny_path, verbose=verbose)
-    if early_quit and not ret[4]:
-        return False, ret
-    ret[5] = spec_to_body_reconstruct(
-        spec,
-        body,
-        input_sample,
-        dafny_path,
-        feedback_turn=feedback_turn,
-        num_trial=num_trial,
-        verbose=verbose,
-    )
-    if early_quit and not ret[5]:
-        return False, ret
-    if verbose >= 2:
-        print("\n###### Final Clover Result: ", all(ret), ret)
+        return all(ret), ret
+    else:
+        ret = [None] * 6
 
-    return all(ret), ret
+        # doc & body consistency
+        ret[0] = doc_to_body_reconstruct(
+            doc,
+            body,
+            input_sample,
+            dafny_path,
+            feedback_turn=feedback_turn,
+            num_trial=num_trial,
+            verbose=verbose,
+        )
+        if early_quit and not ret[0]:
+            return False, ret
+        body_with_pre = merge_pre_and_body(spec, body)
+        ret[1] = body_to_doc_reconstruct(
+            doc, body_with_pre, num_trial=num_trial, verbose=verbose
+        )
+        if early_quit and not ret[1]:
+            return False, ret
+
+        # doc & spec consistency
+        ret[2] = doc_to_spec_reconstruct(
+            doc, spec, anno_check_template, dafny_path, num_trial=num_trial, verbose=verbose
+        )
+        if early_quit and not ret[2]:
+            return False, ret
+        ret[3] = spec_to_doc_reconstruct(
+            doc, spec, num_trial=num_trial, verbose=verbose)
+        if early_quit and not ret[3]:
+            return False, ret
+
+        # spec & body consistency
+        ret[4] = spec_soundness(spec, body, dafny_path, verbose=verbose)
+        if early_quit and not ret[4]:
+            return False, ret
+        ret[5] = spec_to_body_reconstruct(
+            spec,
+            body,
+            input_sample,
+            dafny_path,
+            feedback_turn=feedback_turn,
+            num_trial=num_trial,
+            verbose=verbose,
+        )
+        if early_quit and not ret[5]:
+            return False, ret
+        if verbose >= 2:
+            print("\n###### Final Clover Result: ", all(ret), ret)
+
+        return all(ret), ret
 
 
 # debug purpose
@@ -333,13 +353,10 @@ if __name__ == "__main__":
     parser.add_argument("--test-name", type=str, default="abs")
     parser.add_argument("--verbose", type=int, default=1)
     parser.add_argument("--early-quit", action="store_true")
+    parser.add_argument("--just-body", action="store_true")
     parser.add_argument("--dafny-path", type=str, required=True)
     args = parser.parse_args()
-
-    # backend = OpenAI("gpt-3.5-turbo")
-    # backend = OpenAI("gpt-4")
     set_default_backend(OpenAI("gpt-4-1106-preview"))
-    # set_default_backend(OpenAI("gpt-4"))
     program_path = (
         f"../dataset/Dafny/textbook_algo/{args.test_name}/{args.test_name}_strong.dfy"
     )
@@ -366,5 +383,6 @@ if __name__ == "__main__":
             args.dafny_path,
             verbose=args.verbose,
             early_quit=args.early_quit,
+            just_body=args.just_body
         ),
     )
