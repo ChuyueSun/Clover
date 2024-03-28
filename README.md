@@ -16,7 +16,6 @@ We also empirically investigate its feasibility on a hand-designed dataset (Clov
  (up to 87%) for correct instances while maintaining zero tolerance for incorrect ones (no false positives).
 
 
-## Evaluation
 
 ## Install requirements
 Install [sglang](https://github.com/sgl-project/sglang)
@@ -30,9 +29,9 @@ export OPENAI_API_KEY=sk-******
 ### Run Experiments
 ```
 cd clover
-python3 exps.py --num-trial 1
+python3 exps.py --num-trial 50 --dafny-path [DAFNY_PATH]
 ```
-
+Will receive 87% acceptance rate on Ground-Truth dataset.
 
 
 ## Citation
