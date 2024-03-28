@@ -35,3 +35,14 @@ lemma post_eq(a: array<int>, diff: int)
   ensures post_original(a, diff) <==> post_gen(a, diff)
 {
 }
+
+predicate IsEven(n: int)
+{
+  n % 2 == 0
+}
+
+predicate IsOdd(n: int)
+{
+  n % 2 != 0
+}
+

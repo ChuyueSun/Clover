@@ -35,3 +35,22 @@ lemma post_eq(a: array<int>, diff: int)
   ensures post_original(a, diff) <==> post_gen(a, diff)
 {
 }
+
+function Min(a: seq<int>) : int
+  requires |a| > 0
+{
+  if |a| == 1 then a[0]
+  else
+    var minPrefix := Min(a[..|a|-1]);
+    if a[|a|-1] <= minPrefix then a[|a|-1] else Min(a[..|a|-1])
+}
+
+function Max(a: seq<int>) : int
+  requires |a| > 0
+{
+  if |a| == 1 then a[0]
+  else
+    var maxPrefix := Max(a[..|a|-1]);
+    if a[|a|-1] >= maxPrefix then a[|a|-1] else Max(a[..|a|-1])
+}
+

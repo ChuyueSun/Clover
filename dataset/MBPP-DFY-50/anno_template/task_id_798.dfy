@@ -35,3 +35,11 @@ lemma post_eq(a: array<int>, result: int)
   ensures post_original(a, result) <==> post_gen(a, result)
 {
 }
+
+function sumTo( a:array<int>, n:int ) : int
+  requires 0 <= n && n <= a.Length
+  decreases n
+  reads a
+{
+  if (n == 0) then 0 else sumTo(a, n-1) + a[n-1]
+}

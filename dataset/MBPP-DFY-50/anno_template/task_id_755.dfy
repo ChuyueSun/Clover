@@ -35,3 +35,21 @@ lemma post_eq(s: array<int>, secondSmallest: int)
   ensures post_original(s, secondSmallest) <==> post_gen(s, secondSmallest)
 {
 }
+
+function MinPair(s: seq<int>) : (r: int)
+  requires |s| == 2
+  ensures s[0] <= s[1] <==> r == s[0]
+  ensures s[0] > s[1] ==> r == s[1]
+{
+  if s[0] <= s[1] then s[0] else s[1]
+}
+
+
+function min(s: seq<int>) : (r: int)
+  requires |s| >= 2
+  ensures forall i :: 0 <= i < |s| ==> r <= s[i]
+{
+  if |s| == 2 then MinPair(s)
+  else MinPair([s[0], min(s[1..])])
+}
+

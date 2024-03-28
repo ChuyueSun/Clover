@@ -31,3 +31,19 @@ lemma post_eq(s: string, v: string)
   ensures post_original(s, v) <==> post_gen(s, v)
 {
 }
+
+
+predicate IsLowerCase(c : char)
+{
+  97 <= c as int <= 122
+}
+
+predicate IsLowerUpperPair(c : char, C : char)
+{
+  (c as int) == (C as int) + 32
+}
+
+function ShiftMinus32(c : char) :  char
+{
+  ((c as int - 32) % 128) as char
+}

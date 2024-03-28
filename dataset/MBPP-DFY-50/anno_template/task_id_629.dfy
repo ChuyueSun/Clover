@@ -35,3 +35,8 @@ lemma post_eq(arr: array<int>, evenList: seq<int>)
   ensures post_original(arr, evenList) <==> post_gen(arr, evenList)
 {
 }
+
+predicate IsEven(n: int)
+{
+  n % 2 == 0
+}

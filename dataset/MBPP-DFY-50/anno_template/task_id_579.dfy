@@ -35,3 +35,9 @@ lemma post_eq(a: array<int>, b: array<int>, result: seq<int>)
   ensures post_original(a, b, result) <==> post_gen(a, b, result)
 {
 }
+
+predicate InArray(a: array<int>, x: int)
+  reads a
+{
+  exists i :: 0 <= i < a.Length && a[i] == x
+}
