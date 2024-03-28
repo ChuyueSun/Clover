@@ -1,12 +1,8 @@
 method CountDigits(s: string) returns (count: int)
   ensures count >= 0
-  ensures count == | set i: int | 0 <= i < |s| && IsDigit(s[i])|
+  ensures count == | set i: int | 0 <= i < |s| && (48 <= s[i] as int <= 57)|
 {
-  var digits := set i: int | 0 <= i < |s| && IsDigit(s[i]);
+  var digits := set i: int | 0 <= i < |s| && (48 <= s[i] as int <= 57);
   count := |digits|;
 }
 
-predicate IsDigit(c: char)
-{
-  48 <= c as int <= 57
-}

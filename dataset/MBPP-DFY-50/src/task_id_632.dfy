@@ -4,7 +4,7 @@ method MoveZeroesToEnd(arr: array<int>)
   ensures forall i, j :: 0 <= i < j < arr.Length && arr[i] == 0 ==> arr[j] == 0
   ensures multiset(arr[..]) == multiset(old(arr[..]))
   ensures forall n, m :: 0 <= n < m < arr.Length && old(arr[n]) != 0 && old(arr[m]) != 0 ==>
-                                             exists k, l /* on new array */:: 0 <= k < l < arr.Length && arr[k] == old(arr[n]) && arr[l] == old(arr[m])
+                                             exists k, l :: 0 <= k < l < arr.Length && arr[k] == old(arr[n]) && arr[l] == old(arr[m])
   
 {
   var i := 0;
@@ -60,10 +60,3 @@ method swap(arr: array<int>, i: int, j: int)
   arr[i] := arr[j];
   arr[j] := tmp;
 }
-
-function count(arr: seq<int>, value: int) : (c: nat)
-  ensures c <= |arr|
-{
-  if |arr| == 0 then 0 else (if arr[0] == value then 1 else 0) + count(arr[1..], value)
-}
-

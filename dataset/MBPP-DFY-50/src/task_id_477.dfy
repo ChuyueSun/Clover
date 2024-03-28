@@ -1,6 +1,7 @@
 method ToLowercase(s: string) returns (v: string)
   ensures |v| == |s|
-  ensures forall i :: 0 <= i < |s| ==>  if IsUpperCase(s[i]) then IsUpperLowerPair(s[i], v[i]) else v[i] == s[i]
+  ensures forall i :: 0 <= i < |s| ==>  if (65 <= s[i] as int <= 90) then   (s[i] as int) == (v[i] as int) - 32
+ else v[i] == s[i]
 {
   var s' : string := [];
   for i := 0 to |s|
