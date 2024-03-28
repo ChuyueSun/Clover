@@ -35,3 +35,10 @@ lemma post_eq(arr: array<int>, product: int)
   ensures post_original(arr, product) <==> post_gen(arr, product)
 {
 }
+
+ghost function SetProduct(s : set<int>) : int
+{
+  if s == {} then 1
+  else var x :| x in s;
+       x * SetProduct(s - {x})
+}

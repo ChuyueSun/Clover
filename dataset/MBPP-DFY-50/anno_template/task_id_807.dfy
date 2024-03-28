@@ -35,3 +35,8 @@ lemma post_eq(a: array<int>, found: bool, index: int)
   ensures post_original(a, found, index) <==> post_gen(a, found, index)
 {
 }
+
+predicate IsOdd(x: int)
+{
+  x % 2 != 0
+}

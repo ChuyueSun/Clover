@@ -31,3 +31,8 @@ lemma post_eq(s: string, v: string)
   ensures post_original(s, v) <==> post_gen(s, v)
 {
 }
+
+predicate IsSpaceCommaDot(c: char)
+{
+  c == ' ' || c == ',' || c == '.'
+}

@@ -15,21 +15,21 @@ lemma pre_eq(arr: array<int>)
 {
 }
 
-predicate post_original(arr: array<int>)
+twostate predicate post_original(arr: array<int>)
   requires pre_original(arr)
   reads arr
 {
 true
 }
 
-predicate post_gen(arr: array<int>)
+twostate predicate post_gen(arr: array<int>)
   requires pre_original(arr)
   reads arr
 {
   true // (#POST) && ... (#POST)
 }
 
-lemma post_eq(arr: array<int>)
+twostate lemma post_eq(arr: array<int>)
   requires pre_original(arr)
   requires pre_gen(arr)
   ensures post_original(arr) <==> post_gen(arr)

@@ -31,3 +31,29 @@ lemma post_eq(lst: seq<int>, product : int)
   ensures post_original(lst, product) <==> post_gen(lst, product)
 {
 }
+
+predicate IsEven(n: int)
+{
+  n % 2 == 0
+}
+
+predicate IsOdd(n: int)
+{
+  n % 2 != 0
+}
+
+predicate IsFirstEven(evenIndex: int, lst: seq<int>)
+  requires 0 <= evenIndex < |lst|
+  requires IsEven(lst[evenIndex])
+{
+  forall i :: 0 <= i < evenIndex ==> IsOdd(lst[i])
+}
+
+predicate IsFirstOdd(oddIndex: int, lst: seq<int>)
+  requires 0 <= oddIndex < |lst|
+  requires IsOdd(lst[oddIndex])
+{
+  forall i :: 0 <= i < oddIndex ==> IsEven(lst[i])
+}
+
+
