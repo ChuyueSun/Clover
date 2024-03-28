@@ -53,6 +53,8 @@ if __name__ == "__main__":
     parser.add_argument("--num-trial", type=int, default=1)
     parser.add_argument("--verbose", type=int, default=3)
     parser.add_argument("--dafny-path", type=str, required=True)
+
+    parser.add_argument("--just-body", action="store_true")
     args = parser.parse_args()
 
     gt_dataset = collect_cloverbench_gt()
@@ -81,6 +83,7 @@ if __name__ == "__main__":
             feedback_turn=args.feedback_turn,
             num_trial=args.num_trial,
             verbose=args.verbose,
+            just_body=args.just_body
         )
         log["gt"][sample["name"]] = res
 
