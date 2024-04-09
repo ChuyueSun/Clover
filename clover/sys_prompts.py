@@ -68,6 +68,12 @@ Do not return the docstring and the function implementation. Do not use helper f
 Do not explain. \
 Below is the docstring and function signature:\n"
 
+GEN_BODY_AND_ANNO_FROM_DOC = Grammar_tutorial + "Given a docstring and the function signature for a Dafny program. \
+Please return a Dafny program that implements the functionality described in the docstring, with full annotations including pre- and post- conditions and loop invariants. \
+If loop is needed, use while instead of for. \
+Please only return the annotated Dafny program. Do not explain. \
+Below is the docstring and the function signature:\n"
+
 DOC_EQUIV = "Determine if two docstrings describe the same functional behavior of a dafny program. \
 Return YES or NO, and then explain the reason.\n"
 

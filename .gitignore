@@ -1,8 +1,9 @@
 clover/tmp/
 clover/exp_results_k_1.log
 clover/__pycache__/
-clover_mbpp/tmp/
 clover_mbpp/__pycache__/
 clover_mbpp/exp_results_k_1.log
 clover_mbpp/exp_results_k_10.log
 clover_mbpp/clover_mbpp_results.json
+*.swp
+**/tmp/
