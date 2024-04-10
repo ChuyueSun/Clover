@@ -76,7 +76,7 @@ Below is the docstring and function signature:\n"
 GEN_BODY_AND_ANNO_FROM_DOC = "Given a docstring and the function signature for a Dafny program. \
 Please return a complete Dafny program with the strongest possible annotation (pre-conditions, post-conditions, and loop invariants) and the code implementation. \
 Do not explain. \
-Do not change the function signature. \
+Do not write class. Please use exactly the same function signature. \
 Below is the docstring and the function signature:\n"
 
 # GEN_BODY_AND_ANNO_FROM_DOC = "You are an expert in dafny. Given the dafny docstring, give a complete dafny program with the strongest possible annotation and the code implementation. Do not explain."
