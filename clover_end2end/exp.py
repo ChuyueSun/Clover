@@ -41,8 +41,8 @@ def get_program_with_doc(dataset, dirpath, name, program_path=None):
             data = json.load(f)
         task_id = name.split("_")[-1]
         doc = ["/* " + data[task_id]["task_description"] + "*/\n"]
-        doc.append("/* " + data[task_id]["specification"]["preconditions"] + "*/\n")
-        doc.append("/* " + data[task_id]["specification"]["postconditions"] + "*/\n")
+#         doc.append("/* " + data[task_id]["specification"]["preconditions"] + "*/\n")
+#         doc.append("/* " + data[task_id]["specification"]["postconditions"] + "*/\n")
 
         if program_path is None:
             program_path = os.path.join(dirpath, f"src/{name}.dfy")
