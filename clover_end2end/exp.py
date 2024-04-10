@@ -11,7 +11,7 @@ from sglang import OpenAI, assistant, gen, set_default_backend, system, user
 
 sys.path.append("../clover")
 import sys_prompts
-from clover import gen_body_from_doc
+from clover import clover, gen_body_from_doc
 from equiv_tests import equiv_test_code
 from utils import (
     compile_dafny,
@@ -188,3 +188,49 @@ if __name__ == "__main__":
 
         gen_gpt4_candidates(gt_dataset, "../dataset/CloverBench", args.dafny_path,
                             feedback_turn=args.feedback_turn, verbose=args.verbose)
+
+        # collect hard examples
+        dirpath = "../dataset/CloverBench"
+        path = os.path.join(dirpath, "gpt4_incorrect_and_anno_sound/*.dfy")
+        files = [filepath for filepath in glob.glob(path)]
+        hard_wrong_samples = []
+        for file in files:
+            name = "_".join(file.strip("/").split("/")[-1].split("_")[:-1])
+            doc_path = os.path.join(dirpath, f"textbook_algo/{name}/{name}_spec.txt")
+            program = get_clover_complete_program(file, doc_path)
+            for gt in gt_dataset:
+                if gt["name"] == name:
+                    hard_wrong_samples.append(
+                        {
+                            "name": file.strip("/").split("/")[-1][:-len(".dfy")],
+                            "program": program,
+                            "input_sample": gt["input_sample"],
+                            "anno_check_template": gt["anno_check_template"],
+                        }
+                    )
+                    break
+        print("num hard samples", len(hard_wrong_samples))
+ 
+        # run clover on hard examples
+        log = {}
+        checked_samples = {}
+        logfile = "gpt4_wrong_samples.result"
+        if os.path.exists(logfile):
+            with open(logfile, "r") as f:
+                log = json.load(f)
+                checked_samples = log.keys()
+ 
+        for sample in hard_wrong_samples:
+            if sample["name"] in checked_samples:
+                continue
+            log[sample["name"]] = clover(
+                sample["program"],
+                sample["input_sample"],
+                sample["anno_check_template"],
+                args.dafny_path,
+                num_trial = 5,
+                verbose=args.verbose,
+            )
+        print(log)
+        with open(logfile, "w") as f:
+            json.dump(log, f, indent=4)
