@@ -13,7 +13,8 @@ def get_stats(dataset_dir, categories):
 
 
 if __name__ == "__main__":
-    dataset_dir = "../dataset/CloverBench"
+    # dataset_dir = "../dataset/CloverBench"
+    dataset_dir = "../dataset/MBPP-DFY-50-legal"
     categories = ["gpt4_correct_and_anno_sound", "gpt4_correct_not_anno_sound",
                   "gpt4_incorrect_and_anno_sound", "gpt4_incorrect_not_anno_sound"]
 
