@@ -279,11 +279,14 @@ def mask_file_names(text):
 
 def dump_tmp_file(program):
     import time
+    import random
 
     timestamp = time.time()
+    rand = random.random()
+
     tmp_dir = "tmp"
     os.makedirs(tmp_dir, exist_ok=True)
-    tmp_file = f"{tmp_dir}/tmp_dafny_input_{timestamp}.dfy"
+    tmp_file = f"{tmp_dir}/tmp_dafny_input_{timestamp}_{rand}.dfy"
     with open(tmp_file, "w") as f:
         f.write(program)
     return tmp_file
