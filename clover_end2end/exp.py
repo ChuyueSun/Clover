@@ -2,13 +2,17 @@ import argparse
 import glob
 import json
 import os
+import tqdm
 import sys
+from concurrent.futures import ThreadPoolExecutor
 
 import sglang as sgl
 from sglang import OpenAI, assistant, gen, set_default_backend, system, user
 
 sys.path.append("../clover")
 import sys_prompts
+from clover import gen_body_from_doc
+from equiv_tests import equiv_test_code
 from utils import (
     compile_dafny,
     extract_body,
@@ -17,8 +21,12 @@ from utils import (
     get_clover_complete_program,
     get_clover_components,
     get_clover_input_sample,
+    is_dafny_verified,
     no_compile_error,
+    run_dafny,
+    stream_print,
 )
+from stats import get_stats
 
 
 def collect_gt(dataset):
@@ -62,13 +70,12 @@ def collect_gt(dataset):
 
 @sgl.function
 def gen_from_doc(s, doc, head, dafny_path, feedback_turn=3):
-    s += system(sys_prompts.SYS_DAFNY)
+    # s += system(sys_prompts.SYS_DAFNY)
     s += user(sys_prompts.GEN_BODY_AND_ANNO_FROM_DOC + doc + "\n" + head)
     for i in range(feedback_turn):
         with s.copy() as tmp:
             tmp += assistant(gen("artifact", max_tokens=1024))
             artifact = extract_code_from_llm_output(tmp["artifact"])
-        artifact = extract_body(artifact.strip().split("\n"), False)
         s += assistant(artifact)
         out = compile_dafny(artifact, dafny_path)
         if no_compile_error(str(out)):
@@ -79,13 +86,21 @@ def gen_from_doc(s, doc, head, dafny_path, feedback_turn=3):
     return artifact
 
 
-def gen_gpt4_candidates(dataset, dirpath, dafny_path, feedback_turn=3, verbose=1):
-    correct_dirpath = os.path.join(dirpath, "gpt4_correct")
-    incorrect_dirpath = os.path.join(dirpath, "gpt4_incorrect")
-    os.makedirs(correct_dirpath, exist_ok=True)
-    os.makedirs(incorrect_dirpath, exist_ok=True)
+def gen_gpt4_candidates_single_sample(
+        sample, num_cand, exist_cands,
+        correct_and_anno_sound_dirpath, correct_not_anno_sound_dirpath,
+        incorrect_and_anno_sound_dirpath, incorrect_not_anno_sound_dirpath,
+        dafny_path, feedback_turn=3, verbose=1
+):
+    name = sample["name"]
+    for cand_id in range(num_cand):
+        if f"{name}_{cand_id}.dfy" in exist_cands:
+            print(f"======= skip {name} candidate {cand_id} ==========")
+            continue
+        else:
+            print(f"======= processing {name} candidate {cand_id} ==========")
 
-    for sample in dataset:
+        # gen artifact
         doc, spec, body = get_clover_components(sample["program"])
         head = body.split("\n")[0]
         s = gen_from_doc(
@@ -95,9 +110,68 @@ def gen_gpt4_candidates(dataset, dirpath, dafny_path, feedback_turn=3, verbose=1
         if verbose >= 2:
             stream_print(s)
         artifact = str(s.ret_value)
-        print(artifact)
-        exit()
 
+        # check the code correctness by unit tests
+        input_sample_path = f"../dataset/CloverBench/textbook_algo_unit_tests/{name}/{name}_tests.dfy"
+        input_sample = get_clover_input_sample(input_sample_path)
+        gt = "".join(sample["program"])
+        correct = equiv_test_code(artifact, gt, input_sample, dafny_path, verbose=verbose)
+
+        # check the annotation soundness
+        out, err = run_dafny(artifact, dafny_path)
+        sound = is_dafny_verified(str(out))
+
+        # classify and write to files
+        if correct and sound:
+            filepath = os.path.join(correct_and_anno_sound_dirpath, f"{name}_{cand_id}.dfy")
+        elif correct and not sound:
+            filepath = os.path.join(correct_not_anno_sound_dirpath, f"{name}_{cand_id}.dfy")
+        elif not correct and sound:
+            filepath = os.path.join(incorrect_and_anno_sound_dirpath, f"{name}_{cand_id}.dfy")
+        elif not correct and not sound:
+            filepath = os.path.join(incorrect_not_anno_sound_dirpath, f"{name}_{cand_id}.dfy")
+        with open(filepath, "w") as f:
+            f.write(artifact)
+
+
+def gen_gpt4_candidates(dataset, dirpath, dafny_path, feedback_turn=3, verbose=1):
+    correct_and_anno_sound_dirpath = os.path.join(dirpath, "gpt4_correct_and_anno_sound")
+    correct_not_anno_sound_dirpath = os.path.join(dirpath, "gpt4_correct_not_anno_sound")
+    incorrect_and_anno_sound_dirpath = os.path.join(dirpath, "gpt4_incorrect_and_anno_sound")
+    incorrect_not_anno_sound_dirpath = os.path.join(dirpath, "gpt4_incorrect_not_anno_sound")
+    os.makedirs(correct_and_anno_sound_dirpath, exist_ok=True)
+    os.makedirs(correct_not_anno_sound_dirpath, exist_ok=True)
+    os.makedirs(incorrect_and_anno_sound_dirpath, exist_ok=True)
+    os.makedirs(incorrect_not_anno_sound_dirpath, exist_ok=True)
+    num_sample = len(dataset)
+    num_cand = 10
+    num_threads = 8
+
+    # extract existing candidates, and skip
+    categories = ["gpt4_correct_and_anno_sound", "gpt4_correct_not_anno_sound",
+                  "gpt4_incorrect_and_anno_sound", "gpt4_incorrect_not_anno_sound"]
+    exist_cands = sum(get_stats(dirpath, categories), [])
+
+    pbar = tqdm.tqdm(total=num_sample)
+
+    with ThreadPoolExecutor(num_threads) as executor:
+        futures = []
+        for sample in dataset[:num_sample]:
+            futures.append(
+                executor.submit(
+                    gen_gpt4_candidates_single_sample,
+                    sample, num_cand, exist_cands,
+                    correct_and_anno_sound_dirpath, correct_not_anno_sound_dirpath,
+                    incorrect_and_anno_sound_dirpath, incorrect_not_anno_sound_dirpath,
+                    dafny_path, feedback_turn, verbose
+                )
+            )
+            futures[-1].add_done_callback(lambda _: pbar.update())
+
+        rets = [f.result() for f in futures]
+
+    pbar.close()
+            
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
