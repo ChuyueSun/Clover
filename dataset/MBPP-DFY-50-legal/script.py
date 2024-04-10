@@ -1,8 +1,7 @@
 import os
 GT_WRONG_IDS = ["472", "567", "576", "632", "644", "803"]
-CLOVER_WRONGLY_REJ_IDS = ["793", "743", "733", "770", "627"]
 CLOVER_OUT_OF_SCOPE_IDS = ["477", "798", "764", "573", "775", "566", "588", "629", "579", "784", "624", "807", "594", "755", "732"]
-DOCSTRING_NOT_PRECISE_IDS = [ "602"]
+DOCSTRING_NOT_PRECISE_IDS = [ "602", "793"]
 
 def delete_files_based_on_substring(root_dir, substrings_to_match):
     """
