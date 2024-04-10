@@ -30,5 +30,5 @@ def delete_files_based_on_substring(root_dir, substrings_to_match):
 
 # Example usage
 current_directory = os.getcwd()  # Get the current working directory
-substrings_to_match =GT_WRONG_IDS + CLOVER_OUT_OF_SCOPE_IDS + DOCSTRING_NOT_PRECISE_IDS # Specify substrings to match
+substrings_to_match = GT_WRONG_IDS + CLOVER_OUT_OF_SCOPE_IDS + DOCSTRING_NOT_PRECISE_IDS # Specify substrings to match
 delete_files_based_on_substring(current_directory, substrings_to_match)
