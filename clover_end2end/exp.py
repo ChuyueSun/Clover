@@ -29,9 +29,30 @@ from utils import (
 from stats import get_stats
 
 
-def collect_gt(dataset):
+def get_program_with_doc(dataset, dirpath, name, program_path=None):
     if dataset == "cloverbench":
-        dirpath = "../dataset/CloverBench"
+        if program_path is None:
+            program_path = os.path.join(dirpath, f"textbook_algo/{name}/{name}_strong.dfy")
+        doc_path = os.path.join(dirpath, f"textbook_algo/{name}/{name}_spec.txt")
+        return get_clover_complete_program(program_path, doc_path)
+    elif dataset == "mbpp":
+        data_file = os.path.join(dirpath, "mbpp-dfy-50-examples-db.json")
+        with open(data_file, "r") as f:
+            data = json.load(f)
+        task_id = name.split("_")[-1]
+        doc = ["/* " + data[task_id]["task_description"] + "*/\n"]
+        doc.append("/* " + data[task_id]["specification"]["preconditions"] + "*/\n")
+        doc.append("/* " + data[task_id]["specification"]["postconditions"] + "*/\n")
+
+        if program_path is None:
+            program_path = os.path.join(dirpath, f"src/{name}.dfy")
+        with open(program_path, "r") as f:
+            program = f.readlines()
+        return doc + program
+
+
+def collect_gt(dataset, dirpath):
+    if dataset == "cloverbench":
         search_dir = os.path.join(dirpath, "textbook_algo/*")
         sample_names = [
             name.strip("/").split("/")[-1]
@@ -44,15 +65,13 @@ def collect_gt(dataset):
             if name in ["match", "double_array_elements"]:
                 continue
 
-            program_path = os.path.join(dirpath, f"textbook_algo/{name}/{name}_strong.dfy")
-            doc_path = os.path.join(dirpath, f"textbook_algo/{name}/{name}_spec.txt")
             input_sample_path = os.path.join(
                 dirpath, f"textbook_algo_unit_tests/{name}/{name}_tests.dfy"
             )
             anno_template_path = os.path.join(
                 dirpath, f"textbook_algo_anno/{name}/{name}_anno_check_template.dfy"
             )
-            program = get_clover_complete_program(program_path, doc_path)
+            program = get_program_with_doc(dataset, dirpath, name)
             input_sample = get_clover_input_sample(input_sample_path)
             anno_check_template = get_clover_anno_check_template(anno_template_path)
 
@@ -64,8 +83,34 @@ def collect_gt(dataset):
             }
             gt_dataset.append(sample)
         return gt_dataset
+
     elif dataset == "mbpp":
-        pass
+        search_dir = os.path.join(dirpath, "src/*")
+        sample_names = [
+            name.strip("/").split("/")[-1][:-len(".dfy")]
+            for name in glob.glob(search_dir)
+        ]
+
+        gt_dataset = []
+        for name in sample_names:
+            input_sample_path = os.path.join(
+                dirpath, f"test/{name}.dfy"
+            )
+            anno_template_path = os.path.join(
+                dirpath, f"annotation_template/{name}.dfy"
+            )
+            program = get_program_with_doc(dataset, dirpath, name)
+            input_sample = get_clover_input_sample(input_sample_path)
+            anno_check_template = get_clover_anno_check_template(anno_template_path)
+
+            sample = {
+                "name": name,
+                "program": program,
+                "input_sample": input_sample,
+                "anno_check_template": anno_check_template,
+            }
+            gt_dataset.append(sample)
+        return gt_dataset
 
 
 @sgl.function
@@ -112,8 +157,7 @@ def gen_gpt4_candidates_single_sample(
         artifact = str(s.ret_value)
 
         # check the code correctness by unit tests
-        input_sample_path = f"../dataset/CloverBench/textbook_algo_unit_tests/{name}/{name}_tests.dfy"
-        input_sample = get_clover_input_sample(input_sample_path)
+        input_sample = sample["input_sample"]
         gt = "".join(sample["program"])
         correct = equiv_test_code(artifact, gt, input_sample, dafny_path, verbose=verbose)
 
@@ -182,22 +226,28 @@ if __name__ == "__main__":
 
     set_default_backend(OpenAI("gpt-4-1106-preview"))
 
-    for dataset in ["cloverbench"]:
-        gt_dataset = collect_gt(dataset)
-        assert len(gt_dataset) == 60
+    for dataset in ["cloverbench", "mbpp"]:
+        if dataset == "cloverbench":
+            dirpath = "../dataset/CloverBench"
+        elif dataset == "mbpp":
+            dirpath = "../dataset/MBPP-DFY-50-legal"
+        gt_dataset = collect_gt(dataset, dirpath)
+        if dataset == "cloverbench":
+            assert len(gt_dataset) == 60
+        if dataset == "mbpp":
+            assert len(gt_dataset) == 28
 
-        gen_gpt4_candidates(gt_dataset, "../dataset/CloverBench", args.dafny_path,
+        gen_gpt4_candidates(gt_dataset, dirpath, args.dafny_path,
                             feedback_turn=args.feedback_turn, verbose=args.verbose)
 
         # collect hard examples
-        dirpath = "../dataset/CloverBench"
         path = os.path.join(dirpath, "gpt4_incorrect_and_anno_sound/*.dfy")
         files = [filepath for filepath in glob.glob(path)]
         hard_wrong_samples = []
         for file in files:
             name = "_".join(file.strip("/").split("/")[-1].split("_")[:-1])
-            doc_path = os.path.join(dirpath, f"textbook_algo/{name}/{name}_spec.txt")
-            program = get_clover_complete_program(file, doc_path)
+            program = get_program_with_doc(dataset, dirpath, name, program_path=file)
+            found = False
             for gt in gt_dataset:
                 if gt["name"] == name:
                     hard_wrong_samples.append(
@@ -208,13 +258,15 @@ if __name__ == "__main__":
                             "anno_check_template": gt["anno_check_template"],
                         }
                     )
+                    found = True
                     break
+            assert found
         print("num hard samples", len(hard_wrong_samples))
  
         # run clover on hard examples
         log = {}
         checked_samples = {}
-        logfile = "gpt4_wrong_samples.result"
+        logfile = f"{dataset}_gpt4_wrong_samples.result"
         if os.path.exists(logfile):
             with open(logfile, "r") as f:
                 log = json.load(f)
