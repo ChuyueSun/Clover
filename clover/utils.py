@@ -288,6 +288,14 @@ def dump_tmp_file(program):
         f.write(program)
     return tmp_file
 
+def write_file(filename, program):
+    dir_name = "dfy_files"
+    os.makedirs(dir_name, exist_ok=True)
+    file_dir = f"{dir_name}/{filename}.dfy"
+    with open(file_dir, "w") as f:
+        f.write(program)
+    return file_dir
+
 
 def run_dafny(program, dafny_path):
     import subprocess
