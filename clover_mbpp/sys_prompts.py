@@ -29,6 +29,34 @@ method m<T(==),U(==)> (m: map<T,U>) {
 }
 ```
 
+Seq:
+for any sequence s of type seq<T>, expression e of type T, integer-based numeric index i satisfying 0 <= i < |s|, and integer-based numeric bounds lo and hi satisfying 0 <= lo <= hi <= |s|, noting that bounds can equal the length of the sequence, sequences support the following operations:
+
+expression	precedence	result type	description
+e in s	4	bool	sequence membership
+e !in s	4	bool	sequence non-membership
+|s|	11	nat	sequence length
+s[i]	11	T	sequence selection
+s[i := e]	11	seq<T>	sequence update
+s[lo..hi]	11	seq<T>	subsequence
+s[lo..]	11	seq<T>	drop
+s[..hi]	11	seq<T>	take
+
+String:
+A special case of a sequence type is seq<char>, 
+for which Dafny provides a synonym: string. 
+Strings are like other sequences, but provide additional syntax for sequence display expressions, namely string literals
+
+Sortedness: 
+Array sorted
+```
+forall j, k :: 0 <= j < k < a.Length ==> a[j] <= a[k]
+```
+
+Array unchanged
+```
+forall i :: 0 <= i < a.Length ==> a[i] == old(a[i])
+```
 Dafny Grammar tutorial ends here.
 """
 
@@ -61,10 +89,10 @@ Do not mention implementation details. \
 Please only return the docstring. Do not explain. \
 Below is the Dafny signature and its specifications:\n"
 
-GEN_SPEC_FROM_DOC = "Given the function signature and its docstring for a Dafny program. \
+GEN_SPEC_FROM_DOC = Grammar_tutorial + "Given the function signature and its docstring for a Dafny program. \
 Please return the function signature along with specifications include pre- and post- conditions. \
 Put one condition in one line. \
-Do not return the docstring and the function implementation. Do not use helper functions. Use abs for absolute value. \
+Do not return the docstring and the function implementation. Do not use helper functions. \
 Do not explain. \
 Below is the docstring and function signature:\n"
 
@@ -73,5 +101,4 @@ Return YES or NO, and then explain the reason.\n"
 
 
 if __name__ == "__main__":
-    print(Grammar_tutorial)
-    print(GEN_BODY_FROM_SPEC)
+    pass

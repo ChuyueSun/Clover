@@ -9,7 +9,7 @@ def is_anno(line):
 
 
 def is_doc(line):
-    if line.startswith("/*") or line.startswith("//"):
+    if line.startswith("/*") or line.startswith("//") or line.startswith("/**") :
         return True
     return False
 
@@ -40,7 +40,7 @@ def extract_doc(lines) -> str:
     for line in lines:
         if "include" in line:
             continue
-        if not is_doc(line):
+        if line.startswith("method"):
             break
         doc += line
     return doc
@@ -48,13 +48,18 @@ def extract_doc(lines) -> str:
 
 def extract_spec(lines, oneline=True) -> str:
     spec = ""
+    start = False
     for line in lines:
+
         if (
             line.strip().startswith("method")
             or line.strip().startswith("returns")
             or line.strip().startswith("function")
         ):
+            start = True
             spec += line + "\n"
+            continue
+        if not start:
             continue
         if "include" in line or is_doc(line):
             continue
@@ -154,10 +159,21 @@ def get_clover_mbpp_program(program_file, doc_file, task_id):
     with open(doc_file, 'r', encoding='utf-8') as file:
         data = json.load(file)
         lines += ["// task_description: "+ data[task_id]["task_description"]]
+        lines += ["\npreconditions: " + data[task_id]["specification"]["preconditions"]]
+        lines += ["\npostconditions: " + data[task_id]["specification"]["postconditions"]]
+        lines += ["\n*/\n"]
     with open(program_file, "r") as f:
         lines += f.readlines()
+
     return lines
 
+def get_mbpp_program_signature(doc_file, task_id):
+    sig = ""
+    with open(doc_file, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+        sig = data[task_id]["specification"]["method_signature"]
+
+    return sig
 
 def get_clover_input_sample(filepath):
     with open(filepath, "r") as f:
@@ -185,6 +201,8 @@ def get_clover_anno_check_template(filepath):
     ret = {}
     key = None
     skip = False
+    ret["helper_functions"] = ""
+    helper_start = False
     for line in lines:
         if "predicate pre_original" in line:
             key = "pre_original"
@@ -211,10 +229,19 @@ def get_clover_anno_check_template(filepath):
             else:
                 ret[key] += extract_signature(line)
 
-        if line.strip() == "}":
+
+        if line.strip() == "}" and key in ["pre_original","pre_gen", "pre_eq", "post_original", "post_gen", "post_eq"]:
             skip = False
-        if line.strip()[-1] == "{":
+            if key == "post_eq":
+                helper_start = True
+        if line.strip()[-1] == "{" :
             skip = True
+        if helper_start:
+            ret["helper_functions"] += line
+            key=""
+        
+    ret["helper_functions"] = ret["helper_functions"][1:-1]
+
 
     return ret
 
@@ -248,7 +275,7 @@ def execute(body, input_sample, dafny_path):
     tmp_file = dump_tmp_file(program)
     try:
         result = subprocess.run(
-            f"{dafny_path} run --no-verify --unicode-char=false " f"{tmp_file}",
+            f"{dafny_path} run --no-verify --unicode-char=false --allow-warnings " f"{tmp_file}",
             shell=True,
             capture_output=True,
             timeout=20,
