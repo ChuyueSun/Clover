@@ -31,7 +31,7 @@ export OPENAI_API_KEY=sk-******
 cd clover
 python3 exps.py --num-trial 50 --dafny-path [DAFNY_PATH]
 ```
-Will receive 87% acceptance rate on Ground-Truth dataset.
+Will receive 87% acceptance rate on CloverBench (Ground-Truth) dataset with gpt-4-1106-preview in March 2024.
 
 
 ## Citation

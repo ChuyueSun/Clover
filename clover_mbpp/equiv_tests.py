@@ -80,7 +80,7 @@ def equiv_test_spec(spec, new_spec, anno_check_template, dafny_path, verbose=0):
         anno_check_template["post_gen"], extract_post(new_spec)
     )
     check_template += fill_template(anno_check_template["post_eq"], None)
-
+    check_template += anno_check_template["helper_functions"]
     out, err = run_dafny(check_template, dafny_path)
     if verbose >= 1:
         print(str(out))

@@ -4,9 +4,9 @@ Clover APIs in `clover.py`. Run single example:
 python clover.py  --test-name array_append
 ```
 
-Run Experiments:
+Run CloverBench Experiments:
 ```
-python exps.py
+python exps.py --dafny-path [DAFNY_PATH]
 ```
 
 # Documentation
