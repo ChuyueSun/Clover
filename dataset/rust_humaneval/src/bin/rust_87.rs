@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -12,18 +10,23 @@ fn main(){
     each tuple is a coordinate - (row, columns), starting with 0.
     Sort coordinates initially by rows in ascending order.
     Also, sort coordinates of the row by columns in descending order.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn get_row(lst:Vec<Vec<i32>>, x:i32) -> Vec<Vec<i32>>{
-
-
+fn get_row(lst: Vec<Vec<i32>>, x: i32) -> Vec<Vec<i32>> {
     let mut out: Vec<Vec<i32>> = vec![];
     for (indxi, elem1) in lst.iter().enumerate() {
         for (indxj, _) in elem1.iter().rev().enumerate() {
@@ -103,5 +106,4 @@ mod tests {
         assert!(get_row(vec![vec![1]], 2) == v);
         assert!(get_row(vec![vec![], vec![1], vec![1, 2, 3]], 3) == vec![vec![2, 2]]);
     }
-
 }

@@ -1,33 +1,43 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
  brackets is a string of "<" and ">".
     return True if every opening bracket has a corresponding closing bracket.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn correct_bracketing(bkts:&str) -> bool{
+fn correct_bracketing(bkts: &str) -> bool {
+    let mut level: i32 = 0;
 
+    for i in 0..bkts.len() {
+        if bkts.chars().nth(i).unwrap() == '<' {
+            level += 1;
+        }
 
-    let mut level:i32=0;
+        if bkts.chars().nth(i).unwrap() == '>' {
+            level -= 1;
+        }
 
-    for i in 0..bkts.len(){
-
-        if bkts.chars().nth(i).unwrap()== '<' {level+=1;}
-        
-        if bkts.chars().nth(i).unwrap() == '>' {  level-=1;}
-      
-        if level<0 {return false;} 
+        if level < 0 {
+            return false;
+        }
     }
-    if level!=0 {return false;}
+    if level != 0 {
+        return false;
+    }
     return true;
 }
 
@@ -50,5 +60,4 @@ mod tests {
         assert!(!(correct_bracketing("<><><<><>><>><<>")));
         assert!(!(correct_bracketing("<><><<><>><>>><>")));
     }
-
 }

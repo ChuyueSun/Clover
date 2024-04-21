@@ -1,23 +1,26 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
-Complete the function that takes two integers and returns 
+Complete the function that takes two integers and returns
     the product of their unit digits.
     Assume the input is always valid.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn multiply(a:i32, b:i32) -> i32{
-
-
+fn multiply(a: i32, b: i32) -> i32 {
     return (i32::abs(a) % 10) * (i32::abs(b) % 10);
 }
 
@@ -36,5 +39,4 @@ mod tests {
         assert!(multiply(0, 1) == 0);
         assert!(multiply(0, 0) == 0);
     }
-
 }

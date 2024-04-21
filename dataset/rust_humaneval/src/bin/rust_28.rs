@@ -1,30 +1,36 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
  Concatenate list of strings into a single string
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn concatenate(strings:Vec<String>) -> String{
-
-
-    return strings.iter().fold(String::new(),|res: String, x:&String| res + &x.to_string());
-
+fn concatenate(strings: Vec<String>) -> String {
+    return strings
+        .iter()
+        .fold(String::new(), |res: String, x: &String| {
+            res + &x.to_string()
+        });
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
- #[test]
+    #[test]
     fn test_concatenate() {
         assert!(concatenate(vec![]) == "".to_string());
         assert!(
@@ -41,6 +47,4 @@ mod tests {
             ]) == "xyzwk".to_string()
         );
     }
-
-
 }

@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
  Input to this function is a string representing musical notes in a special ASCII format.
@@ -11,34 +9,41 @@ fn main(){
     'o' - whole note, lasts four beats
     'o|' - half note, lasts two beats
     '.|' - quater note, lasts one beat
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn parse_music(music_string:String) -> Vec<i32>{
-
-
-
-    let map = |x:&str| {match x {
+fn parse_music(music_string: String) -> Vec<i32> {
+    let map = |x: &str| match x {
         "o" => 4,
         "o|" => 2,
-        ".|" =>  1,
-        _ => 0
-    } 
-};
-    return music_string.split(" ").map(|x:&str| map(&x.to_string())).filter(|x:&i32| x != &0).collect();
+        ".|" => 1,
+        _ => 0,
+    };
+    return music_string
+        .split(" ")
+        .map(|x: &str| map(&x.to_string()))
+        .filter(|x: &i32| x != &0)
+        .collect();
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
- #[test]
+    #[test]
     fn test_parse_music() {
         assert!(parse_music(" ".to_string()) == []);
         assert!(parse_music("o o o o".to_string()) == vec![4, 4, 4, 4]);
@@ -46,5 +51,4 @@ mod tests {
         assert!(parse_music("o| o| .| .| o o o o".to_string()) == vec![2, 2, 1, 1, 4, 4, 4, 4]);
         assert!(parse_music("o| .| o| .| o o| o o|".to_string()) == vec![2, 1, 2, 1, 4, 2, 4, 2]);
     }
-
 }

@@ -1,23 +1,25 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     takes as input string encoded with encode_cyclic function. Returns decoded string.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn decode_cyclic(s: &str) -> String {
-
-
-
     let l = s.len();
     let num = (l + 2) / 3;
     let mut output = String::new();
@@ -53,12 +55,11 @@ pub fn encode_cyclic(s: &str) -> String {
     output
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
-#[test]
+    #[test]
     fn test_decode_cyclic() {
         for _ in 0..100 {
             let l = 10 + rand::random::<u32>() % 11;
@@ -71,5 +72,4 @@ mod tests {
             assert_eq!(decode_cyclic(&encoded_str), str);
         }
     }
-
 }

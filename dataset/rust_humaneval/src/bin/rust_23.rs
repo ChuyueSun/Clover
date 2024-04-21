@@ -1,21 +1,24 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
  Return length of given string
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn strlen(strings:String) -> i32{
-
-
+fn strlen(strings: String) -> i32 {
     return strings.len() as i32;
 }
 
@@ -23,11 +26,10 @@ fn strlen(strings:String) -> i32{
 mod tests {
     use super::*;
 
- #[test]
+    #[test]
     fn test_strlen() {
         assert!(strlen("".to_string()) == 0);
         assert!(strlen("x".to_string()) == 1);
         assert!(strlen("asdasnakj".to_string()) == 9);
     }
-
 }

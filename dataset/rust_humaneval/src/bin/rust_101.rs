@@ -1,23 +1,26 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     You will be given a string of words separated by commas or spaces. Your task is
     to split the string into words and return an array of the words.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn words_string(s:&str) -> Vec<String> {
-
-
+fn words_string(s: &str) -> Vec<String> {
     return s
         .to_string()
         .split(|c: char| c == ',' || c.is_whitespace())
@@ -47,5 +50,4 @@ mod tests {
         assert!(words_string("") == v_empty);
         assert!(words_string("ahmed , gamal") == vec!["ahmed", "gamal"]);
     }
-
 }

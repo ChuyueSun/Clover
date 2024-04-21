@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
-    Given a string text, replace all spaces in it with underscores, 
-    and if a string has more than 2 consecutive spaces, 
-    then replace all consecutive spaces with - 
-    
+    Given a string text, replace all spaces in it with underscores,
+    and if a string has more than 2 consecutive spaces,
+    then replace all consecutive spaces with -
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn fix_spaces(text: &str) -> String {
-
-
     let mut out = String::new();
     let mut spacelen = 0;
     for c in text.chars() {
@@ -65,5 +68,4 @@ mod tests {
         assert_eq!(fix_spaces("Exa   mple"), "Exa-mple");
         assert_eq!(fix_spaces("   Exa 1 2 2 mple"), "-Exa_1_2_2_mple");
     }
-
 }

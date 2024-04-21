@@ -1,25 +1,28 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     You are given a positive integer n. You have to create an integer array a of length n.
         For each i (1 ≤ i ≤ n), the value of a[i] = i * i - i + 1.
-        Return the number of triples (a[i], a[j], a[k]) of a where i < j < k, 
+        Return the number of triples (a[i], a[j], a[k]) of a where i < j < k,
     and a[i] + a[j] + a[k] is a multiple of 3.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn get_matrix_triples(n: i32) -> i32 {
-
-
     let mut a = vec![];
     let mut sum = vec![vec![0, 0, 0]];
     let mut sum2 = vec![vec![0, 0, 0]];
@@ -58,5 +61,4 @@ mod tests {
         assert_eq!(get_matrix_triples(10), 36);
         assert_eq!(get_matrix_triples(100), 53361);
     }
-
 }

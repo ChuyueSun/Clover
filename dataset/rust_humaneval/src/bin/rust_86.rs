@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -9,18 +7,23 @@ fn main(){
     are replaced by a new word where all the characters arranged in
     ascending order based on ascii value.
     Note: You should keep the order of words and blank spaces in the sentence.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn anti_shuffle(s:&str) -> String{
-
-
+fn anti_shuffle(s: &str) -> String {
     let mut res: String = String::new();
 
     for i in s.split_ascii_whitespace() {
@@ -37,7 +40,6 @@ fn anti_shuffle(s:&str) -> String{
 mod tests {
     use super::*;
 
-
     #[test]
     fn test_anti_shuffle() {
         assert!(anti_shuffle("Hi") == "Hi".to_string());
@@ -51,5 +53,4 @@ mod tests {
                 == ".Hi My aemn is Meirst .Rboot How aer ?ouy".to_string()
         );
     }
-
 }

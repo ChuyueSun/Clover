@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     In this Kata, you have to sort an array of non-negative integers according to
     number of ones in their binary representation in ascending order.
     For similar number of ones, sort based on decimal value.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn sort_array(array:Vec<i32>) -> Vec<i32>{
-
-
+fn sort_array(array: Vec<i32>) -> Vec<i32> {
     let mut res: Vec<i32> = array.clone();
 
     if array.len() == 0 {
@@ -38,7 +41,7 @@ fn sort_array(array:Vec<i32>) -> Vec<i32>{
 mod tests {
     use super::*;
 
-  #[test]
+    #[test]
     fn test_sort_array() {
         assert!(sort_array(vec![]) == vec![]);
         assert!(sort_array(vec![5]) == vec![5]);
@@ -48,5 +51,4 @@ mod tests {
         assert!(sort_array(vec![15, 42, 87, 32, 11, 0]) == vec![0, 11, 15, 32, 42, 87]);
         assert!(sort_array(vec![21, 14, 23, 11]) == vec![23, 21, 14, 11]);
     }
-
 }

@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Given an array arr of integers, find the minimum number of elements that
     need to be changed to make the array palindromic. A palindromic array is an array that
     is read the same backwards and forwards. In one change, you can change one element to any other element.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn smallest_change(arr:Vec<i32>) -> i32{
-
-
+fn smallest_change(arr: Vec<i32>) -> i32 {
     let mut ans: i32 = 0;
     for i in 0..arr.len() / 2 {
         if arr[i] != arr[arr.len() - i - 1] {
@@ -43,5 +46,4 @@ mod tests {
         assert!(smallest_change(vec![1]) == 0);
         assert!(smallest_change(vec![0, 1]) == 1);
     }
-
 }

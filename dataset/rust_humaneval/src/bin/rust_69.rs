@@ -1,25 +1,28 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
-    You are given a non-empty list of positive integers. Return the greatest integer that is greater than 
-    zero, and has a frequency greater than or equal to the value of the integer itself. 
+    You are given a non-empty list of positive integers. Return the greatest integer that is greater than
+    zero, and has a frequency greater than or equal to the value of the integer itself.
     The frequency of an integer is the number of times it appears in the list.
     If no such a value exist, return -1.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn search(lst: Vec<i32>) -> i32 {
-
-
     let mut freq: Vec<Vec<i32>> = Vec::new();
     let mut max = -1;
     for i in 0..lst.len() {
@@ -116,5 +119,4 @@ mod tests {
         );
         assert!(search(vec![3, 10, 10, 9, 2]) == -1);
     }
-
 }

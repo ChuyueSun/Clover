@@ -1,25 +1,28 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
     You are given a rectangular grid of wells. Each row represents a single well,
     and each 1 in a row represents a single unit of water.
-    Each well has a corresponding bucket that can be used to extract water from it, 
+    Each well has a corresponding bucket that can be used to extract water from it,
     and all buckets have the same capacity.
     Your task is to use the buckets to empty the wells.
     Output the number of times you need to lower the buckets.
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn max_fill(grid:Vec<Vec<i32>>, capacity:i32) -> i32{
-
-
+fn max_fill(grid: Vec<Vec<i32>>, capacity: i32) -> i32 {
     let mut out: i32 = 0;
 
     for i in 0..grid.len() {
@@ -62,5 +65,4 @@ mod tests {
         assert!(max_fill(vec![vec![1, 1, 1, 1], vec![1, 1, 1, 1]], 2) == 4);
         assert!(max_fill(vec![vec![1, 1, 1, 1], vec![1, 1, 1, 1]], 9) == 2);
     }
-
 }

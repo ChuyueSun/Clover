@@ -1,23 +1,26 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 This function takes two positive numbers x and y and returns the
-    biggest even integer number that is in the range [x, y] inclusive. If 
+    biggest even integer number that is in the range [x, y] inclusive. If
     there's no such number, then the function should return -1.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn choose_num(x:i32, y:i32) -> i32{
-
-
+fn choose_num(x: i32, y: i32) -> i32 {
     if y < x {
         return -1;
     }
@@ -44,5 +47,4 @@ mod tests {
         assert!(choose_num(7, 7) == -1);
         assert!(choose_num(546, 546) == 546);
     }
-
 }

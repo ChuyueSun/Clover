@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     You are given a list of integers.
     Write a function next_smallest() that returns the 2nd smallest element of the list.
     Return None if there is no such element.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn next_smallest(lst:Vec<i32>) -> i32{
-
-
+fn next_smallest(lst: Vec<i32>) -> i32 {
     let mut res = 0;
     let mut lst_cp = lst.clone();
     let mut first: i32 = 0;
@@ -58,5 +61,4 @@ mod tests {
         assert!(next_smallest(vec![1, 1, 1, 1, 0]) == 1);
         assert!(next_smallest(vec![-35, 34, 12, -45]) == -35);
     }
-
 }

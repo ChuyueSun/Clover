@@ -1,22 +1,25 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Checks if given string is a palindrome
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn is_palindrome(text: String) -> bool {
-
-
     let pr: String = text.chars().rev().collect();
     return pr == text;
 }
@@ -24,7 +27,6 @@ fn is_palindrome(text: String) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
-
 
     #[test]
     fn test_is_palindrome() {
@@ -36,5 +38,4 @@ mod tests {
         assert!(is_palindrome("xywyz".to_string()) == false);
         assert!(is_palindrome("xywzx".to_string()) == false);
     }
-
 }

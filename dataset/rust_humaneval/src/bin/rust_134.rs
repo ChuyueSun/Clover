@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -8,18 +6,23 @@ fn main(){
     of a given string is an alphabetical character and is not
     a part of a word, and False otherwise.
     Note: "word" is a group of characters separated by space.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn check_if_last_char_is_a_letter(txt: &str) -> bool {
-
-
     if txt.len() == 0 {
         return false;
     }
@@ -53,5 +56,4 @@ mod tests {
         assert_eq!(check_if_last_char_is_a_letter("eeeee e "), false);
         assert_eq!(check_if_last_char_is_a_letter("apple pie"), false);
     }
-
 }

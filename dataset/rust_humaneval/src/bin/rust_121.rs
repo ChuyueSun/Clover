@@ -1,21 +1,24 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Given a non-empty list of integers, return the sum of all of the odd elements that are in even positions.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn solutions(lst: Vec<i32>) -> i32 {
-
-
     let mut sum = 0;
     for (indx, elem) in lst.iter().enumerate() {
         if indx % 2 == 0 {
@@ -41,5 +44,4 @@ mod tests {
         assert_eq!(solutions(vec![30, 13, 23, 32]), 23);
         assert_eq!(solutions(vec![3, 13, 2, 9]), 3);
     }
-
 }

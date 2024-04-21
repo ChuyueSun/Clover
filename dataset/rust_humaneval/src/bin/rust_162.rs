@@ -1,23 +1,26 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Given a string 'text', return its md5 hash equivalent string.
     If 'text' is an empty string, return None.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn string_to_md5(text: &str) -> String {
-
-
     if text.is_empty() {
         return "None".to_string();
     }
@@ -43,5 +46,4 @@ mod tests {
             "5f4dcc3b5aa765d61d8327deb882cf99"
         );
     }
-
 }

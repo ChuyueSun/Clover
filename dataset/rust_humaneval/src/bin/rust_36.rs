@@ -1,35 +1,40 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Return the number of times the digit 7 appears in integers less than n which are divisible by 11 or 13.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn fizz_buzz(n:i32) -> i32{
+fn fizz_buzz(n: i32) -> i32 {
+    let mut ns: Vec<i32> = vec![];
 
-
-    let mut ns:Vec<i32> = vec![];
-
-    for i in 0..n{
-        if i % 11 == 0 || i % 13 == 0{
+    for i in 0..n {
+        if i % 11 == 0 || i % 13 == 0 {
             ns.push(i);
         }
     }
 
-    let s:String = ns.into_iter().fold(String::new(),|s:String, n:i32| {s + &n.to_string()});
-    let mut ans:i32 = 0;
+    let s: String = ns
+        .into_iter()
+        .fold(String::new(), |s: String, n: i32| s + &n.to_string());
+    let mut ans: i32 = 0;
 
-    for c in s.chars(){
-        if c == '7'{
-        ans += 1;
+    for c in s.chars() {
+        if c == '7' {
+            ans += 1;
         }
     }
     return ans;
@@ -38,7 +43,6 @@ fn fizz_buzz(n:i32) -> i32{
 #[cfg(test)]
 mod tests {
     use super::*;
-
 
     #[test]
     fn test_fizz_buzz() {
@@ -51,5 +55,4 @@ mod tests {
         assert!(fizz_buzz(10000) == 639);
         assert!(fizz_buzz(100000) == 8026);
     }
-
 }

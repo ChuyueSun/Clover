@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -13,26 +11,31 @@ fn main(){
     in their trajectory as if they did not collide.
 
     This function outputs the number of such collisions.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn car_race_collision(n:i32)-> i32{
-
-
-    return n*n;
+fn car_race_collision(n: i32) -> i32 {
+    return n * n;
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
- #[test]
+    #[test]
     fn test_car_race_collision() {
         assert!(car_race_collision(2) == 4);
         assert!(car_race_collision(3) == 9);
@@ -40,5 +43,4 @@ mod tests {
         assert!(car_race_collision(8) == 64);
         assert!(car_race_collision(10) == 100);
     }
-
 }

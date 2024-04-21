@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Write a function that accepts a list of strings as a parameter,
@@ -13,18 +11,23 @@ Write a function that accepts a list of strings as a parameter,
     If two words have the same length, sort the list alphabetically.
     The function should return a list of strings in sorted order.
     You may assume that all words will have the same length.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn sorted_list_sum(lst: Vec<&str>) -> Vec<&str> {
-
-
     let mut out: Vec<&str> = Vec::new();
     for i in 0..lst.len() {
         if lst[i].len() % 2 == 0 {
@@ -48,7 +51,7 @@ fn sorted_list_sum(lst: Vec<&str>) -> Vec<&str> {
 mod tests {
     use super::*;
 
-   #[test]
+    #[test]
     fn test_sorted_list_sum() {
         assert_eq!(sorted_list_sum(vec!["aa", "a", "aaa"]), vec!["aa"]);
         assert_eq!(
@@ -71,5 +74,4 @@ mod tests {
             vec!["cc", "dd", "aaaa", "bbbb"]
         );
     }
-
 }

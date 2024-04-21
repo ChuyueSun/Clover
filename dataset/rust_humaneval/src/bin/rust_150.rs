@@ -1,22 +1,25 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
-A simple program which should return the value of x if n is 
+A simple program which should return the value of x if n is
     a prime number and should return the value of y otherwise.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn x_or_y(n: i32, x: i32, y: i32) -> i32 {
-
-
     let mut isp = true;
     if n < 2 {
         isp = false;
@@ -49,5 +52,4 @@ mod tests {
         assert_eq!(x_or_y(1, 2, 0), 0);
         assert_eq!(x_or_y(2, 2, 0), 2);
     }
-
 }

@@ -1,35 +1,38 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
  Filter given list of any python values only for integers
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn filter_integers(values: Vec<Box<dyn Any>>) -> Vec<i32> {
-
-
-        let mut out: Vec<i32> = Vec::new();
-        for value in values {
-            if let Some(i) = value.downcast_ref::<i32>() {
-                out.push(*i);
-            }
+    let mut out: Vec<i32> = Vec::new();
+    for value in values {
+        if let Some(i) = value.downcast_ref::<i32>() {
+            out.push(*i);
         }
-        out
     }
+    out
+}
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
- #[test]
+    #[test]
     fn test_filter_integers() {
         assert_eq!(filter_integers(vec![]), vec![]);
         let v_empty: Vec<Box<dyn Any>> = vec![];
@@ -55,5 +58,4 @@ mod tests {
             vec![3, 3, 3]
         );
     }
-
 }

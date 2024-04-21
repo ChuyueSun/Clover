@@ -1,35 +1,37 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Given list of integers, return list in strange order.
     Strange sorting, is when you start with the minimum value,
     then maximum of the remaining integers, then minimum and so on.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn strange_sort_list(lst: Vec<i32>) -> Vec<i32>{
+fn strange_sort_list(lst: Vec<i32>) -> Vec<i32> {
+    let mut cp: Vec<i32> = lst.clone();
+    let mut res: Vec<i32> = vec![];
 
-
-    let mut cp:Vec<i32> = lst.clone();
-    let mut res:Vec<i32> = vec![];
-
-    for (indx, _) in lst.iter().enumerate(){
-        if indx%2 == 1 {
-            let max:i32 = *cp.iter().max().unwrap();
+    for (indx, _) in lst.iter().enumerate() {
+        if indx % 2 == 1 {
+            let max: i32 = *cp.iter().max().unwrap();
             res.push(max);
             cp.remove(cp.iter().position(|x| *x == max).unwrap());
-        }
-        else{
-            let min:i32 = *cp.iter().min().unwrap();
+        } else {
+            let min: i32 = *cp.iter().min().unwrap();
             res.push(min);
             cp.remove(cp.iter().position(|x| *x == min).unwrap());
         }
@@ -41,7 +43,7 @@ fn strange_sort_list(lst: Vec<i32>) -> Vec<i32>{
 mod tests {
     use super::*;
 
-#[test]
+    #[test]
     fn test_strange_sort_list() {
         assert!(strange_sort_list(vec![1, 2, 3, 4]) == vec![1, 4, 2, 3]);
         assert!(strange_sort_list(vec![5, 6, 7, 8, 9]) == vec![5, 9, 6, 8, 7]);
@@ -55,5 +57,4 @@ mod tests {
         );
         assert!(strange_sort_list(vec![111111]) == vec![111111]);
     }
-
 }

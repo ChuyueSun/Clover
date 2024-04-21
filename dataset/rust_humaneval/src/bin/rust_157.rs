@@ -1,25 +1,28 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Given the lengths of the three sides of a triangle. Return True if the three
     sides form a right-angled triangle, False otherwise.
-    A right-angled triangle is a triangle in which one angle is right angle or 
+    A right-angled triangle is a triangle in which one angle is right angle or
     90 degree.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn right_angle_triangle(a: f32, b: f32, c: f32) -> bool {
-
-
     if (a * a + b * b - c * c).abs() < 1e-4
         || (a * a + c * c - b * b).abs() < 1e-4
         || (b * b + c * c - a * a).abs() < 1e-4
@@ -47,5 +50,4 @@ mod tests {
         assert_eq!(right_angle_triangle(1.0, 1.0, 1.0), false);
         assert_eq!(right_angle_triangle(2.0, 2.0, 10.0), false);
     }
-
 }

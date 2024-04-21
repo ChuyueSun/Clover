@@ -1,21 +1,24 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 You are given 2 words. You need to return True if the second word or any of its rotations is a substring in the first word
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn cycpattern_check(a: &str, b: &str) -> bool {
-
-
     for i in 0..b.len() {
         let rotate = format!("{}{}", &b[i..], &b[..i]);
         if a.contains(&rotate) {
@@ -24,7 +27,6 @@ fn cycpattern_check(a: &str, b: &str) -> bool {
     }
     false
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -39,5 +41,4 @@ mod tests {
         assert_eq!(cycpattern_check("abab", "aabb"), false);
         assert_eq!(cycpattern_check("winemtt", "tinem"), true);
     }
-
 }

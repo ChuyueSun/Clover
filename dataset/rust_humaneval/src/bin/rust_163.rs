@@ -1,23 +1,26 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Given two positive integers a and b, return the even digits between a
     and b, in ascending order.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn generate_integers(a: i32, b: i32) -> Vec<i32> {
-
-
     let mut a = a;
     let mut b = b;
     let mut m;
@@ -48,5 +51,4 @@ mod tests {
         assert_eq!(generate_integers(132, 2), vec![2, 4, 6, 8]);
         assert_eq!(generate_integers(17, 89), vec![]);
     }
-
 }

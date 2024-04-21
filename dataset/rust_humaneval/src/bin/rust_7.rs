@@ -1,28 +1,36 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
  Filter an input list of strings only for ones that contain given substring
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn filter_by_substring(strings: Vec<String>, substring:String) -> Vec<String>{
-
-    return strings.iter().filter(|x:&&String| x.contains(&substring)).map(String::from).collect();
+fn filter_by_substring(strings: Vec<String>, substring: String) -> Vec<String> {
+    return strings
+        .iter()
+        .filter(|x: &&String| x.contains(&substring))
+        .map(String::from)
+        .collect();
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
- #[test]
+    #[test]
     fn test_filter_by_substring() {
         let v_empty: Vec<String> = vec![];
         assert!(filter_by_substring(vec![], String::from("john")) == v_empty);
@@ -64,5 +72,4 @@ mod tests {
             ) == ["grunt", "prune"]
         );
     }
-
 }

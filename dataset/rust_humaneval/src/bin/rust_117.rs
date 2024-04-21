@@ -1,25 +1,28 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
-Given a string s and a natural number n, you have been tasked to implement 
-    a function that returns a list of all words from string s that contain exactly 
+Given a string s and a natural number n, you have been tasked to implement
+    a function that returns a list of all words from string s that contain exactly
     n consonants, in order these words appear in the string s.
     If the string s is empty then the function should return an empty list.
     Note: you may assume the input string contains only letters and spaces.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn select_words(s:&str, n:i32) -> Vec<String>{
-
-
+fn select_words(s: &str, n: i32) -> Vec<String> {
     let vowels = "aeiouAEIOU";
     let mut current = String::new();
     let mut out = Vec::new();
@@ -65,5 +68,4 @@ mod tests {
         assert_eq!(select_words("", 4), v_empty);
         assert_eq!(select_words("a b c d e f", 1), vec!["b", "c", "d", "f"]);
     }
-
 }

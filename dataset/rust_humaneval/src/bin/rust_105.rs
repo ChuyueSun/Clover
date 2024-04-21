@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Given an array of integers, sort the integers that are between 1 and 9 inclusive,
     reverse the resulting array, and then replace each digit by its corresponding name from
     "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine".
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn by_length(arr:Vec<i32>) -> Vec<String>{
-
-
+fn by_length(arr: Vec<i32>) -> Vec<String> {
     let mut res: Vec<String> = vec![];
     let mut arr_cp: Vec<i32> = arr.clone();
     arr_cp.sort();
@@ -61,5 +64,4 @@ mod tests {
         assert!(by_length(vec![1, -1, 3, 2]) == vec!["Three", "Two", "One"]);
         assert!(by_length(vec![9, 4, 8]) == vec!["Nine", "Eight", "Four"]);
     }
-
 }

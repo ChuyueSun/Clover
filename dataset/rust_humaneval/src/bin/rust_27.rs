@@ -1,29 +1,41 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
  For a given string, flip lowercase characters to uppercase and uppercase to lowercase.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-pub fn flip_case(string: String) -> String{
-
-
-    return string.chars().into_iter().fold(String::new(), |res:String, c:char| {if c.is_ascii_lowercase(){return res + &c.to_uppercase().to_string();}else{return res + &c.to_ascii_lowercase().to_string();}});
+pub fn flip_case(string: String) -> String {
+    return string
+        .chars()
+        .into_iter()
+        .fold(String::new(), |res: String, c: char| {
+            if c.is_ascii_lowercase() {
+                return res + &c.to_uppercase().to_string();
+            } else {
+                return res + &c.to_ascii_lowercase().to_string();
+            }
+        });
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-#[test]
+    #[test]
     fn test_flip_case() {
         assert!(flip_case("".to_string()) == "".to_string());
         assert!(flip_case("Hello!".to_string()) == "hELLO!".to_string());
@@ -32,5 +44,4 @@ mod tests {
                 == "tHESE VIOLENT DELIGHTS HAVE VIOLENT ENDS".to_string()
         );
     }
-
 }

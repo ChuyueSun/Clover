@@ -1,21 +1,24 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Given a non-empty list of integers lst. add the even elements that are at odd indices..
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn add_even_odd(lst: Vec<i32>) -> i32{
-
-
+fn add_even_odd(lst: Vec<i32>) -> i32 {
     let mut sum: i32 = 0;
 
     for (indx, elem) in lst.iter().enumerate() {
@@ -39,6 +42,4 @@ mod tests {
         assert!(add_even_odd(vec![4, 0, 6, 7]) == 0);
         assert!(add_even_odd(vec![4, 4, 6, 8]) == 12);
     }
-
-
 }

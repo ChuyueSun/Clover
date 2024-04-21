@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 In this problem, you will implement a function that takes two lists of numbers,
@@ -12,18 +10,23 @@ In this problem, you will implement a function that takes two lists of numbers,
     Otherwise, return "NO".
 
     It is assumed that the input lists will be non-empty.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn exchange(lst1:Vec<i32>, lst2:Vec<i32>) -> String{
-
-
+fn exchange(lst1: Vec<i32>, lst2: Vec<i32>) -> String {
     let mut num = 0;
     for i in 0..lst1.len() {
         if lst1[i] % 2 == 0 {
@@ -55,5 +58,4 @@ mod tests {
         assert!(exchange(vec![3, 2, 6, 1, 8, 9], vec![3, 5, 5, 1, 1, 1]) == "NO");
         assert!(exchange(vec![100, 200], vec![200, 200]) == "YES");
     }
-
 }

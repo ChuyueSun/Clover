@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
-Given a list of positive integers x. return a sorted list of all 
+Given a list of positive integers x. return a sorted list of all
     elements that hasn't any even digit.
 
     Note: Returned list should be sorted in increasing order.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn unique_digits(x:Vec<i32>) -> Vec<i32>{
-
-
+fn unique_digits(x: Vec<i32>) -> Vec<i32> {
     let mut res: Vec<i32> = vec![];
     for (_, elem) in x.into_iter().enumerate() {
         let mut elem_cp: i32 = elem;
@@ -51,5 +54,4 @@ mod tests {
         assert!(unique_digits(vec![12345, 2033, 111, 151]) == vec![111, 151]);
         assert!(unique_digits(vec![135, 103, 31]) == vec![31, 135]);
     }
-
 }

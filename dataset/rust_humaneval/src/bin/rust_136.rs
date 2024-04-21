@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -8,18 +6,23 @@ fn main(){
     the largest of negative integers, and 'b' is the smallest
     of positive integers in a list.
     If there is no negative or positive integers, return them as None.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn largest_smallest_integers(lst: Vec<i32>) -> Vec<i32> {
-
-
     let mut maxneg = 0;
     let mut minpos = 0;
     for i in 0..lst.len() {
@@ -75,5 +78,4 @@ mod tests {
             vec![-3, 1]
         );
     }
-
 }

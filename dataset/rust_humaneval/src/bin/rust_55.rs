@@ -1,29 +1,32 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Return n-th Fibonacci number.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn fib(n:i32) -> i32{
-
-
-    if n == 0{
+fn fib(n: i32) -> i32 {
+    if n == 0 {
         return 0;
     }
-    if n == 1{
+    if n == 1 {
         return 1;
     }
 
-    return fib(n-1) + fib(n-2);
+    return fib(n - 1) + fib(n - 2);
 }
 
 #[cfg(test)]
@@ -38,5 +41,4 @@ mod tests {
         assert!(fib(11) == 89);
         assert!(fib(12) == 144);
     }
-
 }

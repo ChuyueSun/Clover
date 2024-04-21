@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Given a positive integer, obtain its roman numeral equivalent as a string,
     and return it in lowercase.
     Restrictions: 1 <= num <= 1000
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn int_to_mini_romank(number: i32) -> String {
-
-
     let mut current = String::new();
     let mut number = number;
     let rep = vec![
@@ -59,5 +62,4 @@ mod tests {
         assert_eq!(int_to_mini_romank(994), "cmxciv");
         assert_eq!(int_to_mini_romank(1000), "m");
     }
-
 }

@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Given a list of numbers, return whether or not they are sorted
     in ascending order. If list has more than 1 duplicate of the same
     number, return False. Assume no negative numbers and only integers.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn is_sorted(lst: Vec<i32>) -> bool {
-
-
     for i in 1..lst.len() {
         if lst[i] < lst[i - 1] {
             return false;
@@ -50,6 +53,4 @@ mod tests {
         assert_eq!(is_sorted(vec![1, 2, 2, 3, 3, 4]), true);
         assert_eq!(is_sorted(vec![1, 2, 3, 4]), true);
     }
-
-
 }

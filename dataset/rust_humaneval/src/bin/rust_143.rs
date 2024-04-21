@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -13,18 +11,23 @@ fn main(){
     Constraints:
         * 1 <= len(sentence) <= 100
         * sentence contains only letters
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn words_in_sentence(sentence: &str) -> String {
-
-
     let mut out = String::new();
     let mut current = String::new();
     let mut sentence = sentence.to_string();
@@ -74,5 +77,4 @@ mod tests {
         assert_eq!(words_in_sentence("here"), "");
         assert_eq!(words_in_sentence("here is"), "is");
     }
-
 }

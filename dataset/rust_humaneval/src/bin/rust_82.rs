@@ -1,22 +1,25 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Write a function that takes a string and returns True if the string
     length is a prime number or False otherwise
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn prime_length(str:&str) -> bool{
-
-
+fn prime_length(str: &str) -> bool {
     let l: usize = str.len();
     if l == 0 || l == 1 {
         return false;
@@ -53,5 +56,4 @@ mod tests {
         assert!(prime_length("M") == false);
         assert!(prime_length("0") == false);
     }
-
 }

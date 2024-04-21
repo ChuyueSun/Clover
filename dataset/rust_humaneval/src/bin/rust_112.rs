@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Task
@@ -8,18 +6,23 @@ Task
     then check if the result string is palindrome.
     A string is called palindrome if it reads the same backward as forward.
     You should return a tuple containing the result string and True/False for the check.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn reverse_delete(s:&str, c:&str) -> Vec<String> {
-
-
+fn reverse_delete(s: &str, c: &str) -> Vec<String> {
     let mut n = String::new();
     for i in 0..s.len() {
         if !c.contains(s.chars().nth(i).unwrap()) {
@@ -52,5 +55,4 @@ mod tests {
         assert!(reverse_delete("vabba", "v") == ["abba", "True"]);
         assert!(reverse_delete("mamma", "mia") == ["", "True"]);
     }
-
 }

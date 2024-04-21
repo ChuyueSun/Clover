@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Create a function encrypt that takes a string as an argument and
-    returns a string encrypted with the alphabet being rotated. 
-    The alphabet should be rotated in a manner such that the letters 
+    returns a string encrypted with the alphabet being rotated.
+    The alphabet should be rotated in a manner such that the letters
     shift down by two multiplied to two places.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn encrypt(s:&str) -> String{
-
-
+fn encrypt(s: &str) -> String {
     let d: Vec<char> = "abcdefghijklmnopqrstuvwxyz"
         .to_string()
         .chars()
@@ -55,5 +58,4 @@ mod tests {
         );
         assert!(encrypt("a") == "e");
     }
-
 }

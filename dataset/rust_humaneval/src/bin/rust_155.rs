@@ -1,21 +1,24 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Given an integer. return a tuple that has the number of even and odd digits respectively.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn even_odd_count(num: i32) -> Vec<i32> {
-
-
     let w = num.abs().to_string();
     let mut n1 = 0;
     let mut n2 = 0;
@@ -44,5 +47,4 @@ mod tests {
         assert_eq!(even_odd_count(-45347), vec![2, 3]);
         assert_eq!(even_odd_count(0), vec![1, 0]);
     }
-
 }

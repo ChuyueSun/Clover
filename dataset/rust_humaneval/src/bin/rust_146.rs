@@ -1,23 +1,26 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
-Write a function that takes an array of numbers as input and returns 
-    the number of elements in the array that are greater than 10 and both 
+Write a function that takes an array of numbers as input and returns
+    the number of elements in the array that are greater than 10 and both
     first and last digits of a number are odd (1, 3, 5, 7, 9).
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn special_filter(nums: Vec<i32>) -> i32 {
-
-
     let mut num = 0;
     for i in 0..nums.len() {
         if nums[i] > 10 {
@@ -46,5 +49,4 @@ mod tests {
         assert_eq!(special_filter(vec![1]), 0);
         assert_eq!(special_filter(vec![]), 0);
     }
-
 }

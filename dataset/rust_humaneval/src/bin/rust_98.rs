@@ -1,22 +1,25 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Given a string s, count the number of uppercase vowels in even indices.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn count_upper(s:&str) -> i32 {
-
-
+fn count_upper(s: &str) -> i32 {
     let uvowel: &str = "AEIOU";
     let mut count: i32 = 0;
 
@@ -44,5 +47,4 @@ mod tests {
         assert!(count_upper("") == 0);
         assert!(count_upper("EEEE") == 2);
     }
-
 }

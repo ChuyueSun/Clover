@@ -1,23 +1,26 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Write a function that returns true if the given number is the multiplication of 3 prime numbers
     and false otherwise.
     Knowing that (a) is less then 100.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn is_multiply_prime(a: i32) -> bool {
-
-
     let mut a1 = a;
     let mut num = 0;
     for i in 2..a {
@@ -49,5 +52,4 @@ mod tests {
         assert!(is_multiply_prime(11 * 9 * 9) == false);
         assert!(is_multiply_prime(11 * 13 * 7) == true);
     }
-
 }

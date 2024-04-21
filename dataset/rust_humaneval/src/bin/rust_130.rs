@@ -1,9 +1,7 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
-Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in 
+Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in
     the last couple centuries. However, what people don't know is Tribonacci sequence.
     Tribonacci sequence is defined by the recurrence:
     tri(1) = 3
@@ -13,21 +11,26 @@ Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in
     tri(2) = 1 + (2 / 2) = 2
     tri(4) = 3
     tri(3) = tri(2) + tri(1) + tri(4)
-           = 2 + 3 + 3 = 8 
-    You are given a non-negative integer number n, you have to a return a list of the 
+           = 2 + 3 + 3 = 8
+    You are given a non-negative integer number n, you have to a return a list of the
     first n + 1 numbers of the Tribonacci sequence.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn tri(n: i32) -> Vec<i32> {
-
-
     let mut out = vec![1, 3];
     if n == 0 {
         return vec![1];
@@ -62,5 +65,4 @@ mod tests {
         assert!(tri(0) == vec![1]);
         assert!(tri(1) == vec![1, 3]);
     }
-
 }

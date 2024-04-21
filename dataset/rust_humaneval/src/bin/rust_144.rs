@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Your task is to implement a function that will simplify the expression
@@ -9,18 +7,23 @@ Your task is to implement a function that will simplify the expression
     <numerator>/<denominator> where both numerator and denominator are positive whole numbers.
 
     You can assume that x, and n are valid fractions, and do not have zero as denominator.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn simplify(x: &str, n: &str) -> bool {
-
-
     let mut a = 0;
     let mut b = 0;
     let mut c = 0;
@@ -84,5 +87,4 @@ mod tests {
         assert_eq!(simplify("1/5", "5/1"), true);
         assert_eq!(simplify("1/5", "1/5"), false);
     }
-
 }

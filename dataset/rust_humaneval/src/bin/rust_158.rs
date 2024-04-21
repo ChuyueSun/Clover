@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Write a function that accepts a list of strings.
     The list contains different words. Return the word with maximum number
     of unique characters. If multiple strings have maximum number of unique
     characters, return the one which comes first in lexicographical order.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn find_max(words: Vec<&str>) -> &str {
-
-
     let mut max = "";
     let mut maxu = 0;
     for i in 0..words.len() {
@@ -56,5 +59,4 @@ mod tests {
         assert_eq!(find_max(vec!["b"]), "b");
         assert_eq!(find_max(vec!["play", "play", "play"]), "play");
     }
-
 }

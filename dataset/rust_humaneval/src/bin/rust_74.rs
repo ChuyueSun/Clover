@@ -1,25 +1,28 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
-    Write a function that accepts two lists of strings and returns the list that has 
+    Write a function that accepts two lists of strings and returns the list that has
     total number of chars in the all strings of the list less than the other list.
 
     if the two lists have the same number of chars, return the first list.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn total_match(lst1:Vec<&str>, lst2:Vec<&str>) -> Vec<String>{
-
-
+fn total_match(lst1: Vec<&str>, lst2: Vec<&str>) -> Vec<String> {
     let total_1: usize = lst1
         .iter()
         .fold(0, |acc: usize, str: &&str| acc + str.chars().count());
@@ -54,5 +57,4 @@ mod tests {
         assert!(total_match(vec![], vec!["this"]) == v_empty);
         assert!(total_match(vec!["this"], vec![]) == v_empty);
     }
-
 }

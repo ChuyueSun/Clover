@@ -1,21 +1,24 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Return True if all numbers in the list l are below threshold t.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn below_threshold(l: Vec<i32>, t: i32) -> bool { 
-
-
+fn below_threshold(l: Vec<i32>, t: i32) -> bool {
     for i in l {
         if i >= t {
             return false;
@@ -37,5 +40,4 @@ mod tests {
         assert!(below_threshold(vec![1, 8, 4, 10], 11));
         assert!(!below_threshold(vec![1, 8, 4, 10], 10));
     }
-
 }

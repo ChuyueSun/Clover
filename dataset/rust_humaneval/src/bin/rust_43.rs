@@ -1,27 +1,30 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     pairs_sum_to_zero takes a list of integers as an input.
     it returns True if there are two distinct elements in the list that
     sum to zero, and False otherwise.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn pairs_sum_to_zero(l:Vec<i32>) -> bool{
-
-
-    for (i, l1) in l.iter().enumerate(){
-        for j in i + 1.. l.len(){
-            if l1 + l[j] == 0{
+fn pairs_sum_to_zero(l: Vec<i32>) -> bool {
+    for (i, l1) in l.iter().enumerate() {
+        for j in i + 1..l.len() {
+            if l1 + l[j] == 0 {
                 return true;
             }
         }
@@ -46,5 +49,4 @@ mod tests {
         assert!(pairs_sum_to_zero(vec![-3, 9, -1, 4, 2, 30]) == false);
         assert!(pairs_sum_to_zero(vec![-3, 9, -1, 4, 2, 31]) == false);
     }
-
 }

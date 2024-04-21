@@ -1,23 +1,26 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Given a positive integer n, return the count of the numbers of n-digit
     positive integers that start or end with 1.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn starts_one_ends(n:i32) -> i32{
-
-
+fn starts_one_ends(n: i32) -> i32 {
     if n == 1 {
         return 1;
     };
@@ -36,5 +39,4 @@ mod tests {
         assert!(starts_one_ends(4) == 1800);
         assert!(starts_one_ends(5) == 18000);
     }
-
 }

@@ -1,40 +1,42 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Circular shift the digits of the integer x, shift the digits right by shift
     and return the result as a string.
     If shift > number of digits, return digits reversed.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn circular_shift(x:i32, shift:i32) -> String{
+fn circular_shift(x: i32, shift: i32) -> String {
+    let mut xcp: Vec<char> = x.to_string().chars().into_iter().collect();
+    let mut res: Vec<char> = x.to_string().chars().into_iter().collect();
 
-
-    let mut xcp:Vec<char> = x.to_string().chars().into_iter().collect();
-    let mut res:Vec<char> = x.to_string().chars().into_iter().collect();
-
-    for (indx,c) in xcp.iter().enumerate(){
-    let despl =  (indx as i32 + shift) % x.to_string().len() as i32;
-    replace(&mut res[despl as usize], *c);
+    for (indx, c) in xcp.iter().enumerate() {
+        let despl = (indx as i32 + shift) % x.to_string().len() as i32;
+        replace(&mut res[despl as usize], *c);
     }
 
-   return res.into_iter().collect();
-
+    return res.into_iter().collect();
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
- #[test]
+    #[test]
     fn test_circular_shift() {
         assert!(circular_shift(100, 2) == "001");
         assert!(circular_shift(12, 8) == "12");
@@ -43,5 +45,4 @@ mod tests {
         assert!(circular_shift(12, 1) == "21");
         assert!(circular_shift(11, 101) == "11");
     }
-
 }

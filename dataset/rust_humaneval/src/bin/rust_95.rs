@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
-    Given a dictionary, return True if all keys are strings in lower 
+    Given a dictionary, return True if all keys are strings in lower
     case or all keys are strings in upper case, else return False.
     The function should return False is the given dictionary is empty.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn check_dict_case(dict:HashMap<&str, &str>) -> bool{
-
-
+fn check_dict_case(dict: HashMap<&str, &str>) -> bool {
     if dict.is_empty() {
         return false;
     }
@@ -66,5 +69,4 @@ mod tests {
         assert!(check_dict_case(HashMap::from([("fruit", "Orange"), ("taste", "Sweet")])) == true);
         assert!(check_dict_case(HashMap::new()) == false);
     }
-
 }

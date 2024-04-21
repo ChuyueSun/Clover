@@ -1,27 +1,30 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
-You are given a word. Your task is to find the closest vowel that stands between 
+You are given a word. Your task is to find the closest vowel that stands between
     two consonants from the right side of the word (case sensitive).
-    
+
     Vowels in the beginning and ending doesn't count. Return empty string if you didn't
-    find any vowel met the above condition. 
+    find any vowel met the above condition.
 
     You may assume that the given string contains English letter only.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn get_closest_vowel(word: &str) -> String {
-
-
     let vowels = "AEIOUaeiou";
     let mut out = "".to_string();
     for i in (1..word.len() - 1).rev() {
@@ -57,5 +60,4 @@ mod tests {
         assert_eq!(get_closest_vowel("Asia"), "");
         assert_eq!(get_closest_vowel("Above"), "o");
     }
-
 }

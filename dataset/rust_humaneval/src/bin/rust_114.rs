@@ -1,23 +1,26 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Given an array of integers nums, find the minimum sum of any non-empty sub-array
     of nums.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn min_sub_array_sum(nums: Vec<i64>) -> i64 {
-
-
     let mut current = nums[0];
     let mut min = nums[0];
     for i in 1..nums.len() {
@@ -52,5 +55,4 @@ mod tests {
         assert!(min_sub_array_sum(vec![7]) == 7);
         assert!(min_sub_array_sum(vec![1, -1]) == -1);
     }
-
 }

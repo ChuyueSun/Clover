@@ -1,27 +1,30 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Given a positive integer N, return the total sum of its digits in binary.
-    
+
     Variables:
         @N integer
              Constraints: 0 ≤ N ≤ 10000.
     Output:
          a string of binary number
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn solve(n:i32) -> String{
-
-
+fn solve(n: i32) -> String {
     let sum: i32 = n
         .to_string()
         .chars()
@@ -42,5 +45,4 @@ mod tests {
         assert!(solve(333) == "1001");
         assert!(solve(963) == "10010");
     }
-
 }

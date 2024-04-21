@@ -1,23 +1,26 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Given a string representing a space separated lowercase letters, return a dictionary
     of the letter with the most repetition and containing the corresponding count.
     If several letters have the same occurrence, return all of them.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn histogram(test:&str) -> HashMap<char, i32>{
-
-
+fn histogram(test: &str) -> HashMap<char, i32> {
     let mut res: HashMap<char, i32> = HashMap::new();
     if test == "" {
         return res;
@@ -62,5 +65,4 @@ mod tests {
         assert!(histogram("") == HashMap::new());
         assert!(histogram("a") == HashMap::from([(('a', 1))]));
     }
-
 }

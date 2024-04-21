@@ -1,22 +1,25 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     prime_fib returns n-th number that is a Fibonacci number and it's also prime.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn prime_fib(n: i32) -> i32 {
-
-
     let mut f1 = 1;
     let mut f2 = 2;
     let mut count = 0;
@@ -46,7 +49,7 @@ fn prime_fib(n: i32) -> i32 {
 mod tests {
     use super::*;
 
-#[test]
+    #[test]
     fn test_prime_fib() {
         assert_eq!(prime_fib(1), 2);
         assert_eq!(prime_fib(2), 3);
@@ -59,5 +62,4 @@ mod tests {
         assert_eq!(prime_fib(9), 514229);
         assert_eq!(prime_fib(10), 433494437);
     }
-
 }

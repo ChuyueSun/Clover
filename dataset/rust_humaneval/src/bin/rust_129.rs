@@ -1,10 +1,8 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
-    Given a grid with N rows and N columns (N >= 2) and a positive integer k, 
+    Given a grid with N rows and N columns (N >= 2) and a positive integer k,
     each cell of the grid contains a value. Every integer in the range [1, N * N]
     inclusive appears exactly once on the cells of the grid.
 
@@ -23,18 +21,23 @@ fn main(){
     lst_A[j] = lst_B[j].
     It is guaranteed that the answer is unique.
     Return an ordered list of the values on the cells that the minimum path go through.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn min_path(grid: Vec<Vec<i32>>, k: i32) -> Vec<i32> {
-
-
     let mut out: Vec<i32> = vec![];
     let mut x = 0;
     let mut y = 0;
@@ -164,5 +167,4 @@ mod tests {
             vec![1, 3, 1, 3, 1, 3, 1, 3, 1, 3]
         );
     }
-
 }

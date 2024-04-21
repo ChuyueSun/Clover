@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 The FibFib number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:
@@ -9,34 +7,38 @@ The FibFib number sequence is a sequence similar to the Fibbonacci sequnece that
     fibfib(2) == 1
     fibfib(n) == fibfib(n-1) + fibfib(n-2) + fibfib(n-3).
     Please write a function to efficiently compute the n-th element of the fibfib number sequence.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn fibfib(n:i32) -> i32{
-
-
-    if n == 0 || n == 1{
+fn fibfib(n: i32) -> i32 {
+    if n == 0 || n == 1 {
         return 0;
     }
-    if n == 2{
+    if n == 2 {
         return 1;
     }
 
-    return fibfib(n-1) + fibfib(n-2) + fibfib(n-3);
-
+    return fibfib(n - 1) + fibfib(n - 2) + fibfib(n - 3);
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
- #[test]
+    #[test]
     fn test_fibfib() {
         assert!(fibfib(2) == 1);
         assert!(fibfib(1) == 0);
@@ -46,5 +48,4 @@ mod tests {
         assert!(fibfib(12) == 274);
         assert!(fibfib(14) == 927);
     }
-
 }

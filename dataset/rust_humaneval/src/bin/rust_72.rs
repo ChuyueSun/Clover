@@ -1,23 +1,26 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Write a function that returns True if the object q will fly, and False otherwise.
     The object q will fly if it's balanced (it is a palindromic list) and the sum of its elements is less than or equal the maximum possible weight w.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn will_it_fly(q:Vec<i32>, w:i32) -> bool{
-
-
+fn will_it_fly(q: Vec<i32>, w: i32) -> bool {
     if q.iter().sum::<i32>() > w {
         return false;
     }
@@ -47,5 +50,4 @@ mod tests {
         assert!(will_it_fly(vec![1, 2, 3], 6) == false);
         assert!(will_it_fly(vec![5], 5) == true);
     }
-
 }

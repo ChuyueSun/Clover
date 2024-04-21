@@ -1,23 +1,26 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
  Return list of prime factors of given integer in the order from smallest to largest.
     Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
     Input number should be equal to the product of all factors
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn factorize(n: i32) -> Vec<i32> {
-
-
     let mut n = n;
     let mut factors = vec![];
     let mut divisor = 2;
@@ -38,7 +41,7 @@ fn factorize(n: i32) -> Vec<i32> {
 mod tests {
     use super::*;
 
- #[test]
+    #[test]
     fn test_factorize() {
         assert_eq!(factorize(2), vec![2]);
         assert_eq!(factorize(4), vec![2, 2]);
@@ -52,5 +55,4 @@ mod tests {
         assert_eq!(factorize(3 * 19 * 19 * 19), vec![3, 19, 19, 19]);
         assert_eq!(factorize(3 * 2 * 3), vec![2, 3, 3]);
     }
-
 }

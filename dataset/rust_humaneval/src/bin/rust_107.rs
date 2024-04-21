@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -10,18 +8,23 @@ fn main(){
     Note:
         1. 1 <= n <= 10^3
         2. returned tuple has the number of even and odd integer palindromes respectively.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn even_odd_palindrome(n: i32) -> (i32, i32) {
-
-
     let mut even = 0;
     let mut odd = 0;
 
@@ -54,5 +57,4 @@ mod tests {
         assert!(even_odd_palindrome(9) == (4, 5));
         assert!(even_odd_palindrome(1) == (0, 1));
     }
-
 }

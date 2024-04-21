@@ -1,21 +1,24 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Return 2^n modulo p (be aware of numerics).
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn modp(n: i32, p: i32) -> i32 {
-
-
     if n == 0 {
         return 1;
     } else {
@@ -37,5 +40,4 @@ mod tests {
         assert!(modp(30, 5) == 4);
         assert!(modp(31, 5) == 3);
     }
-
 }

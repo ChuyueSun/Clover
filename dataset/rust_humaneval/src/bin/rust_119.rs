@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -12,18 +10,23 @@ fn main(){
     are balanced. For example: the string '(())()' is good, while the string
     '())' is not.
     Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn match_parens(lst: Vec<&str>) -> &str {
-
-
     let l1 = lst[0].to_string() + lst[1];
     let mut count = 0;
     let mut can = true;
@@ -82,5 +85,4 @@ mod tests {
         assert_eq!(match_parens(vec!["(", ")"]), "Yes");
         assert_eq!(match_parens(vec![")", "("]), "Yes");
     }
-
 }

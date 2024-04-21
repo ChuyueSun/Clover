@@ -1,24 +1,29 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Return the largest prime factor of n. Assume n > 1 and is not a prime.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn largest_prime_factor(n:i32) -> i32{
-
-
+fn largest_prime_factor(n: i32) -> i32 {
     let mut n1 = n.clone();
-    for i in 2.. n1{
-        while n1%i == 0 && n1>i{n1 = n1/i;}
+    for i in 2..n1 {
+        while n1 % i == 0 && n1 > i {
+            n1 = n1 / i;
+        }
     }
     return n1;
 }
@@ -35,5 +40,4 @@ mod tests {
         assert!(largest_prime_factor(330) == 11);
         assert!(largest_prime_factor(13195) == 29);
     }
-
 }

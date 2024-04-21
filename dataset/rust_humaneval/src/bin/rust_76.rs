@@ -1,23 +1,26 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Your task is to write a function that returns true if a number x is a simple
     power of n and false in other cases.
     x is a simple power of n if n**int=x
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn is_simple_power(x:i32, n:i32) -> bool{
-
-
+fn is_simple_power(x: i32, n: i32) -> bool {
     let mut p: i32 = 1;
     let mut count: i32 = 0;
 
@@ -35,7 +38,7 @@ fn is_simple_power(x:i32, n:i32) -> bool{
 mod tests {
     use super::*;
 
-  #[test]
+    #[test]
     fn test_is_simple_power() {
         assert!(is_simple_power(1, 4) == true);
         assert!(is_simple_power(2, 2) == true);
@@ -54,5 +57,4 @@ mod tests {
         assert!(is_simple_power(1, 1) == true);
         assert!(is_simple_power(1, 12) == true);
     }
-
 }

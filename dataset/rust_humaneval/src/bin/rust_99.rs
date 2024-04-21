@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -13,25 +11,29 @@ fn main(){
     from two integers, the one you should return is the one that is the
     farthest from zero. For example closest_integer("14.5") should
     return 15 and closest_integer("-14.5") should return -15.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn closest_integer(value:&str) -> i32 {
-
-
+fn closest_integer(value: &str) -> i32 {
     return value.parse::<f64>().unwrap().round() as i32;
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-
 
     #[test]
     fn test_closest_integer() {
@@ -41,5 +43,4 @@ mod tests {
         assert!(closest_integer("15.3") == 15);
         assert!(closest_integer("0") == 0);
     }
-
 }

@@ -1,22 +1,25 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     remove_vowels is a function that takes string and returns string without vowels.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn remove_vowels(text: &str) -> String {
-
-
     let vowels = "AEIOUaeiou";
     let mut out = String::new();
     for c in text.chars() {
@@ -41,5 +44,4 @@ mod tests {
         assert!(remove_vowels("EcBOO") == "cB");
         assert!(remove_vowels("ybcd") == "ybcd");
     }
-
 }

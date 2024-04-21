@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -8,18 +6,23 @@ fn main(){
     the number of elements which has a sum of digits > 0.
     If a number is negative, then its first signed digit will be negative:
     e.g. -123 has signed digits -1, 2, and 3.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn count_nums(n:Vec<i32>) -> i32{
-
-
+fn count_nums(n: Vec<i32>) -> i32 {
     let mut num: i32 = 0;
 
     for nmbr in n {
@@ -58,5 +61,4 @@ mod tests {
         assert!(count_nums(vec![-0, 1]) == 1);
         assert!(count_nums(vec![1]) == 1);
     }
-
 }

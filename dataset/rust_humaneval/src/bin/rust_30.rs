@@ -1,30 +1,32 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Return only positive numbers in the list.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn get_positive(numbers:Vec<i32>) -> Vec<i32>{
-
-
+fn get_positive(numbers: Vec<i32>) -> Vec<i32> {
     return numbers.into_iter().filter(|n| n.is_positive()).collect();
-
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-  #[test]
+    #[test]
     fn test_get_positive() {
         assert!(get_positive(vec![-1, -2, 4, 5, 6]) == [4, 5, 6]);
         assert!(
@@ -33,5 +35,4 @@ mod tests {
         assert!(get_positive(vec![-1, -2]) == []);
         assert!(get_positive(vec![]) == []);
     }
-
 }

@@ -1,22 +1,25 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 You are given a list of integers.
     You need to find the largest prime value and return the sum of its digits.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn skjkasdkd(lst:Vec<i32>) -> i32{
-
-
+fn skjkasdkd(lst: Vec<i32>) -> i32 {
     let mut largest = 0;
     for i in 0..lst.len() {
         if lst[i] > largest {
@@ -72,6 +75,4 @@ mod tests {
         assert!(skjkasdkd(vec![8191, 123456, 127, 7]) == 19);
         assert!(skjkasdkd(vec![127, 97, 8192]) == 10);
     }
-
-
 }

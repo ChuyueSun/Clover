@@ -1,22 +1,25 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Implement a function that takes an non-negative integer and returns an array of the first n
     integers that are prime numbers and less than n.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn count_up_to(n:i32) -> Vec<i32> {
-
-
+fn count_up_to(n: i32) -> Vec<i32> {
     let mut primes: Vec<i32> = vec![];
 
     for i in 2..n {
@@ -39,7 +42,6 @@ fn count_up_to(n:i32) -> Vec<i32> {
 mod tests {
     use super::*;
 
-
     #[test]
     fn test_count_up_to() {
         assert!(count_up_to(5) == vec![2, 3]);
@@ -59,5 +61,4 @@ mod tests {
                 ]
         );
     }
-
 }

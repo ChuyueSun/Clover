@@ -1,28 +1,31 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
-    Given an array arr of integers and a positive integer k, return a sorted list 
+    Given an array arr of integers and a positive integer k, return a sorted list
     of length k with the maximum k numbers in arr.
 
     Note:
         1. The length of the array will be in the range of [1, 1000].
         2. The elements in the array will be in the range of [-1000, 1000].
         3. 0 <= k <= len(arr)
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn maximum_120(arr: Vec<i32>, k: i32) -> Vec<i32> {
-
-
     let mut arr = arr;
     arr.sort();
     let mut arr_res: Vec<i32> = arr.iter().rev().take(k as usize).cloned().collect();
@@ -57,5 +60,4 @@ mod tests {
         assert_eq!(maximum_120(vec![-10, 10], 2), vec![-10, 10]);
         assert_eq!(maximum_120(vec![1, 2, 3, -23, 243, -400, 0], 0), vec![]);
     }
-
 }

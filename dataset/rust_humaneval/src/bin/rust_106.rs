@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
  Implement the function f that takes n as a parameter,
@@ -8,18 +6,23 @@ fn main(){
     or the sum of numbers from 1 to i otherwise.
     i starts from 1.
     the factorial of i is the multiplication of the numbers from 1 to i (1 * 2 * ... * i).
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn f(n:i32) -> Vec<i32>{
-
-
+fn f(n: i32) -> Vec<i32> {
     let mut sum: i32 = 0;
     let mut prod: i32 = 1;
     let mut out: Vec<i32> = vec![];
@@ -48,5 +51,4 @@ mod tests {
         assert!(f(1) == vec![1]);
         assert!(f(3) == vec![1, 2, 6]);
     }
-
 }

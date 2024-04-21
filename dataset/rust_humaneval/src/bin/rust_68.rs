@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -15,25 +13,29 @@ fn main(){
     Constraints:
         * 1 <= nodes.length <= 10000
         * 0 <= node.value
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn pluck(arr:Vec<i32>) -> Vec<i32> {
+fn pluck(arr: Vec<i32>) -> Vec<i32> {
+    let mut out: Vec<i32> = vec![];
 
-
-    let mut out:Vec<i32> = vec![];
-
-    for i in 0.. arr.len(){
-        if arr[i]%2 == 0 && (out.len() == 0 || arr[i]<out[0]){
-        out = vec![arr[i], i as i32];
+    for i in 0..arr.len() {
+        if arr[i] % 2 == 0 && (out.len() == 0 || arr[i] < out[0]) {
+            out = vec![arr[i], i as i32];
         }
-       
     }
     return out;
 }
@@ -53,5 +55,4 @@ mod tests {
         assert!(pluck(vec![7, 6, 7, 1]) == vec![6, 1]);
         assert!(pluck(vec![7, 9, 7, 1]) == vec![]);
     }
-
 }

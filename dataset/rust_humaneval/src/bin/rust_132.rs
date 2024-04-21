@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Create a function that takes a string as input which contains only square brackets.
-    The function should return True if and only if there is a valid subsequence of brackets 
+    The function should return True if and only if there is a valid subsequence of brackets
     where at least one bracket in the subsequence is nested.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn is_nested(str: &str) -> bool {
-
-
     let mut count = 0;
     let mut maxcount = 0;
     for i in 0..str.len() {
@@ -62,5 +65,4 @@ mod tests {
         assert_eq!(is_nested("[[[[[[[["), false);
         assert_eq!(is_nested("]]]]]]]]"), false);
     }
-
 }

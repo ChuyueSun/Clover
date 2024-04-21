@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -9,7 +7,7 @@ fn main(){
     you should return an array of [ total number of eaten carrots after your meals,
                                     the number of carrots left after your meals ]
     if there are not enough remaining carrots, you will eat all remaining carrots, but will still be hungry.
-    
+
     Variables:
     @number : integer
         the number of carrots that you have eaten.
@@ -17,25 +15,30 @@ fn main(){
         the number of carrots that you need to eat.
     @remaining : integer
         the number of remaining carrots thet exist in stock
-    
+
     Constrain:
     * 0 <= number <= 1000
     * 0 <= need <= 1000
     * 0 <= remaining <= 1000
 
     Have fun :)
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn eat(number: i32, need: i32, remaining: i32) -> Vec<i32> {
-
-
     if need > remaining {
         return vec![number + remaining, 0];
     }
@@ -55,5 +58,4 @@ mod tests {
         assert_eq!(eat(4, 5, 7), vec![9, 2]);
         assert_eq!(eat(4, 5, 1), vec![5, 0]);
     }
-
 }

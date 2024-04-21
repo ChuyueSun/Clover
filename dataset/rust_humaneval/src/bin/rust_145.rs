@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -8,18 +6,23 @@ fn main(){
     in ascending order according to the sum of their digits.
     Note: if there are several items with similar sum of their digits,
     order them based on their index in original list.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn order_by_points(arr: Vec<i32>) -> Vec<i32> {
-
-
     let mut result = arr.clone();
     result.sort_by_key(|&x| (sum_of_digits(x)));
     result
@@ -79,5 +82,4 @@ mod tests {
             vec![-76, -21, 0, 4, 23, 6, 6]
         );
     }
-
 }

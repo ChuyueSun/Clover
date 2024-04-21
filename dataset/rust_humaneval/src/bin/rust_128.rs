@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
@@ -8,18 +6,23 @@ fn main(){
     sum of magnitudes of integers multiplied by product of all signs
     of each number in the array, represented by 1, -1 or 0.
     Note: return None for empty arr.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn prod_signs(arr: Vec<i32>) -> i32 {
-
-
     if arr.is_empty() {
         return -32768;
     }
@@ -37,7 +40,6 @@ fn prod_signs(arr: Vec<i32>) -> i32 {
     sum * prods
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -53,5 +55,4 @@ mod tests {
         assert_eq!(prod_signs(vec![-1, 1, 1, 1]), -4);
         assert_eq!(prod_signs(vec![-1, 1, 1, 0]), 0);
     }
-
 }

@@ -1,25 +1,28 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 You are given a string s.
-    if s[i] is a letter, reverse its case from lower to upper or vise versa, 
+    if s[i] is a letter, reverse its case from lower to upper or vise versa,
     otherwise keep it as it is.
     If the string contains no letters, reverse the string.
     The function should return the resulted string.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn solve_161(s: &str) -> String {
-
-
     let mut nletter = 0;
     let mut out = String::new();
     for c in s.chars() {
@@ -55,5 +58,4 @@ mod tests {
         assert_eq!(solve_161("#$a^D"), "#$A^d");
         assert_eq!(solve_161("#ccc"), "#CCC");
     }
-
 }

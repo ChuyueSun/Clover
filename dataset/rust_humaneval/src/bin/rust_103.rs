@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 You are given two positive integers n and m, and your task is to compute the
-    average of the integers from n through m (including n and m). 
+    average of the integers from n through m (including n and m).
     Round the answer to the nearest integer and convert that to binary.
     If n is greater than m, return -1.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn rounded_avg(n:i32, m:i32) -> String{
-
-
+fn rounded_avg(n: i32, m: i32) -> String {
     if n > m {
         return "-1".to_string();
     };
@@ -50,5 +53,4 @@ mod tests {
         assert!(rounded_avg(5, 1) == "-1");
         assert!(rounded_avg(5, 5) == "101");
     }
-
 }

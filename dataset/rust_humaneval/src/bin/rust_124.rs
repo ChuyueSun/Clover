@@ -1,6 +1,4 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 You have to write a function which validates a given date string and
@@ -10,18 +8,23 @@ You have to write a function which validates a given date string and
     2. The number of days is not less than 1 or higher than 31 days for months 1,3,5,7,8,10,12. And the number of days is not less than 1 or higher than 30 days for months 4,6,9,11. And, the number of days is not less than 1 or higher than 29 for the month 2.
     3. The months should not be less than 1 or higher than 12.
     4. The date should be in the format: mm-dd-yyyy
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn valid_date(date: &str) -> bool {
-
-
     let mut mm = 0;
     let mut dd = 0;
     let mut yy = 0;
@@ -79,5 +82,4 @@ mod tests {
         assert_eq!(valid_date("2003-04-12"), false);
         assert_eq!(valid_date("04-2003"), false);
     }
-
 }

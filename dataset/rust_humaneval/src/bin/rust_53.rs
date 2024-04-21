@@ -1,20 +1,23 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Add two numbers x and y
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
-fn add(x:i32, y:i32) -> i32{
-
-
+fn add(x: i32, y: i32) -> i32 {
     return x + y;
 }
 
@@ -39,5 +42,4 @@ mod tests {
             assert!(add(x, y) == x + y);
         }
     }
-
 }

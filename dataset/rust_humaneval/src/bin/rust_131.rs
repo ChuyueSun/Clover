@@ -1,22 +1,25 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 Given a positive integer n, return the product of the odd digits.
     Return 0 if all digits are even.
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn digits(n: i32) -> i32 {
-
-
     let mut prod: i32 = 1;
     let mut has = 0;
     let s = n.to_string();
@@ -46,5 +49,4 @@ mod tests {
         assert_eq!(digits(5576543), 2625);
         assert_eq!(digits(2468), 0);
     }
-
 }

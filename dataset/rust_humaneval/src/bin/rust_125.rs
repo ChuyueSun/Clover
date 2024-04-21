@@ -1,24 +1,27 @@
-
-fn main(){ 
- } 
+fn main() {}
 
 /*
 
     Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you
     should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the
     alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25
-    
+
 */
 
-use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};
+use md5;
 use rand::Rng;
 use regex::Regex;
-use md5;
 use std::any::{Any, TypeId};
+use std::{
+    ascii::AsciiExt,
+    cmp::{self, max},
+    collections::{HashMap, HashSet},
+    mem::replace,
+    ops::Index,
+    slice::Iter,
+};
 
 fn split_words(txt: &str) -> Vec<String> {
-
-
     let mut out: Vec<String> = Vec::new();
     let alphabet: HashMap<char, i32> = HashMap::from([
         ('a', 0),
@@ -88,5 +91,4 @@ mod tests {
         assert_eq!(split_words("aaaBb"), vec!["1"]);
         assert_eq!(split_words(""), vec!["0"]);
     }
-
 }
