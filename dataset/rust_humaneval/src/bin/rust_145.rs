@@ -9,19 +9,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn order_by_points(arr: Vec<i32>) -> Vec<i32> {
     let mut result = arr.clone();
     result.sort_by_key(|&x| (sum_of_digits(x)));

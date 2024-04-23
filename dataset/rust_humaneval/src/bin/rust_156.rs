@@ -8,19 +8,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn int_to_mini_romank(number: i32) -> String {
     let mut current = String::new();
     let mut number = number;

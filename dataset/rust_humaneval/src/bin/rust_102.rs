@@ -7,19 +7,6 @@ This function takes two positive numbers x and y and returns the
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn choose_num(x: i32, y: i32) -> i32 {
     if y < x {
         return -1;

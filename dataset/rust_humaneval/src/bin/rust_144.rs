@@ -10,25 +10,12 @@ Your task is to implement a function that will simplify the expression
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn simplify(x: &str, n: &str) -> bool {
     let mut a = 0;
     let mut b = 0;
     let mut c = 0;
     let mut d = 0;
-    let mut i = 0;
+    let _i = 0;
     for i in 0..x.len() {
         if x.chars().nth(i).unwrap() == '/' {
             a = x

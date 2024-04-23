@@ -6,18 +6,7 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
+use std::cmp::max;
 
 fn rolling_max(numbers: Vec<i32>) -> Vec<i32> {
     let mut running_max: Option<i32> = None;

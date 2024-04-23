@@ -16,19 +16,6 @@ You are given two intervals,
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn intersection(interval1: Vec<i32>, interval2: Vec<i32>) -> String {
     let inter1 = std::cmp::max(interval1[0], interval2[0]);
     let inter2 = std::cmp::min(interval1[1], interval2[1]);

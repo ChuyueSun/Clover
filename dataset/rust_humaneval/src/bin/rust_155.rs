@@ -5,19 +5,6 @@ Given an integer. return a tuple that has the number of even and odd digits resp
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn even_odd_count(num: i32) -> Vec<i32> {
     let w = num.abs().to_string();
     let mut n1 = 0;

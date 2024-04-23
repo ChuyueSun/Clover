@@ -6,18 +6,8 @@ fn main() {}
 
 */
 
-use md5;
 use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
+use std::ascii::AsciiExt;
 
 fn encode_shift(s: &str) -> String {
     let alphabet: Vec<&str> = vec![

@@ -14,19 +14,6 @@ You have been tasked to write a function that receives
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn hex_key(num: &str) -> i32 {
     let primes: Vec<&str> = vec!["2", "3", "5", "7", "B", "D"];
     let mut total: i32 = 0;

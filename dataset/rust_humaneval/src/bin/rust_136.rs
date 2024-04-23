@@ -9,19 +9,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn largest_smallest_integers(lst: Vec<i32>) -> Vec<i32> {
     let mut maxneg = 0;
     let mut minpos = 0;

@@ -6,19 +6,6 @@ Write a function that takes a string and returns True if the string
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn prime_length(str: &str) -> bool {
     let l: usize = str.len();
     if l == 0 || l == 1 {

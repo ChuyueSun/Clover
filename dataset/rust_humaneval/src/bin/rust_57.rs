@@ -5,19 +5,6 @@ Return True is list elements are monotonically increasing or decreasing.
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn monotonic(l: Vec<i32>) -> bool {
     let mut l1: Vec<i32> = l.clone();
     let mut l2: Vec<i32> = l.clone();

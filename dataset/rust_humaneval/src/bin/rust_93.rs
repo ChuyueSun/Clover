@@ -10,19 +10,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn encode(message: &str) -> String {
     let mut res: String = String::new();
     let v: Vec<char> = "aeiouAEIOU".to_string().chars().into_iter().collect();
@@ -32,7 +19,7 @@ fn encode(message: &str) -> String {
         .into_iter()
         .collect();
 
-    for (indx, elem) in message.chars().into_iter().enumerate() {
+    for (_indx, elem) in message.chars().into_iter().enumerate() {
         let mut c = elem.to_string();
 
         if v.contains(&elem) {

@@ -9,19 +9,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn right_angle_triangle(a: f32, b: f32, c: f32) -> bool {
     if (a * a + b * b - c * c).abs() < 1e-4
         || (a * a + c * c - b * b).abs() < 1e-4

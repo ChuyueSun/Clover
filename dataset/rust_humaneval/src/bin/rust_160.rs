@@ -21,22 +21,9 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn do_algebra(operato: Vec<&str>, operand: Vec<i32>) -> i32 {
     let mut operand: Vec<i32> = operand;
-    let mut num: Vec<i32> = vec![];
+    let _num: Vec<i32> = vec![];
     let mut posto: Vec<i32> = vec![];
     for i in 0..operand.len() {
         posto.push(i as i32);

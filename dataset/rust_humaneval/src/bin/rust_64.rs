@@ -8,19 +8,6 @@ Write a function vowels_count which takes a string representing
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn vowels_count(s: &str) -> i32 {
     let vowels: &str = "aeiouAEIOU";
     let mut count: i32 = 0;

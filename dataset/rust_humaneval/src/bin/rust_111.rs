@@ -7,18 +7,7 @@ Given a string representing a space separated lowercase letters, return a dictio
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
+use std::collections::HashMap;
 
 fn histogram(test: &str) -> HashMap<char, i32> {
     let mut res: HashMap<char, i32> = HashMap::new();

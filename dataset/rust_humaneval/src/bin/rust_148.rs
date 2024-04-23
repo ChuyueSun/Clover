@@ -14,26 +14,13 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn bf(planet1: &str, planet2: &str) -> Vec<String> {
     let planets = vec![
         "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune",
     ];
     let mut pos1: i32 = -1;
     let mut pos2: i32 = -1;
-    let mut m;
+    let m;
     for m in 0..planets.len() {
         if planets[m] == planet1 {
             pos1 = m as i32;

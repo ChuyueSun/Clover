@@ -19,19 +19,6 @@ We have an array 'arr' of N integers arr[1], arr[2], ..., arr[N].The
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn move_one_ball(arr: Vec<i32>) -> bool {
     let mut num = 0;
     if arr.len() == 0 {

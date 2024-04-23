@@ -10,19 +10,6 @@ The Brazilian factorial is defined as:
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn special_factorial(n: i32) -> i64 {
     let mut fact = 1;
     let mut bfact: i64 = 1;

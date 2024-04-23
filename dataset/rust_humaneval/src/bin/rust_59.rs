@@ -5,19 +5,6 @@ Return the largest prime factor of n. Assume n > 1 and is not a prime.
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn largest_prime_factor(n: i32) -> i32 {
     let mut n1 = n.clone();
     for i in 2..n1 {

@@ -11,24 +11,11 @@ You have to write a function which validates a given date string and
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn valid_date(date: &str) -> bool {
     let mut mm = 0;
     let mut dd = 0;
     let mut yy = 0;
-    let mut i = 0;
+    let _i = 0;
     if date.len() != 10 {
         return false;
     }

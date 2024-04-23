@@ -5,19 +5,6 @@ Return the number of times the digit 7 appears in integers less than n which are
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn fizz_buzz(n: i32) -> i32 {
     let mut ns: Vec<i32> = vec![];
 

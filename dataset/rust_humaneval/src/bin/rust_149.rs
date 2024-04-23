@@ -14,19 +14,6 @@ Write a function that accepts a list of strings as a parameter,
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn sorted_list_sum(lst: Vec<&str>) -> Vec<&str> {
     let mut out: Vec<&str> = Vec::new();
     for i in 0..lst.len() {
@@ -35,7 +22,7 @@ fn sorted_list_sum(lst: Vec<&str>) -> Vec<&str> {
         }
     }
     out.sort();
-    for i in 0..out.len() {
+    for _i in 0..out.len() {
         for j in 1..out.len() {
             if out[j].len() < out[j - 1].len() {
                 let mid = out[j];

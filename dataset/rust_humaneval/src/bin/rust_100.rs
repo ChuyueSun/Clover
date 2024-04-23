@@ -12,23 +12,10 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn make_a_pile(n: i32) -> Vec<i32> {
     let mut out: Vec<i32> = vec![n];
 
-    for i in 1..n {
+    for _i in 1..n {
         out.push(out[out.len() - 1] + 2);
     }
 

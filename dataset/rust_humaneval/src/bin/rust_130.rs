@@ -17,19 +17,6 @@ Everyone knows Fibonacci sequence, it was studied deeply by mathematicians in
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn tri(n: i32) -> Vec<i32> {
     let mut out = vec![1, 3];
     if n == 0 {

@@ -6,19 +6,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn same_chars(str1: &str, str2: &str) -> bool {
     let mut v1: Vec<char> = str1.chars().into_iter().collect();
     v1.sort();

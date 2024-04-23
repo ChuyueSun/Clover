@@ -8,19 +8,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn iscuber(a: i32) -> bool {
     let a1: f64 = i32::abs(a) as f64;
     let sqrt_3 = f64::powf(a1, 1.0 / 3.0).ceil();

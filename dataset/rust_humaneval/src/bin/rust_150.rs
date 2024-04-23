@@ -6,19 +6,6 @@ A simple program which should return the value of x if n is
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn x_or_y(n: i32, x: i32, y: i32) -> i32 {
     let mut isp = true;
     if n < 2 {

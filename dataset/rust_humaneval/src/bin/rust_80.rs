@@ -7,19 +7,6 @@ You are given a string s.
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn is_happy(s: &str) -> bool {
     let str: Vec<char> = s.chars().into_iter().collect();
     if str.len() < 3 {

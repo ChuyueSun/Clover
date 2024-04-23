@@ -9,19 +9,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn get_matrix_triples(n: i32) -> i32 {
     let mut a = vec![];
     let mut sum = vec![vec![0, 0, 0]];
@@ -33,7 +20,7 @@ fn get_matrix_triples(n: i32) -> i32 {
         sum[i as usize][a[i as usize - 1] as usize] += 1;
     }
 
-    for times in 1..3 {
+    for _times in 1..3 {
         for i in 1..=n {
             sum2.push(sum2[sum2.len() - 1].clone());
             if i >= 1 {

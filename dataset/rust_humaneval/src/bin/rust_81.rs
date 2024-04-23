@@ -23,22 +23,9 @@ It is the last week of the semester and the teacher has to give the grades
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn numerical_letter_grade(grades: Vec<f64>) -> Vec<String> {
     let mut res: Vec<String> = vec![];
-    for (i, gpa) in grades.iter().enumerate() {
+    for (_i, gpa) in grades.iter().enumerate() {
         if gpa == &4.0 {
             res.push("A+".to_string());
         } else if gpa > &3.7 {

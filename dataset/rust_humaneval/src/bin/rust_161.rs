@@ -9,18 +9,7 @@ You are given a string s.
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
+use std::ascii::AsciiExt;
 
 fn solve_161(s: &str) -> String {
     let mut nletter = 0;

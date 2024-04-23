@@ -8,19 +8,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn sort_array_1(arr: Vec<i32>) -> Vec<i32> {
     let mut arr_cp = arr.clone();
     let mut bin = vec![];
@@ -35,7 +22,7 @@ fn sort_array_1(arr: Vec<i32>) -> Vec<i32> {
         }
         bin.push(b);
     }
-    for i in 0..arr_cp.len() {
+    for _i in 0..arr_cp.len() {
         for j in 1..arr_cp.len() {
             if bin[j] < bin[j - 1] || (bin[j] == bin[j - 1] && arr_cp[j] < arr_cp[j - 1]) {
                 m = arr_cp[j];

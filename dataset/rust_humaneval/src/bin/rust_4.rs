@@ -9,19 +9,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn mean_absolute_deviation(numbers: Vec<f32>) -> f32 {
     let mean: f32 = numbers.iter().fold(0.0, |acc: f32, x: &f32| acc + x) / numbers.len() as f32;
     return numbers.iter().map(|x: &f32| (x - mean).abs()).sum::<f32>() / numbers.len() as f32;

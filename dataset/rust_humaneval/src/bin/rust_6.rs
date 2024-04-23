@@ -7,18 +7,7 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
+use std::cmp::max;
 
 fn parse_nested_parens(paren_string: String) -> Vec<i32> {
     let mut result: Vec<i32> = vec![];

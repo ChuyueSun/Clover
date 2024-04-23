@@ -6,19 +6,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn find_closest_elements(numbers: Vec<f32>) -> (f32, f32) {
     let mut closest_pair = (0.0, 0.0);
     let mut distance: Option<f32> = None;

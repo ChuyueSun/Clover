@@ -6,19 +6,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn has_close_elements(numbers: Vec<f32>, threshold: f32) -> bool {
     for i in 0..numbers.len() {
         for j in 1..numbers.len() {

@@ -12,19 +12,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn maximum_120(arr: Vec<i32>, k: i32) -> Vec<i32> {
     let mut arr = arr;
     arr.sort();

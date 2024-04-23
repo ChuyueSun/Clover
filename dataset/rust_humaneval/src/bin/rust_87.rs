@@ -13,19 +13,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn get_row(lst: Vec<Vec<i32>>, x: i32) -> Vec<Vec<i32>> {
     let mut out: Vec<Vec<i32>> = vec![];
     for (indxi, elem1) in lst.iter().enumerate() {

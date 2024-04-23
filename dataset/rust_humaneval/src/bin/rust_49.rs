@@ -5,19 +5,6 @@ Return 2^n modulo p (be aware of numerics).
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn modp(n: i32, p: i32) -> i32 {
     if n == 0 {
         return 1;

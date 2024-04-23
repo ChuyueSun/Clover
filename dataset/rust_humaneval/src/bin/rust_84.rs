@@ -11,19 +11,6 @@ Given a positive integer N, return the total sum of its digits in binary.
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn solve(n: i32) -> String {
     let sum: i32 = n
         .to_string()

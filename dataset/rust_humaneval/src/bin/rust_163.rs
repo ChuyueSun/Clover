@@ -7,23 +7,10 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn generate_integers(a: i32, b: i32) -> Vec<i32> {
     let mut a = a;
     let mut b = b;
-    let mut m;
+    let m;
 
     if b < a {
         m = a;

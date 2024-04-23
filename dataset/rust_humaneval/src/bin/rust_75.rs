@@ -7,19 +7,6 @@ Write a function that returns true if the given number is the multiplication of 
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn is_multiply_prime(a: i32) -> bool {
     let mut a1 = a;
     let mut num = 0;

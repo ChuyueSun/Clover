@@ -7,19 +7,6 @@ Change numerical base of input number x to base.
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn change_base(x: i32, base: i32) -> String {
     let mut ret: String = "".to_string();
     let mut x1 = x;

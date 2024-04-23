@@ -5,19 +5,6 @@ Given a non-empty list of integers lst. add the even elements that are at odd in
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn add_even_odd(lst: Vec<i32>) -> i32 {
     let mut sum: i32 = 0;
 

@@ -8,19 +8,6 @@ You are given two positive integers n and m, and your task is to compute the
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn rounded_avg(n: i32, m: i32) -> String {
     if n > m {
         return "-1".to_string();

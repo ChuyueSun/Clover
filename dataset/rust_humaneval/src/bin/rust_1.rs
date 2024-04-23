@@ -8,19 +8,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn separate_paren_groups(paren_string: String) -> Vec<String> {
     let mut result: Vec<String> = vec![];
     let mut current_string: String = String::new();

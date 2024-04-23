@@ -5,19 +5,6 @@ You are given 2 words. You need to return True if the second word or any of its 
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn cycpattern_check(a: &str, b: &str) -> bool {
     for i in 0..b.len() {
         let rotate = format!("{}{}", &b[i..], &b[..i]);

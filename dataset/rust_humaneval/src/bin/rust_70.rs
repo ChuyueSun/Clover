@@ -8,19 +8,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn strange_sort_list(lst: Vec<i32>) -> Vec<i32> {
     let mut cp: Vec<i32> = lst.clone();
     let mut res: Vec<i32> = vec![];

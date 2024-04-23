@@ -7,19 +7,6 @@ Write a function that takes an array of numbers as input and returns
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn special_filter(nums: Vec<i32>) -> i32 {
     let mut num = 0;
     for i in 0..nums.len() {

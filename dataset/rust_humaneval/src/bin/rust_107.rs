@@ -11,26 +11,13 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn even_odd_palindrome(n: i32) -> (i32, i32) {
     let mut even = 0;
     let mut odd = 0;
 
     for i in 1..n + 1 {
-        let mut w: String = i.to_string();
-        let mut p: String = w.chars().rev().collect();
+        let w: String = i.to_string();
+        let p: String = w.chars().rev().collect();
 
         if w == p && i % 2 == 1 {
             odd += 1;

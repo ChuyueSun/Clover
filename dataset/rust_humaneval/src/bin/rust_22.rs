@@ -5,18 +5,7 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
+use std::any::Any;
 
 fn filter_integers(values: Vec<Box<dyn Any>>) -> Vec<i32> {
     let mut out: Vec<i32> = Vec::new();

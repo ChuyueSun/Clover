@@ -8,19 +8,6 @@ Create a function encrypt that takes a string as an argument and
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn encrypt(s: &str) -> String {
     let d: Vec<char> = "abcdefghijklmnopqrstuvwxyz"
         .to_string()

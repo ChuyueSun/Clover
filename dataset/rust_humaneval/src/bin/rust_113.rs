@@ -8,19 +8,6 @@ Given a list of strings, where each string consists of only digits, return a lis
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn odd_count(lst: Vec<&str>) -> Vec<String> {
     let mut out: Vec<String> = Vec::new();
     for i in 0..lst.len() {
@@ -33,7 +20,7 @@ fn odd_count(lst: Vec<&str>) -> Vec<String> {
                 sum += 1;
             }
         }
-        let mut s = "the number of odd elements in the string i of the input.".to_string();
+        let s = "the number of odd elements in the string i of the input.".to_string();
         let mut s2 = "".to_string();
         for j in 0..s.len() {
             if s.chars().nth(j).unwrap() == 'i' {

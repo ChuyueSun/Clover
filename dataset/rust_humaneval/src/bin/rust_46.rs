@@ -11,19 +11,6 @@ The Fib4 number sequence is a sequence similar to the Fibbonacci sequnece that's
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn fib4(n: i32) -> i32 {
     let mut results: Vec<i32> = vec![0, 0, 2, 0];
 

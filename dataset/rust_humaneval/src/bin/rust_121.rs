@@ -5,19 +5,6 @@ Given a non-empty list of integers, return the sum of all of the odd elements th
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn solutions(lst: Vec<i32>) -> i32 {
     let mut sum = 0;
     for (indx, elem) in lst.iter().enumerate() {

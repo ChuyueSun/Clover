@@ -7,21 +7,10 @@ Circular shift the digits of the integer x, shift the digits right by shift
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
+use std::mem::replace;
 
 fn circular_shift(x: i32, shift: i32) -> String {
-    let mut xcp: Vec<char> = x.to_string().chars().into_iter().collect();
+    let xcp: Vec<char> = x.to_string().chars().into_iter().collect();
     let mut res: Vec<char> = x.to_string().chars().into_iter().collect();
 
     for (indx, c) in xcp.iter().enumerate() {

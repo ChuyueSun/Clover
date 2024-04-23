@@ -24,21 +24,8 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn min_path(grid: Vec<Vec<i32>>, k: i32) -> Vec<i32> {
-    let mut out: Vec<i32> = vec![];
+    let _out: Vec<i32> = vec![];
     let mut x = 0;
     let mut y = 0;
     let mut min: i32 = (grid.len() * grid.len()) as i32;

@@ -7,19 +7,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn min_sub_array_sum(nums: Vec<i64>) -> i64 {
     let mut current = nums[0];
     let mut min = nums[0];

@@ -5,19 +5,6 @@ Return n-th Fibonacci number.
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn fib(n: i32) -> i32 {
     if n == 0 {
         return 0;

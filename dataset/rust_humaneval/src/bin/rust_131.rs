@@ -6,19 +6,6 @@ Given a positive integer n, return the product of the odd digits.
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn digits(n: i32) -> i32 {
     let mut prod: i32 = 1;
     let mut has = 0;

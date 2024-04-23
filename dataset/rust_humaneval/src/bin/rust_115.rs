@@ -9,19 +9,6 @@ fn main() {}
     Output the number of times you need to lower the buckets.
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn max_fill(grid: Vec<Vec<i32>>, capacity: i32) -> i32 {
     let mut out: i32 = 0;
 

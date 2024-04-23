@@ -8,26 +8,13 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn is_palindrome_10(str: &str) -> bool {
     let s: String = str.chars().rev().collect();
     return s == str;
 }
 
 fn make_palindrome(str: &str) -> String {
-    let mut i: usize = 0;
+    let _i: usize = 0;
     for i in 0..str.len() {
         let rstr: &str = &str[i..];
         if is_palindrome_10(rstr) {

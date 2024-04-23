@@ -9,19 +9,6 @@ Given a string s and a natural number n, you have been tasked to implement
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn select_words(s: &str, n: i32) -> Vec<String> {
     let vowels = "aeiouAEIOU";
     let mut current = String::new();

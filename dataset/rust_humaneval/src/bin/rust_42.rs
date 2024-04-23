@@ -5,19 +5,6 @@ Return list with elements incremented by 1.
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn incr_list(l: Vec<i32>) -> Vec<i32> {
     return l.into_iter().map(|n: i32| n + 1).collect();
 }

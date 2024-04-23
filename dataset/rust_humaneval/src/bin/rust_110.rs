@@ -13,19 +13,6 @@ In this problem, you will implement a function that takes two lists of numbers,
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn exchange(lst1: Vec<i32>, lst2: Vec<i32>) -> String {
     let mut num = 0;
     for i in 0..lst1.len() {

@@ -5,19 +5,6 @@ fn main() {}
 
 */
 
-use md5;
-use rand::Rng;
-use regex::Regex;
-use std::any::{Any, TypeId};
-use std::{
-    ascii::AsciiExt,
-    cmp::{self, max},
-    collections::{HashMap, HashSet},
-    mem::replace,
-    ops::Index,
-    slice::Iter,
-};
-
 fn all_prefixes(string: String) -> Vec<String> {
     let mut res: Vec<String> = vec![];
     let mut res_str: String = String::new();
