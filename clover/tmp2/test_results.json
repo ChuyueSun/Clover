@@ -1,0 +1,654 @@
+{
+    "rust_81.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_72.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_23.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_17.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_46.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_56.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_9.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_33.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_62.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_91.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_42.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_13.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_85.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_27.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_76.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_66.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_37.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_95.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_52.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_43.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_12.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_84.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_26.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_77.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_67.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_36.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_94.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_53.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_80.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_73.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_22.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_16.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_47.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_57.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_8.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_63.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_90.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_78.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_29.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_120.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_145.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_114.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_104.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_155.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_161.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_130.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_3.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_39.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_68.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_48.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_19.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_110.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_141.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_124.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_134.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_151.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_100.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_7.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_58.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_49.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_18.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_111.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_140.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_125.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_135.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_150.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_101.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_6.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_59.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_79.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_28.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_121.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_144.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_115.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_105.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_154.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_160.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_131.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_2.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_38.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_69.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_143.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_112.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_126.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_136.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_102.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_153.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_5.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_89.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_122.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_116.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_147.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_157.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_106.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_132.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_163.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_1.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_99.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_88.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_123.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_117.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_146.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_156.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_107.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_133.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_162.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_0.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_98.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_142.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_113.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_127.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_137.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_103.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_152.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_4.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_149.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_118.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_11.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_40.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_74.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_25.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_87.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_97.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_35.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_64.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_50.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_108.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_159.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_128.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_21.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_70.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_83.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_44.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_15.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_54.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_93.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_60.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_31.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_138.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_129.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_20.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_71.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_82.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_45.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_14.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_55.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_92.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_61.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_30.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_139.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_148.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_119.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_10.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_41.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_75.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_24.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_86.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_96.rs": {
+        "compiled": true,
+        "passed": false
+    },
+    "rust_34.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_65.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_51.rs": {
+        "compiled": true,
+        "passed": true
+    },
+    "rust_109.rs": {
+        "compiled": false,
+        "passed": false
+    },
+    "rust_158.rs": {
+        "compiled": true,
+        "passed": false
+    }
+}

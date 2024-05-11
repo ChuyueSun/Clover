@@ -1,0 +1,301 @@
+{
+    "gt": {
+        "task_id_101": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_267": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_404": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_770": [
+            false,
+            [
+                true,
+                true,
+                false,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_599": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_610": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_605": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_600": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_760": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_616": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_62": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_77": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_431": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_433": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_625": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_741": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_227": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_435": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_447": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_441": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_454": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_127": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_474": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_627": [
+            false,
+            [
+                true,
+                true,
+                false,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_58": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_733": [
+            false,
+            [
+                true,
+                true,
+                false,
+                true,
+                true,
+                true
+            ]
+        ],
+        "task_id_743": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ]
+    }
+}

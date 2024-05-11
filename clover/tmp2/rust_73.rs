@@ -1,0 +1,37 @@
+
+fn smallest_change(arr: Vec<i32>) -> i32 {
+    let mut changes_needed = 0;
+    let half = arr.len() / 2;
+
+    for i in 0..half {
+        if arr[i] != arr[arr.len() - 1 - i] {
+            changes_needed += 1;
+        }
+    }
+
+    changes_needed
+}
+
+fn main() {
+    // Example usage:
+    let arr = vec![1, 2, 3, 4, 2, 1];
+    println!("Minimum changes needed: {}", smallest_change(arr));
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_smallest_change() {
+        assert!(smallest_change(vec![1, 2, 3, 5, 4, 7, 9, 6]) == 4);
+        assert!(smallest_change(vec![1, 2, 3, 4, 3, 2, 2]) == 1);
+        assert!(smallest_change(vec![1, 4, 2]) == 1);
+        assert!(smallest_change(vec![1, 4, 4, 2]) == 1);
+        assert!(smallest_change(vec![1, 2, 3, 2, 1]) == 0);
+        assert!(smallest_change(vec![3, 1, 1, 3]) == 0);
+        assert!(smallest_change(vec![1]) == 0);
+        assert!(smallest_change(vec![0, 1]) == 1);
+    }
+
+}

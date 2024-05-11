@@ -1,0 +1,39 @@
+
+fn intersperse(numbers: Vec<u32>, delimiter: u32) -> Vec<u32> {
+    if numbers.is_empty() {
+        return vec![];
+    }
+    
+    let mut result = Vec::with_capacity(numbers.len() * 2 - 1);
+    let mut iter = numbers.into_iter();
+    
+    if let Some(first) = iter.next() {
+        result.push(first);
+        for number in iter {
+            result.push(delimiter);
+            result.push(number);
+        }
+    }
+    
+    result
+}
+
+fn main() {
+    let numbers = vec![1, 2, 3, 4, 5];
+    let delimiter = 0;
+    let interspersed = intersperse(numbers, delimiter);
+    println!("{:?}", interspersed); // Should output [1, 0, 2, 0, 3, 0, 4, 0, 5]
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+ #[test]
+    fn test_intersperse() {
+        assert!(intersperse(vec![], 7) == vec![]);
+        assert!(intersperse(vec![5, 6, 3, 2], 8) == vec![5, 8, 6, 8, 3, 8, 2]);
+        assert!(intersperse(vec![2, 2, 2], 2) == vec![2, 2, 2, 2, 2]);
+    }
+
+}

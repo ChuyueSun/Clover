@@ -35,6 +35,9 @@ Dafny Grammar tutorial ends here.
 SYS_DAFNY = "You are an expert in Dafny. \
 You will be given tasks dealing with Dafny programs including precise docstrings and specifications.\n"
 
+SYS_DAFNY = "You are an expert in Rust and Verus. \
+You will be given tasks dealing with Rust programs including precise docstrings and specifications.\n"
+
 GEN_BODY_FROM_SPEC = Grammar_tutorial + "Given an empty Dafny program with function head and specifications, \
 you are asked to generate the full Dafny code so that it can be verified by Dafny with the given specification. \
 Please return the whole program. \
@@ -53,6 +56,11 @@ GEN_BODY_FROM_DOC = Grammar_tutorial + "Given a docstring and the function signa
 Please return a Dafny program that implements the functionality described in the docstring. \
 If loop is needed, use while instead of for. \
 Please only return the Dafny program. Do not explain. \
+Below is the docstring and the function signature:\n"
+
+GEN_BODY_FROM_DOC = "Given a docstring and the function signature for a Rust program. \
+Please return a Rust program that implements the functionality described in the docstring. \
+Please only return the Rust program. Do not explain. \
 Below is the docstring and the function signature:\n"
 
 GEN_DOC_FROM_SPEC = "Given the function signature and its specifications for a Dafny program. \
@@ -85,6 +93,6 @@ DOC_EQUIV = "Determine if two docstrings describe the same functional behavior o
 Return YES or NO, and then explain the reason.\n"
 
 
+
 if __name__ == "__main__":
-    print(Grammar_tutorial)
-    print(GEN_BODY_FROM_SPEC)
+    pass

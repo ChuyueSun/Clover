@@ -1,8 +1,13 @@
 import os
 import re
+import json
+import gzip
+
+from typing import *
+
 
 helper_functions = "\nfunction abs(a: real) : real {if a>0.0 then a else -a}\n"
-
+helper_functions = ""
 
 def is_anno(line):
     if "requires" in line or "ensures" in line or "reads" in line or "modifies" in line:
@@ -242,6 +247,13 @@ def merge_spec_and_body(spec, body):
 
 
 def extract_code_from_llm_output(reply):
+    return reply[7:-3]
+    i = reply.find("```rust")
+    if i != -1:
+        reply = reply[i + 7:]
+        i = reply.find("```")
+        reply = reply[:i]
+        return reply
     i = reply.find("<answer>")
     if i != -1:
         reply = reply[i + 8:]
@@ -276,17 +288,31 @@ def mask_file_names(text):
     masked_text = file_path_pattern.sub("foo.dfy", text)
     return masked_text
 
+def rewrite_string(s):
+    """
+    Rewrites the given string from the format 'Rust/3' to 'rust_3'.
 
-def dump_tmp_file(program):
+    Args:
+    s (str): The string to rewrite.
+
+    Returns:
+    str: The rewritten string.
+    """
+    parts = s.split('/')  # Split the string at the slash
+    parts[0] = parts[0].lower()  # Convert the first part 'Rust' to lowercase 'rust'
+    return '_'.join(parts) 
+
+def dump_tmp_file(dirname, filename, program):
     import time
     import random
 
     timestamp = time.time()
     rand = random.random()
 
-    tmp_dir = "tmp"
+    tmp_dir = dirname
+
     os.makedirs(tmp_dir, exist_ok=True)
-    tmp_file = f"{tmp_dir}/tmp_dafny_input_{timestamp}_{rand}.dfy"
+    tmp_file = f"{tmp_dir}/{filename}.rs"
     with open(tmp_file, "w") as f:
         f.write(program)
     return tmp_file
@@ -347,22 +373,22 @@ def compile_dafny(body, dafny_path):
     return mask_file_names(str(result.stdout))
 
 
-def execute(body, input_sample, dafny_path):
+def execute(dirname, filename, body, input_sample, dafny_path):
     import subprocess
 
     program = body + helper_functions + input_sample
 
-    tmp_file = dump_tmp_file(program)
-    try:
-        result = subprocess.run(
-            f"{dafny_path} run --no-verify --unicode-char=false " f"{tmp_file}",
-            shell=True,
-            capture_output=True,
-            timeout=20,
-        )
-    except Exception as e:
-        return str(e)
-    return str(result.stdout)
+    tmp_file = dump_tmp_file(dirname, filename, program)
+    # try:
+    #     result = subprocess.run(
+    #         f"{dafny_path} run --no-verify --unicode-char=false " f"{tmp_file}",
+    #         shell=True,
+    #         capture_output=True,
+    #         timeout=20,
+    #     )
+    # except Exception as e:
+    #     return str(e)
+    # return str(result.stdout)
 
 
 def no_compile_error(msg: str):
@@ -372,3 +398,34 @@ def no_compile_error(msg: str):
 def stream_print(s):
     for out in s.text_iter():
         print(out, end="", flush=True)
+
+
+def stream_jsonl(filename: str) -> Iterable[Dict]:
+    """
+    Parses each jsonl line and yields it as a dictionary
+    """
+    if filename.endswith(".gz"):
+        with open(filename, "rb") as gzfp:
+            with gzip.open(gzfp, "rt") as fp:
+                for line in fp:
+                    if any(not x.isspace() for x in line):
+                        yield json.loads(line)
+    else:
+        with open(filename, "r") as fp:
+            for line in fp:
+                if any(not x.isspace() for x in line):
+                    yield json.loads(line)
+            
+def stream_jsonl_all(filename: str) -> Iterable[Dict]:
+    results = []
+    if filename.endswith(".gz"):
+        fp = gzip.open(open(filename, "rb"), "rt")
+    else:
+        fp = open(filename, "r")
+    for line in fp:
+        if any(not x.isspace() for x in line):
+            results.append(json.loads(line))
+    fp.close()
+
+    return results
+

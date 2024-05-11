@@ -1,6 +1,6 @@
 import argparse
 from typing import Dict, List
-
+import os
 import sglang as sgl
 from sglang import OpenAI, assistant, gen, set_default_backend, system, user
 
@@ -21,6 +21,7 @@ from utils import (
     no_compile_error,
     run_dafny,
     stream_print,
+    rewrite_string
 )
 
 
@@ -44,18 +45,20 @@ def gen_doc_from_spec(s, spec):
 def gen_body_from_doc(s, doc, head, input_sample, dafny_path, feedback_turn=3):
     s += system(sys_prompts.SYS_DAFNY)
     s += user(sys_prompts.GEN_BODY_FROM_DOC + doc + "\n" + head)
-    for i in range(feedback_turn):
+    for i in range(1):
         with s.copy() as tmp:
             tmp += assistant(gen("new_body", max_tokens=1024))
+            print("======new body ====")
+            print(tmp["new_body"])
             body = extract_code_from_llm_output(tmp["new_body"])
-        body = extract_body(body.strip().split("\n"), False)
+        # body = extract_body(body.strip().split("\n"), False)
         s += assistant(body)
-        out = compile_dafny(body, dafny_path)
-        if no_compile_error(str(out)):
-            return body
-        with s.user():
-            s += "This answer got Dafny compile error:\n" + str(out) + "\n"
-            s += "Please try again by taking the Dafny compiler feedback."
+        # out = compile_dafny(body, dafny_path)
+        # if no_compile_error(str(out)):
+        #     return body
+        # with s.user():
+        #     s += "This answer got Dafny compile error:\n" + str(out) + "\n"
+        #     s += "Please try again by taking the Dafny compiler feedback."
     return body
 
 
@@ -102,11 +105,19 @@ def gen_spec_from_doc(s, doc, head, dafny_path, feedback_turn=3):
 
 
 def doc_to_body_reconstruct(
-    doc: str, body: str, input_sample: str, dafny_path, feedback_turn=3, num_trial=1, verbose=0
+    doc: str, body: str, input_sample: str, signature:str = None, filename:str=None, dafny_path=None, feedback_turn=3, num_trial=1, verbose=0
 ):
     head = body.split("\n")[0]
+    head = signature
     success = False
     for k in range(num_trial):
+        dirname = f"tmp{str(k+1)}"
+        filename = rewrite_string(filename)
+        tmp_file = f"{dirname}/{filename}.rs"
+        print(tmp_file)
+        if os.path.exists(tmp_file): 
+            print("exists")
+            continue
         s = gen_body_from_doc(
             doc, head, input_sample, dafny_path, feedback_turn=feedback_turn, stream=(
                 verbose >= 2)
@@ -114,7 +125,8 @@ def doc_to_body_reconstruct(
         if verbose >= 2:
             stream_print(s)
         new_body = str(s.ret_value)
-        if not equiv_test_code(body, new_body, input_sample, dafny_path, verbose=verbose):
+
+        if not equiv_test_code(dirname, filename, body, new_body, input_sample, dafny_path, verbose=verbose):
             if verbose >= 2:
                 print(
                     f"\n###### Clover Info::Attempt ({k+1}) Doc -> body reconstruction failed.\n"
@@ -263,12 +275,14 @@ def spec_to_body_reconstruct(
         )
     return success
 
-
 def clover(
     program: List[str],
     input_sample,
     anno_check_template,
-    dafny_path,
+    signature = None,
+    docstring = None,
+    filename = None,
+    dafny_path=None,
     feedback_turn=3,
     num_trial=1,
     verbose=0,
@@ -276,7 +290,12 @@ def clover(
     just_body=False
 ):
     doc, spec, body = get_clover_components(program)
+    if docstring:
+        doc = docstring
+         
     if just_body:
+        assert filename is not None
+        assert signature is not None   
         ret = [None] * 1
 
         # doc & body consistency
@@ -284,6 +303,8 @@ def clover(
             doc,
             body,
             input_sample,
+            signature,
+            filename,
             dafny_path,
             feedback_turn=feedback_turn,
             num_trial=num_trial,

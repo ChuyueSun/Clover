@@ -11,6 +11,8 @@ from utils import (
     get_clover_anno_check_template,
     get_clover_complete_program,
     get_clover_input_sample,
+    stream_jsonl,
+    stream_jsonl_all
 )
 
 
@@ -46,45 +48,70 @@ def collect_cloverbench_gt():
         gt_dataset.append(sample)
     return gt_dataset
 
+def collect_rust_humaneval_gt():
+    current_path = os.getcwd()
+    parent_path = os.path.dirname(current_path)
+    rust_dataset_path = os.path.join(parent_path, "dataset", "rust_humaneval", "humaneval_rust_cleaned.jsonl")
+    sample_jsonl = stream_jsonl_all(rust_dataset_path)
+    gt_dataset = []
+    for sample in sample_jsonl:
+        new_sample = {
+            "task_id": sample["task_id"],
+            "program": sample["declaration"] + sample["canonical_solution"],
+            "input_sample": sample["test"],
+            "docstring": sample["docstring"],
+            "signature": sample["signature"],
+            "anno_check_template": None,
+        }
+        gt_dataset.append(new_sample)
 
+    return gt_dataset
+        
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--feedback-turn", type=int, default=3)
-    parser.add_argument("--num-trial", type=int, default=1)
+    parser.add_argument("--num-trial", type=int, default=3)
     parser.add_argument("--verbose", type=int, default=3)
-    parser.add_argument("--dafny-path", type=str, required=True)
+    parser.add_argument("--dafny-path", type=str, required=False)
     parser.add_argument("--just-body", action="store_true")
+    parser.add_argument("--language", type=str, default="dafny", choices=["dafny", "rust"])
     args = parser.parse_args()
 
-    gt_dataset = collect_cloverbench_gt()
+    if args.language == "dafny":
+        gt_dataset = collect_cloverbench_gt()
+    else:
+        gt_dataset = collect_rust_humaneval_gt()
 
     set_default_backend(OpenAI("gpt-4-1106-preview"))
 
     log = {"gt": {}}
-    filename = f"exp_results_k_{args.num_trial}.log"
+    filename = f"{args.language}_exp_results_k_{args.num_trial}.log"
     checked_files = {}
     if os.path.exists(filename):
         with open(filename, "r") as f:
             log = json.load(f)
             checked_files = log["gt"].keys()
     for sample in tqdm(gt_dataset):
-        if sample["name"] in checked_files:
+        if sample["task_id"] in checked_files:
             continue
         if args.verbose >= 1:
             print(
-                f"================== running for {sample['name']} ===================="
+                f"================== running for {sample['task_id']} ===================="
             )
         res = clover(
             sample["program"],
             sample["input_sample"],
             sample["anno_check_template"],
+            sample["signature"],
+            sample["docstring"],
+            sample["task_id"],
             dafny_path=args.dafny_path,
             feedback_turn=args.feedback_turn,
             num_trial=args.num_trial,
             verbose=args.verbose,
             just_body=args.just_body
         )
-        log["gt"][sample["name"]] = res
+        log["gt"][sample["task_id"]] = res
 
         if args.verbose >= 1:
             print(log)

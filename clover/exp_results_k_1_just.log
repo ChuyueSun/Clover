@@ -1,0 +1,376 @@
+{
+    "gt": {
+        "triple4": [
+            true,
+            [
+                true
+            ]
+        ],
+        "triple3": [
+            true,
+            [
+                true
+            ]
+        ],
+        "update_map": [
+            true,
+            [
+                true
+            ]
+        ],
+        "rotate": [
+            true,
+            [
+                true
+            ]
+        ],
+        "test_array": [
+            true,
+            [
+                true
+            ]
+        ],
+        "bubble_sort": [
+            true,
+            [
+                true
+            ]
+        ],
+        "triple2": [
+            true,
+            [
+                true
+            ]
+        ],
+        "integer_square_root": [
+            true,
+            [
+                true
+            ]
+        ],
+        "canyon_search": [
+            false,
+            [
+                false
+            ]
+        ],
+        "copy_part": [
+            true,
+            [
+                true
+            ]
+        ],
+        "insert": [
+            true,
+            [
+                true
+            ]
+        ],
+        "avg": [
+            true,
+            [
+                true
+            ]
+        ],
+        "linear_search2": [
+            true,
+            [
+                true
+            ]
+        ],
+        "convert_map_key": [
+            true,
+            [
+                true
+            ]
+        ],
+        "longest_prefix": [
+            true,
+            [
+                true
+            ]
+        ],
+        "swap_arith": [
+            false,
+            [
+                false
+            ]
+        ],
+        "max_array": [
+            true,
+            [
+                true
+            ]
+        ],
+        "linear_search3": [
+            true,
+            [
+                true
+            ]
+        ],
+        "selectionsort": [
+            true,
+            [
+                true
+            ]
+        ],
+        "match": [
+            true,
+            [
+                true
+            ]
+        ],
+        "double_array_elements": [
+            true,
+            [
+                true
+            ]
+        ],
+        "array_sum": [
+            true,
+            [
+                true
+            ]
+        ],
+        "modify_2d_array": [
+            true,
+            [
+                true
+            ]
+        ],
+        "binary_search": [
+            true,
+            [
+                true
+            ]
+        ],
+        "swap": [
+            true,
+            [
+                true
+            ]
+        ],
+        "even_list": [
+            false,
+            [
+                false
+            ]
+        ],
+        "update_array": [
+            true,
+            [
+                true
+            ]
+        ],
+        "cal_sum": [
+            true,
+            [
+                true
+            ]
+        ],
+        "double_quadruple": [
+            true,
+            [
+                true
+            ]
+        ],
+        "multi_return": [
+            true,
+            [
+                true
+            ]
+        ],
+        "array_copy": [
+            true,
+            [
+                true
+            ]
+        ],
+        "min_of_two": [
+            true,
+            [
+                true
+            ]
+        ],
+        "two_sum": [
+            true,
+            [
+                true
+            ]
+        ],
+        "set_to_seq": [
+            true,
+            [
+                true
+            ]
+        ],
+        "reverse": [
+            true,
+            [
+                true
+            ]
+        ],
+        "swap_in_array": [
+            true,
+            [
+                true
+            ]
+        ],
+        "array_concat": [
+            false,
+            [
+                false
+            ]
+        ],
+        "all_digits": [
+            true,
+            [
+                true
+            ]
+        ],
+        "below_zero": [
+            true,
+            [
+                true
+            ]
+        ],
+        "only_once": [
+            true,
+            [
+                true
+            ]
+        ],
+        "abs": [
+            true,
+            [
+                true
+            ]
+        ],
+        "swap_bitvector": [
+            true,
+            [
+                true
+            ]
+        ],
+        "linear_search1": [
+            true,
+            [
+                true
+            ]
+        ],
+        "count_lessthan": [
+            true,
+            [
+                true
+            ]
+        ],
+        "return_seven": [
+            true,
+            [
+                true
+            ]
+        ],
+        "compare": [
+            true,
+            [
+                true
+            ]
+        ],
+        "slope_search": [
+            true,
+            [
+                true
+            ]
+        ],
+        "quotient": [
+            false,
+            [
+                false
+            ]
+        ],
+        "array_product": [
+            true,
+            [
+                true
+            ]
+        ],
+        "find": [
+            true,
+            [
+                true
+            ]
+        ],
+        "replace": [
+            true,
+            [
+                true
+            ]
+        ],
+        "online_max": [
+            false,
+            [
+                false
+            ]
+        ],
+        "array_append": [
+            true,
+            [
+                true
+            ]
+        ],
+        "seq_to_array": [
+            true,
+            [
+                true
+            ]
+        ],
+        "remove_front": [
+            true,
+            [
+                true
+            ]
+        ],
+        "is_even": [
+            true,
+            [
+                true
+            ]
+        ],
+        "swap_sim": [
+            true,
+            [
+                true
+            ]
+        ],
+        "is_palindrome": [
+            true,
+            [
+                true
+            ]
+        ],
+        "has_close_elements": [
+            false,
+            [
+                false
+            ]
+        ],
+        "cal_ans": [
+            true,
+            [
+                true
+            ]
+        ],
+        "triple": [
+            true,
+            [
+                true
+            ]
+        ],
+        "min_array": [
+            true,
+            [
+                true
+            ]
+        ]
+    }
+}

@@ -45,6 +45,7 @@ pub fn encode_cyclic(s: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rand::Rng;
 
     #[test]
     fn test_decode_cyclic() {

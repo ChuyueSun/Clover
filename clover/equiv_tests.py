@@ -22,16 +22,17 @@ def extract_exe_result(text):
         return "Uncompiled"
 
 
-def equiv_test_code(body, new_body, input_sample, dafny_path, verbose=0):
+def equiv_test_code(dirname, filename, body, new_body, input_sample, dafny_path, verbose=0):
     body = str(body)
     new_body = str(new_body)
-    output = execute(body, input_sample, dafny_path)
-    new_output = execute(new_body, input_sample, dafny_path)
-    if verbose >= 1:
-        print("Below are outputs for checking code equivalence")
-        print(extract_exe_result(output))
-        print(extract_exe_result(new_output))
-    return extract_exe_result(output) == extract_exe_result(new_output)
+    # output = execute(body, input_sample, dafny_path)
+    new_output = execute(dirname, filename, new_body, input_sample, dafny_path)
+    # if verbose >= 1:
+    #     print("Below are outputs for checking code equivalence")
+    #     print(extract_exe_result(output))
+    #     print(extract_exe_result(new_output))
+    # return extract_exe_result(output) == extract_exe_result(new_output)
+
 
 
 @sgl.function

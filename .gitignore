@@ -7,3 +7,4 @@ clover_mbpp/exp_results_k_10.log
 clover_mbpp/clover_mbpp_results.json
 *.swp
 **/tmp/
+**/target/

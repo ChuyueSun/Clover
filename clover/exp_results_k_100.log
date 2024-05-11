@@ -1,0 +1,279 @@
+{
+    "gt": {
+        "triple4": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "triple3": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "update_map": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "rotate": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "test_array": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "bubble_sort": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "triple2": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "integer_square_root": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "canyon_search": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "copy_part": [
+            false,
+            [
+                true,
+                true,
+                false,
+                true,
+                true,
+                true
+            ]
+        ],
+        "insert": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "avg": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "linear_search2": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "convert_map_key": [
+            false,
+            [
+                true,
+                true,
+                false,
+                true,
+                true,
+                true
+            ]
+        ],
+        "longest_prefix": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "swap_arith": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "max_array": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "linear_search3": [
+            false,
+            [
+                true,
+                true,
+                false,
+                true,
+                true,
+                true
+            ]
+        ],
+        "selectionsort": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "match": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "double_array_elements": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "array_sum": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "modify_2d_array": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "binary_search": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ],
+        "swap": [
+            true,
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        ]
+    }
+}
