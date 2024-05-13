@@ -1,12 +1,26 @@
-
-fn prod_signs(arr: Vec<i32>) -> Option<i32> {
+fn prod_signs(arr: Vec<i32>) -> i32 {
     if arr.is_empty() {
-        None
-    } else {
-        let product_of_signs: i32 = arr.iter().map(|&x| x.signum()).product();
-        let sum_of_magnitudes: i32 = arr.iter().map(|&x| x.abs()).sum();
-        Some(sum_of_magnitudes * product_of_signs)
+        return 0; // Interpretation of 'None' as 0 for this scenario
     }
+
+    let mut sign_product = 1;
+    let mut magnitude_sum = 0;
+
+    for &num in &arr {
+        // Calculate the sum of magnitudes
+        magnitude_sum += num.abs();
+
+        // Update the sign product
+        if num < 0 {
+            sign_product *= -1;
+        } else if num == 0 {
+            sign_product = 0;
+            break; // Since any number multiplied by zero is zero
+        }
+    }
+
+    // Return the product of the magnitude sum and the sign product
+    magnitude_sum * sign_product
 }
 
 fn main() {

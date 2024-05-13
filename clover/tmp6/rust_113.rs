@@ -25,6 +25,7 @@ mod tests {
 
     #[test]
     fn test_odd_count() {
+        println!("{:?}" ,odd_count(vec!["1234567"]));
         assert!(
             odd_count(vec!["1234567"])
                 == ["the number of odd elements 4n the str4ng 4 of the 4nput."]

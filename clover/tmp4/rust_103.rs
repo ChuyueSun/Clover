@@ -21,6 +21,7 @@ mod tests {
     fn test_rounded_avg() {
         assert!(rounded_avg(1, 5) == "11");
         assert!(rounded_avg(7, 13) == "1010");
+        println!("{}", rounded_avg(964, 977));
         assert!(rounded_avg(964, 977) == "1111001010");
         assert!(rounded_avg(996, 997) == "1111100100");
         assert!(rounded_avg(560, 851) == "1011000001");

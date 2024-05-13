@@ -1,9 +1,9 @@
 
 fn main() {
-    println!("{}", build_shortest_palindrome("abac"));
+
 }
 
-fn build_shortest_palindrome(s: &str) -> String {
+fn make_palindrome(s: &str) -> String {
     let mut result = s.to_string();
     let mut prefix = String::new();
     for i in 0..s.len() {

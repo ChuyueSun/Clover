@@ -4,8 +4,11 @@ fn rounded_avg(n: i32, m: i32) -> String {
         return "-1".to_string();
     }
     let sum: i32 = (n..=m).sum();
+    println!("{}", sum);
     let count: i32 = m - n + 1;
+    println!("{}", sum as f64 / count as f64);
     let average: i32 = (sum as f64 / count as f64).round() as i32;
+    println!("{}", average);
     format!("{:b}", average)
 }
 
