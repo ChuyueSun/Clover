@@ -7,3 +7,15 @@ clover_mbpp/exp_results_k_10.log
 clover_mbpp/clover_mbpp_results.json
 *.swp
 **/tmp/
+
+# Python virtual environment
+clover_env/
+
+# MacOS files
+.DS_Store
+
+# Oh My Zsh custom plugin symlink
+~/
+
+# OpenAI API key or any other secrets
+.env

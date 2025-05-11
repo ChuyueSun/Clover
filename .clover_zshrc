@@ -1,0 +1,29 @@
+# Clover zsh configuration
+# Source this file in your zsh session with: source .clover_zshrc
+
+# Activate the Python environment
+source ../clover_env/bin/activate
+
+# Set up aliases
+alias run-clover="python exps.py --dafny-path $(which dafny)"
+alias run-clover-test="python exps.py --num-trial 1 --dafny-path $(which dafny)"
+alias run-clover-full="python exps.py --num-trial 50 --dafny-path $(which dafny)"
+
+# Environment check
+if ! command -v dafny &> /dev/null; then
+  echo "⚠️  Warning: Dafny is not installed. Please install it with: brew install dafny"
+fi
+
+if [ -z "$OPENAI_API_KEY" ]; then
+  echo "⚠️  Warning: OPENAI_API_KEY is not set. Please set it with: export OPENAI_API_KEY=your_api_key_here"
+fi
+
+# Print help
+echo "🍀 Clover zsh setup complete"
+echo "Available commands:"
+echo "  run-clover         - Run with default settings"
+echo "  run-clover-test    - Run with 1 trial (for testing)"
+echo "  run-clover-full    - Run with 50 trials (full experiment)"
+echo ""
+echo "Make sure to set your OpenAI API key if not already set:"
+echo "  export OPENAI_API_KEY=your_api_key_here" 
