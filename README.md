@@ -43,6 +43,23 @@ Dafny is required to run the Clover experiments. You can install it with:
 brew install dafny
 ```
 
+#### Linux
+For Linux installation (Ubuntu, Debian, Arch), see the detailed instructions in `clover_env_setup.md`.
+
+Basic Ubuntu/Debian installation:
+```bash
+# Install dependencies
+sudo apt install -y mono-complete dotnet-sdk-7.0
+
+# Download and install Dafny
+VERSION=4.3.0
+wget https://github.com/dafny-lang/dafny/releases/download/v${VERSION}/dafny-${VERSION}-x64-ubuntu-20.04.zip
+unzip dafny-${VERSION}-x64-ubuntu-20.04.zip -d dafny
+sudo mv dafny /usr/local/
+echo 'export PATH="$PATH:/usr/local/dafny"' >> ~/.bashrc
+source ~/.bashrc
+```
+
 #### Other platforms
 Download from the [Dafny GitHub releases](https://github.com/dafny-lang/dafny/releases) and add it to your PATH.
 
