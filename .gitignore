@@ -19,3 +19,5 @@ clover_env/
 
 # OpenAI API key or any other secrets
 .env
+private_key.sh
+*_private.*
