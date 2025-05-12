@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set OpenAI API Key
-export OPENAI_API_KEY="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"
+export OPENAI_API_KEY="***REMOVED***"
 
 # Enable LLM cache
 export ENABLE_LLM_CACHE=1
