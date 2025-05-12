@@ -8,6 +8,12 @@ clover_mbpp/clover_mbpp_results.json
 *.swp
 **/tmp/
 
+# Cache directories
+llm_cache*/
+*cache_test*/
+test_cache*/
+clover_logs*/
+
 # Python virtual environment
 clover_env/
 
