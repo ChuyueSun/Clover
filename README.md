@@ -126,3 +126,33 @@ Will receive 87% acceptance rate on CloverBench (Ground-Truth) dataset with gpt-
       primaryClass={cs.SE}
 }
 ```
+
+## LLM Cache Feature
+
+To reduce costs and speed up experiments, Clover now includes a caching system for LLM calls. This system:
+
+- Saves responses from OpenAI API calls to avoid redundant requests
+- Significantly speeds up repeated benchmark runs 
+- Provides detailed statistics on cache performance
+
+### Running with Cache
+
+Use the provided script to run Clover with caching enabled:
+
+```bash
+./run_clover_cached.sh --test abs
+```
+
+### Controlling the Cache
+
+You can enable or disable the cache with environment variables:
+
+```bash
+# Enable caching (default)
+export ENABLE_LLM_CACHE=1
+
+# Disable caching
+export ENABLE_LLM_CACHE=0
+```
+
+For more details, see [README_LLM_CACHE.md](./README_LLM_CACHE.md).
