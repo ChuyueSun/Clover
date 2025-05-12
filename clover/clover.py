@@ -6,6 +6,7 @@ from colorama import Fore, Style
 import os
 from pathlib import Path
 import time
+import hashlib
 
 # Initialize colorama
 colorama.init(autoreset=True)
@@ -19,6 +20,9 @@ COLOR_DEBUG = Style.DIM + Fore.WHITE
 COLOR_HIT = Fore.GREEN
 COLOR_MISS = Fore.RED
 
+# Flag to control SGLang state printing - set to False to disable
+ENABLE_SGLANG_STATE_PRINTING = False
+
 # Disable noisy OpenAI and HTTP client logging
 logging.getLogger("openai").setLevel(logging.WARNING)
 logging.getLogger("openai._base_client").setLevel(logging.WARNING)
@@ -27,6 +31,71 @@ logging.getLogger("httpcore").setLevel(logging.WARNING)
 
 # Create logger but don't configure it yet - setup_cache_logging will do that
 logger = logging.getLogger("clover_cache")
+
+# Debug function to print SGLang state
+def print_sglang_state(s, tag=""):
+    """
+    Print out the entire SGLang conversation state for debugging.
+    
+    Args:
+        s: SGLang state object
+        tag: Optional tag to identify this state dump
+    """
+    if not ENABLE_SGLANG_STATE_PRINTING:
+        return
+        
+    logger.info(f"{COLOR_DEBUG}==== SGLang State Dump {tag} ====")
+    
+    try:
+        # Try to access messages through the messages() method
+        try:
+            messages = s.messages()
+            logger.info(f"{COLOR_DEBUG}Found {len(messages)} messages using s.messages()")
+            for i, m in enumerate(messages):
+                role = m.get("role", "unknown")
+                content = m.get("content", "")
+                role_color = COLOR_INFO if role == "user" else COLOR_SUCCESS if role == "assistant" else COLOR_DEBUG
+                logger.info(f"{COLOR_DEBUG}[{i}] {role_color}{role}{COLOR_DEBUG}: {content}")
+            return
+        except (AttributeError, TypeError) as e:
+            logger.debug(f"Could not access messages via s.messages(): {e}")
+        
+        # If the above fails, try to directly print the prompt components
+        # This is a fallback approach for debugging
+        logger.info(f"{COLOR_DEBUG}Attempting to print raw state contents:")
+        prompt_parts = []
+        
+        # Print system messages if they exist
+        if hasattr(s, '_system') and s._system:
+            logger.info(f"{COLOR_DEBUG}SYSTEM: {s._system}")
+            prompt_parts.append(f"SYSTEM: {s._system}")
+        
+        # Print user/assistant message history if it exists
+        if hasattr(s, '_role_common'):
+            for i, (role, content) in enumerate(s._role_common):
+                role_color = COLOR_INFO if role == "user" else COLOR_SUCCESS if role == "assistant" else COLOR_DEBUG
+                logger.info(f"{COLOR_DEBUG}[{i}] {role_color}{role}{COLOR_DEBUG}: {content}")
+                prompt_parts.append(f"{role.upper()}: {content}")
+        
+        # If we couldn't log the messages directly, show what we can find
+        if not prompt_parts:
+            logger.info(f"{COLOR_DEBUG}Could not access messages directly. Dumping object attributes:")
+            for attr in dir(s):
+                if not attr.startswith('__') and not callable(getattr(s, attr)):
+                    value = getattr(s, attr)
+                    try:
+                        # Limit output size for large attributes
+                        if isinstance(value, str) and len(value) > 100:
+                            value = value[:100] + "..."
+                        logger.info(f"{COLOR_DEBUG}  {attr}: {value}")
+                    except:
+                        logger.info(f"{COLOR_DEBUG}  {attr}: <error displaying value>")
+                    
+        logger.info(f"{COLOR_DEBUG}==== End State Dump ====")
+    except Exception as e:
+        logger.error(f"{COLOR_ERROR}Error printing SGLang state: {e}")
+        import traceback
+        logger.error(traceback.format_exc())
 
 # Setup logging function
 def setup_cache_logging(log_level=logging.INFO, log_file=None, console_output=True, verbose=0):
@@ -133,11 +202,16 @@ def print_cache_stats(backend, verbose=0):
             print(f"  • Instance hit rate: {local_hit_rate:.1f}%")
 
 import sglang as sgl
-from sglang import OpenAI, assistant, gen, set_default_backend, system, user
+from sglang import OpenAI, assistant, set_default_backend, system, user
+from sglang import gen
 
-# Import LLM cache
-from llm_cache import create_cached_backend
+# Import direct cache
+from direct_cache import setup_direct_cache
 
+# Import our simplified cache
+from llm_cache import LLMCache
+
+# Import other modules
 from equiv_tests import equiv_test_code, equiv_test_doc, equiv_test_spec
 import sys_prompts
 from utils import (
@@ -157,81 +231,465 @@ from utils import (
     stream_print,
 )
 
+# Global cache instance
+_llm_cache = None
+_model_name = "gpt-4o"  # Default model name
+
+def get_cache():
+    """Get the global cache instance."""
+    global _llm_cache
+    return _llm_cache
+
+def get_model_name():
+    """Get the current model name safely."""
+    global _model_name
+    return _model_name
 
 @sgl.function
 def gen_doc_from_body(s, body):
-    s += system(sys_prompts.SYS_DAFNY)
-    s += user(sys_prompts.GEN_DOC_FROM_BODY + body)
-    s += assistant(gen("new_doc", max_tokens=512))
-    return s["new_doc"]
+    # Add logging for cache debugging
+    logger.info(f"{COLOR_INFO}gen_doc_from_body called with body: {body[:50]}...")
+    call_id = hashlib.md5(body.encode()).hexdigest()[:8]
+    logger.info(f"{COLOR_INFO}Function call ID: {call_id}")
+    
+    # Get cache
+    cache = get_cache()
+    
+    # Prepare prompt
+    system_prompt = sys_prompts.SYS_DAFNY
+    user_prompt = sys_prompts.GEN_DOC_FROM_BODY + body
+    
+    # Check cache first if enabled
+    if cache and cache.enabled:
+        model_name = get_model_name()
+        cached_response = cache.get(model_name, "gen_doc_from_body", user_prompt, {"system": system_prompt})
+        if cached_response:
+            logger.info(f"{COLOR_SUCCESS}Using cached response for gen_doc_from_body")
+            return cached_response
+    
+    # Add prompts to SGLang state
+    s += system(system_prompt)
+    s += user(user_prompt)
+    
+    logger.info(f"{COLOR_INFO}Making LLM call, call ID: {call_id}")
+    try:
+        # Call the standard gen function
+        s += assistant(gen("new_doc", max_tokens=1024))
+        result = s["new_doc"]
+        logger.info(f"{COLOR_SUCCESS}Successfully generated documentation, call ID: {call_id}")
+        
+        # Cache the response
+        if cache:
+            model_name = get_model_name()
+            cache.save(model_name, "gen_doc_from_body", user_prompt, result, {"system": system_prompt})
+            
+        return result
+    except Exception as e:
+        logger.error(f"{COLOR_ERROR}Error generating documentation: {e}, call ID: {call_id}")
+        # Create a fallback for debugging if possible
+        if hasattr(s, 'state') and hasattr(s.state, 'vars'):
+            logger.error(f"{COLOR_ERROR}Debug state keys: {list(s.state.vars.keys())}")
+        raise
 
 
 @sgl.function
 def gen_doc_from_spec(s, spec):
-    s += system(sys_prompts.SYS_DAFNY)
-    s += user(sys_prompts.GEN_DOC_FROM_SPEC + spec)
-    s += assistant(gen("new_doc", max_tokens=512))
-    return s["new_doc"]
+    # Add logging for cache debugging
+    logger.info(f"{COLOR_INFO}gen_doc_from_spec called with spec: {spec[:50]}...")
+    call_id = hashlib.md5(spec.encode()).hexdigest()[:8]
+    logger.info(f"{COLOR_INFO}Function call ID: {call_id}")
+    
+    # Get cache
+    cache = get_cache()
+    
+    # Prepare prompt
+    system_prompt = sys_prompts.SYS_DAFNY
+    user_prompt = sys_prompts.GEN_DOC_FROM_SPEC + spec
+    
+    # Check cache first if enabled
+    if cache and cache.enabled:
+        model_name = get_model_name()
+        cached_response = cache.get(model_name, "gen_doc_from_spec", user_prompt, {"system": system_prompt})
+        if cached_response:
+            logger.info(f"{COLOR_SUCCESS}Using cached response for gen_doc_from_spec")
+            return cached_response
+    
+    # Add prompts to SGLang state
+    s += system(system_prompt)
+    s += user(user_prompt)
+    
+    logger.info(f"{COLOR_INFO}Making LLM call, call ID: {call_id}")
+    try:
+        s += assistant(gen("new_doc", max_tokens=1024))
+        result = s["new_doc"]
+        logger.info(f"{COLOR_SUCCESS}Successfully generated documentation, call ID: {call_id}")
+        
+        # Cache the response
+        if cache:
+            model_name = get_model_name()
+            cache.save(model_name, "gen_doc_from_spec", user_prompt, result, {"system": system_prompt})
+            
+        return result
+    except Exception as e:
+        logger.error(f"{COLOR_ERROR}Error generating documentation: {e}, call ID: {call_id}")
+        # Create a fallback for debugging if possible
+        if hasattr(s, 'state') and hasattr(s.state, 'vars'):
+            logger.error(f"{COLOR_ERROR}Debug state keys: {list(s.state.vars.keys())}")
+        raise
 
 
 @sgl.function
-def gen_body_from_doc(s, doc, head, input_sample, dafny_path, feedback_turn=3):
-    s += system(sys_prompts.SYS_DAFNY)
-    s += user(sys_prompts.GEN_BODY_FROM_DOC + doc + "\n" + head)
+def gen_body_from_doc(s, doc, head, input_sample, dafny_path, feedback_turn=3, trial_id=0):
+    # Add logging to help debug caching issues
+    logger.info(f"{COLOR_INFO}gen_body_from_doc called with doc: {doc[:50]}...")
+    
+    # Get cache
+    cache = get_cache()
+    
+    # Prepare prompt
+    system_prompt = sys_prompts.SYS_DAFNY
+    user_prompt = sys_prompts.GEN_BODY_FROM_DOC + doc + "\n" + head
+    
+    # Add a unique identifier for this call to help with cache tracking
+    call_id = hashlib.md5(user_prompt.encode()).hexdigest()[:8]
+    logger.info(f"{COLOR_INFO}Function call ID: {call_id}")
+    
+    # Build the SGLang state
+    s += system(system_prompt)
+    s += user(user_prompt)
+    
+    print_sglang_state(s, f"Initial State (trial={trial_id})")
+    
+    # Store feedback and error messages for each iteration
+    feedback_history = []
+    
     for i in range(feedback_turn):
+        # Create cache parameters including trial_id and iteration for this specific attempt
+        cache_params = {"system": system_prompt}
+        if trial_id > 0:
+            cache_params["trial_id"] = trial_id
+        # Always include the iteration number in cache params
+        cache_params["iteration"] = i
+        # Include accumulated feedback in the cache key for iterations > 0
+        if i > 0 and feedback_history:
+            cache_params["feedback_hash"] = hashlib.md5("".join(feedback_history).encode()).hexdigest()[:8]
+            # Store the complete feedback prompt sent to the LLM - this is critical for caching
+            cache_params["feedback_prompt"] = feedback_history[-1]
+            
+        # Log current iteration
+        logger.info(f"{COLOR_INFO}Feedback iteration {i+1}/{feedback_turn}, call ID: {call_id}")
+        
+        # Check cache for this specific iteration
+        if cache and cache.enabled:
+            model_name = get_model_name()
+            iter_desc = f"trial={trial_id}, iter={i+1}"
+            cached_response = cache.get(model_name, "gen_body_from_doc", user_prompt, cache_params)
+            if cached_response:
+                logger.info(f"{COLOR_SUCCESS}Using cached response for gen_body_from_doc ({iter_desc})")
+                body = extract_body(cached_response.strip().split("\n"), False)
+                # Verify the cached response compiles
+                out = compile_dafny(body, dafny_path)
+                if no_compile_error(str(out)):
+                    logger.info(f"{COLOR_SUCCESS}Cached response verified successfully ({iter_desc})")
+                    s += assistant(body)  # Add to SGLang state
+                    return body
+                else:
+                    logger.warning(f"{COLOR_WARN}Cached response for iteration {i+1} didn't compile, trying next step")
+        
+        # Make a new LLM call for this iteration
         with s.copy() as tmp:
-            tmp += assistant(gen("new_body", max_tokens=1024))
-            body = extract_code_from_llm_output(tmp["new_body"])
+            logger.info(f"{COLOR_INFO}Making LLM call for iteration {i+1}, call ID: {call_id}")
+            
+            # Debug - print state before LLM call
+            print_sglang_state(tmp, f"Before LLM Call - Iteration {i+1}")
+            
+            try:
+                # Make the call and capture response
+                tmp += assistant(gen("new_body", max_tokens=1024))
+                body = extract_code_from_llm_output(tmp["new_body"])
+                logger.info(f"{COLOR_INFO}Successfully received response for iteration {i+1}, call ID: {call_id}")
+            except KeyError as e:
+                # This indicates the response was not properly cached or returned
+                logger.error(f"{COLOR_ERROR}Failed to extract 'new_body' from response: {e}, call ID: {call_id}")
+                # Create a fallback for debugging
+                logger.error(f"{COLOR_ERROR}Debug state keys: {list(tmp.state.vars.keys()) if hasattr(tmp, 'state') and hasattr(tmp.state, 'vars') else 'No state vars'}")
+                raise
+                
+        # Process the body
         body = extract_body(body.strip().split("\n"), False)
         s += assistant(body)
+        
+        # Cache this iteration's response regardless of success
+        if cache:
+            model_name = get_model_name()
+            cache.save(model_name, "gen_body_from_doc", user_prompt, body, cache_params)
+            logger.info(f"{COLOR_INFO}Cached response for iteration {i+1} (trial={trial_id})")
+        
+        # Check if it compiles successfully
         out = compile_dafny(body, dafny_path)
         if no_compile_error(str(out)):
+            logger.info(f"{COLOR_SUCCESS}Successful code generation after {i+1} iterations, call ID: {call_id}")
             return body
+            
+        # If there's an error, continue with feedback
         with s.user():
-            s += "This answer got Dafny compile error:\n" + str(out) + "\n"
-            s += "Please try again by taking the Dafny compiler feedback."
+            error_msg = str(out)
+            logger.info(f"{COLOR_WARN}Compilation error in iteration {i+1}, call ID: {call_id}")
+            feedback = f"This answer got Dafny compile error:\n{error_msg}\nPlease try again by taking the Dafny compiler feedback."
+            
+            # Log the actual feedback being sent to the LLM
+            logger.info(f"{COLOR_INFO}FEEDBACK TO LLM:\n{feedback}")
+            
+            s += feedback
+            # Store the complete feedback message, not just the error
+            feedback_history.append(feedback)
+            
+            # Debug - print state after adding feedback
+            print_sglang_state(s, f"After Adding Feedback - Iteration {i+1}")
+    
+    # If we've exhausted all feedback turns
+    logger.warning(f"{COLOR_WARN}Used all feedback turns without success, call ID: {call_id}")
     return body
 
 
 @sgl.function
-def gen_body_from_spec(s, spec, dafny_path, feedback_turn=3):
-    s += system(sys_prompts.SYS_DAFNY)
-    s += user(sys_prompts.GEN_BODY_FROM_SPEC + spec)
+def gen_body_from_spec(s, spec, dafny_path, feedback_turn=3, trial_id=0):
+    # Add logging for cache debugging
+    logger.info(f"{COLOR_INFO}gen_body_from_spec called with spec: {spec[:50]}...")
+    call_id = hashlib.md5(spec.encode()).hexdigest()[:8]
+    logger.info(f"{COLOR_INFO}Function call ID: {call_id}")
+    
+    # Get cache
+    cache = get_cache()
+    
+    # Prepare prompt
+    system_prompt = sys_prompts.SYS_DAFNY
+    user_prompt = sys_prompts.GEN_BODY_FROM_SPEC + spec
+    
+    # Build SGLang prompt state
+    s += system(system_prompt)
+    s += user(user_prompt)
+    
+    # Debug - print initial state
+    print_sglang_state(s, f"Initial State - trial={trial_id}")
+    
+    # Store feedback and error messages for each iteration
+    feedback_history = []
+    
     body = ""
     for i in range(feedback_turn):
+        # Create cache parameters including trial_id and iteration for this specific attempt
+        cache_params = {"system": system_prompt}
+        if trial_id > 0:
+            cache_params["trial_id"] = trial_id
+        # Always include the iteration number in cache params
+        cache_params["iteration"] = i
+        # Include accumulated feedback in the cache key for iterations > 0
+        if i > 0 and feedback_history:
+            cache_params["feedback_hash"] = hashlib.md5("".join(feedback_history).encode()).hexdigest()[:8]
+            # Store the complete feedback prompt sent to the LLM
+            cache_params["feedback_prompt"] = feedback_history[-1]
+            
+        logger.info(f"{COLOR_INFO}Feedback iteration {i+1}/{feedback_turn}, call ID: {call_id}")
+        
+        # Check cache for this specific iteration
+        if cache and cache.enabled:
+            model_name = get_model_name()
+            iter_desc = f"trial={trial_id}, iter={i+1}"
+            cached_response = cache.get(model_name, "gen_body_from_spec", user_prompt, cache_params)
+            if cached_response:
+                logger.info(f"{COLOR_SUCCESS}Using cached response for gen_body_from_spec ({iter_desc})")
+                body = extract_body(cached_response.strip().split("\n"), False)
+                # Verify the cached response compiles
+                out = compile_dafny(body, dafny_path)
+                if no_compile_error(str(out)):
+                    logger.info(f"{COLOR_SUCCESS}Cached response verified successfully ({iter_desc})")
+                    s += assistant(body)  # Add to SGLang state
+                    return True, body
+                else:
+                    logger.warning(f"{COLOR_WARN}Cached response for iteration {i+1} didn't compile, trying next step")
+        
+        # Make a new LLM call for this iteration
         with s.copy() as tmp:
-            tmp += assistant(gen("body", max_tokens=1024))
-            body = extract_code_from_llm_output(tmp["body"])
+            logger.info(f"{COLOR_INFO}Making LLM call for iteration {i+1}, call ID: {call_id}")
+            
+            # Debug - print state before LLM call
+            print_sglang_state(tmp, f"Before LLM Call - Iteration {i+1}")
+            
+            try:
+                # Use the standard gen function
+                tmp += assistant(gen("body", max_tokens=1024))
+                body = extract_code_from_llm_output(tmp["body"])
+                logger.info(f"{COLOR_INFO}Successfully received response for iteration {i+1}, call ID: {call_id}")
+            except Exception as e:
+                logger.error(f"{COLOR_ERROR}Error in LLM call: {e}, call ID: {call_id}")
+                if hasattr(tmp, 'state') and hasattr(tmp.state, 'vars'):
+                    logger.error(f"{COLOR_ERROR}Debug state keys: {list(tmp.state.vars.keys())}")
+                raise
+                
         body = extract_body(body.strip().split("\n"), False)
         s += assistant(body)
+        
+        # Cache this iteration's response regardless of success
+        if cache:
+            model_name = get_model_name()
+            cache.save(model_name, "gen_body_from_spec", user_prompt, body, cache_params)
+            logger.info(f"{COLOR_INFO}Cached response for iteration {i+1} (trial={trial_id})")
+            
+        # Check if it compiles successfully
         out = compile_dafny(body, dafny_path)
         if no_compile_error(str(out)):
+            logger.info(f"{COLOR_SUCCESS}Successful body generation after {i+1} iterations, call ID: {call_id}")
             return True, body
+            
         with s.user():
-            s += "This answer got Dafny compile error:\n" + str(out) + "\n"
-            s += "Please try again by taking the Dafny compiler feedback."
+            error_msg = str(out)
+            logger.info(f"{COLOR_WARN}Compilation error in iteration {i+1}, call ID: {call_id}")
+            feedback = f"This answer got Dafny compile error:\n{error_msg}\nPlease try again by taking the Dafny compiler feedback."
+            
+            # Log the actual feedback being sent to the LLM
+            logger.info(f"{COLOR_INFO}FEEDBACK TO LLM:\n{feedback}")
+            
+            s += feedback
+            # Store the complete feedback message, not just the error
+            feedback_history.append(feedback)
+            
+            # Debug - print state after adding feedback
+            print_sglang_state(s, f"After Adding Feedback - Iteration {i+1}")
 
+    logger.warning(f"{COLOR_WARN}Used all feedback turns without success, call ID: {call_id}")
     return False, body
 
 
 @sgl.function
-def gen_spec_from_doc(s, doc, head, dafny_path, feedback_turn=3):
-    s += system(sys_prompts.SYS_DAFNY)
-    s += user(sys_prompts.GEN_SPEC_FROM_DOC + doc + "\n" + head)
+def gen_spec_from_doc(s, doc, head, dafny_path, feedback_turn=3, trial_id=0):
+    # Add logging for cache debugging
+    logger.info(f"{COLOR_INFO}gen_spec_from_doc called with doc: {doc[:50]}...")
+    user_prompt = sys_prompts.GEN_SPEC_FROM_DOC + doc + "\n" + head
+    call_id = hashlib.md5(user_prompt.encode()).hexdigest()[:8]
+    logger.info(f"{COLOR_INFO}Function call ID: {call_id}")
+    
+    # Get cache
+    cache = get_cache()
+    
+    # Prepare prompt
+    system_prompt = sys_prompts.SYS_DAFNY
+    
+    # Build SGLang prompt state
+    s += system(system_prompt)
+    s += user(user_prompt)
+    
+    # Debug - print initial state
+    print_sglang_state(s, "Initial State")
+    
+    # Store feedback and error messages for each iteration
+    feedback_history = []
+    
+    # Track failed response hashes to avoid reusing them
+    failed_response_hashes = set()
+    
     for i in range(feedback_turn):
+        # Create cache parameters including trial_id and iteration for this specific attempt
+        cache_params = {"system": system_prompt}
+        if trial_id > 0:
+            cache_params["trial_id"] = trial_id
+        # Always include the iteration number in cache params
+        cache_params["iteration"] = i
+        # Include accumulated feedback in the cache key for iterations > 0
+        if i > 0 and feedback_history:
+            cache_params["feedback_hash"] = hashlib.md5("".join(feedback_history).encode()).hexdigest()[:8]
+            # Store the complete feedback prompt sent to the LLM
+            cache_params["feedback_prompt"] = feedback_history[-1]
+            
+        logger.info(f"{COLOR_INFO}Feedback iteration {i+1}/{feedback_turn}, call ID: {call_id}")
+        
+        # Check cache first for this specific iteration
+        if cache and cache.enabled:
+            model_name = get_model_name()
+            iter_desc = f"trial={trial_id}, iter={i+1}"
+            cached_response = cache.get(model_name, "gen_spec_from_doc", user_prompt, cache_params)
+            if cached_response:
+                # Skip failed responses we've already tried
+                response_hash = hashlib.md5(cached_response.encode()).hexdigest()
+                if response_hash in failed_response_hashes:
+                    logger.warning(f"{COLOR_WARN}Skipping previously failed cached response ({iter_desc})")
+                else:
+                    logger.info(f"{COLOR_SUCCESS}Using cached response for gen_spec_from_doc ({iter_desc})")
+                    spec = extract_spec(cached_response.strip().split("\n"), False)
+                    # Verify the cached response compiles
+                    out = compile_dafny(spec, dafny_path)
+                    if no_compile_error(str(out)):
+                        logger.info(f"{COLOR_SUCCESS}Cached response verified successfully ({iter_desc})")
+                        s += assistant(spec)  # Add to SGLang state
+                        return spec
+                    else:
+                        # Mark this response as failed to avoid reusing it
+                        failed_response_hashes.add(response_hash)
+                        logger.warning(f"{COLOR_WARN}Cached response for iteration {i+1} didn't compile, trying next step")
+                        # Log the error for debugging
+                        logger.warning(f"{COLOR_WARN}Compile error: {out}")
+        
+        # Make a new LLM call for this iteration
         with s.copy() as tmp:
-            tmp += assistant(gen("new_spec", max_tokens=512))
-            spec = extract_code_from_llm_output(tmp["new_spec"])
+            logger.info(f"{COLOR_INFO}Making LLM call for iteration {i+1}, call ID: {call_id}")
+            
+            # Debug - print state before LLM call
+            print_sglang_state(tmp, f"Before LLM Call - Iteration {i+1}")
+            
+            try:
+                # Use standard gen function
+                tmp += assistant(gen("new_spec", max_tokens=2048))
+                spec = extract_code_from_llm_output(tmp["new_spec"])
+                logger.info(f"{COLOR_INFO}Successfully received response for iteration {i+1}, call ID: {call_id}")
+            except Exception as e:
+                logger.error(f"{COLOR_ERROR}Error in LLM call: {e}, call ID: {call_id}")
+                if hasattr(tmp, 'state') and hasattr(tmp.state, 'vars'):
+                    logger.error(f"{COLOR_ERROR}Debug state keys: {list(tmp.state.vars.keys())}")
+                raise
+                
         spec = extract_spec(spec.strip().split("\n"), False)
         s += assistant(spec)
+        
+        # Try to fix known ghost predicate issues in the spec
+        fixed_spec = spec
+        
+        # Cache this iteration's response regardless of success
+        if cache:
+            model_name = get_model_name()
+            response_hash = hashlib.md5(spec.encode()).hexdigest()
+            
+            # Add metadata about compilation status
+            cache_params["response_hash"] = response_hash
+            
+            cache.save(model_name, "gen_spec_from_doc", user_prompt, spec, cache_params)
+            logger.info(f"{COLOR_INFO}Cached response for iteration {i+1} (trial={trial_id})")
 
+        # Check if it compiles successfully
         out = compile_dafny(spec, dafny_path)
         if no_compile_error(str(out)):
+            logger.info(f"{COLOR_SUCCESS}Successful spec generation after {i+1} iterations, call ID: {call_id}")
             return spec
+        else:
+            # Mark this response as failed
+            failed_response_hashes.add(response_hash)
+            
+        # Prepare for next iteration with feedback
         with s.user():
-            s += "This answer got Dafny compile error:\n" + str(out) + "\n"
-            s += "Please try again by taking the Dafny compiler feedback."
+            error_msg = str(out)
+            logger.info(f"{COLOR_WARN}Compilation error in iteration {i+1}, call ID: {call_id}")
+            feedback = f"This answer got Dafny compile error:\n{error_msg}\nPlease try again by taking the Dafny compiler feedback."
+            
+            # Log the actual feedback being sent to the LLM
+            logger.info(f"{COLOR_INFO}FEEDBACK TO LLM:\n{feedback}")
+            
+            s += feedback
+            # Store the complete feedback message, not just the error
+            feedback_history.append(feedback)
+            
+            # Debug - print state after adding feedback
+            print_sglang_state(s, f"After Adding Feedback - Iteration {i+1}")
 
+    logger.warning(f"{COLOR_WARN}Used all feedback turns without success, call ID: {call_id}")
     return spec
 
 
@@ -242,8 +700,9 @@ def doc_to_body_reconstruct(
     success = False
     for k in range(num_trial):
         s = gen_body_from_doc(
-            doc, head, input_sample, dafny_path, feedback_turn=feedback_turn, stream=(
-                verbose >= 2)
+            doc, head, input_sample, dafny_path, feedback_turn=feedback_turn, 
+            trial_id=k,  # Pass the trial ID to differentiate cache keys
+            stream=(verbose >= 2)
         )
         if verbose >= 2:
             stream_print(s)
@@ -288,7 +747,11 @@ def doc_to_spec_reconstruct(
     head = spec.split("\n")[0]
     success = False
     for k in range(num_trial):
-        s = gen_spec_from_doc(doc, head, dafny_path, stream=(verbose >= 2))
+        s = gen_spec_from_doc(
+            doc, head, dafny_path, 
+            trial_id=k,  # Pass the trial ID to differentiate cache keys
+            stream=(verbose >= 2)
+        )
         if verbose >= 2:
             stream_print(s)
         new_spec = str(s.ret_value)
@@ -345,7 +808,11 @@ def spec_to_body_reconstruct(
     success = False
     for k in range(num_trial):
         s = gen_body_from_spec(
-            spec, dafny_path, feedback_turn=feedback_turn, stream=(verbose >= 2))
+            spec, dafny_path, 
+            feedback_turn=feedback_turn, 
+            trial_id=k,  # Pass the trial ID to differentiate cache keys
+            stream=(verbose >= 2)
+        )
         if verbose >= 2:
             stream_print(s)
         verified, new_body = s.ret_value
@@ -392,10 +859,22 @@ def clover(
         )
         if verbose >= 2:
             logger.info(f"\n###### Final Clover Result: {all(ret)}, {ret}")
+        else:
+            logger.info(f"\n###### Final Clover Result: {all(ret)}")
+            if not all(ret):
+                logger.error(f"{COLOR_ERROR}Doc -> body reconstruction failed")
 
         return all(ret), ret
     else:
         ret = [None] * 6
+        test_types = [
+            "Doc -> body reconstruction",
+            "Body -> doc reconstruction",
+            "Doc -> spec reconstruction",
+            "Spec -> doc reconstruction",
+            "Spec soundness verification",
+            "Spec -> body reconstruction"
+        ]
 
         # doc & body consistency
         ret[0] = doc_to_body_reconstruct(
@@ -408,12 +887,14 @@ def clover(
             verbose=verbose,
         )
         if early_quit and not ret[0]:
+            logger.error(f"{COLOR_ERROR}Early quit: Doc -> body reconstruction failed")
             return False, ret
         body_with_pre = merge_pre_and_body(spec, body)
         ret[1] = body_to_doc_reconstruct(
             doc, body_with_pre, num_trial=num_trial, verbose=verbose
         )
         if early_quit and not ret[1]:
+            logger.error(f"{COLOR_ERROR}Early quit: Body -> doc reconstruction failed")
             return False, ret
 
         # doc & spec consistency
@@ -421,15 +902,18 @@ def clover(
             doc, spec, anno_check_template, dafny_path, num_trial=num_trial, verbose=verbose
         )
         if early_quit and not ret[2]:
+            logger.error(f"{COLOR_ERROR}Early quit: Doc -> spec reconstruction failed")
             return False, ret
         ret[3] = spec_to_doc_reconstruct(
             doc, spec, num_trial=num_trial, verbose=verbose)
         if early_quit and not ret[3]:
+            logger.error(f"{COLOR_ERROR}Early quit: Spec -> doc reconstruction failed")
             return False, ret
 
         # spec & body consistency
         ret[4] = spec_soundness(spec, body, dafny_path, verbose=verbose)
         if early_quit and not ret[4]:
+            logger.error(f"{COLOR_ERROR}Early quit: Spec soundness verification failed")
             return False, ret
         ret[5] = spec_to_body_reconstruct(
             spec,
@@ -441,23 +925,35 @@ def clover(
             verbose=verbose,
         )
         if early_quit and not ret[5]:
+            logger.error(f"{COLOR_ERROR}Early quit: Spec -> body reconstruction failed")
             return False, ret
+        
+        # Log detailed results
         if verbose >= 2:
             logger.info(f"\n###### Final Clover Result: {all(ret)}, {ret}")
-
+        else:
+            logger.info(f"\n###### Final Clover Result: {all(ret)}")
+            if not all(ret):
+                logger.error(f"{COLOR_ERROR}Clover test failed. Test results:")
+                for i, (test_result, test_name) in enumerate(zip(ret, test_types)):
+                    status = f"{COLOR_SUCCESS}PASS" if test_result else f"{COLOR_ERROR}FAIL"
+                    logger.error(f"{i+1}. {status}: {test_name}")
+        
         return all(ret), ret
 
 
-# debug purpose
+# Main function with updated cache initialization
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--test-name", type=str, default="abs")
     parser.add_argument("--verbose", type=int, default=1)
     parser.add_argument("--early-quit", action="store_true")
     parser.add_argument("--just-body", action="store_true")
+    parser.add_argument("--num-trial", type=int, default=1, help="Number of trials to run")
     parser.add_argument("--dafny-path", type=str, required=True)
     parser.add_argument("--cache-dir", type=str, default="../llm_cache")
     parser.add_argument("--disable-cache", action="store_true")
+    parser.add_argument("--model", type=str, default="gpt-4o", help="LLM model to use")
     parser.add_argument("--log-file", type=str, help="Log to file")
     args = parser.parse_args()
     
@@ -467,56 +963,46 @@ if __name__ == "__main__":
         verbose=args.verbose
     )
     
-    # Create a cached backend instead of direct OpenAI
+    # Initialize cache
     cache_enabled = not args.disable_cache
-    backend = create_cached_backend(
-        model="gpt-4-1106-preview",
+    
+    # Update model name without using the global keyword here
+    _model_name = args.model
+    logger.info(f"{COLOR_INFO}Using model: {_model_name}")
+    
+    # Create the global llm_cache instance
+    _llm_cache = LLMCache(
         cache_dir=args.cache_dir,
         enabled=cache_enabled,
+        max_age_days=7,
+        always_write=True,  # Always write to cache even if reading is disabled
         logger=logger
     )
+    
+    # Create backend
+    backend = OpenAI(model_name=args.model)
+    
+    # Expose the cache on the backend for compatibility
+    backend.get_cache_stats = _llm_cache.get_stats
+    
+    # Set as default backend
     set_default_backend(backend)
     
-    # Test cache operations to verify everything is working correctly
+    # Show cache status
     if cache_enabled and args.verbose >= 1:
-        print("\n======= Verifying Cache Operations =======")
-        # Access the cache instance
-        cache = None
-        if hasattr(backend, '_cache'):
-            cache = backend._cache
-        else:
-            # Create a temporary cache for testing
-            from llm_cache import LLMCache
-            cache = LLMCache(cache_dir=args.cache_dir, enabled=True, logger=logger)
-        
-        # Generate a unique test key based on current timestamp
-        test_key = f"test-{int(time.time())}"
-        
-        # Simulate a cache miss and write
-        dummy_params = {"model": "gpt-4-1106-preview", "test_key": test_key}
-        dummy_result = {"result": "Cache verification test", "timestamp": time.time()}
-        
-        # Should be a miss since this is a new key
-        cache_result = cache.get(dummy_params)
-        # Should create a write
-        cache.save(dummy_params, dummy_result)
-        # Should be a hit now
-        cache_result = cache.get(dummy_params)
-        
-        print("======= Cache Verification Complete =======\n")
-    
-    if args.verbose >= 1:
-        logger.info(f"{COLOR_INFO}LLM cache {'enabled' if cache_enabled else 'disabled'}, using directory: {args.cache_dir}")
+        logger.info(f"{COLOR_INFO}LLM caching enabled, using directory: {args.cache_dir}")
+    else:
+        logger.info(f"{COLOR_INFO}LLM caching disabled for reading (but will still write to cache)")
     
     program_path = (
-        f"../dataset/CloverBench/textbook_algo/{args.test_name}/{args.test_name}_strong.dfy"
+        f"dataset/CloverBench/textbook_algo/{args.test_name}/{args.test_name}_strong.dfy"
     )
-    program_with_pre_path = f"../dataset/CloverBench/textbook_algo/{args.test_name}/{args.test_name}_code_with_pre.dfy"
+    program_with_pre_path = f"dataset/CloverBench/textbook_algo/{args.test_name}/{args.test_name}_code_with_pre.dfy"
     doc_path = (
-        f"../dataset/CloverBench/textbook_algo/{args.test_name}/{args.test_name}_spec.txt"
+        f"dataset/CloverBench/textbook_algo/{args.test_name}/{args.test_name}_spec.txt"
     )
-    input_sample_path = f"../dataset/CloverBench/textbook_algo_unit_tests/{args.test_name}/{args.test_name}_tests.dfy"
-    anno_check_template_path = f"../dataset/CloverBench/textbook_algo_anno/{args.test_name}/{args.test_name}_anno_check_template.dfy"
+    input_sample_path = f"dataset/CloverBench/textbook_algo_unit_tests/{args.test_name}/{args.test_name}_tests.dfy"
+    anno_check_template_path = f"dataset/CloverBench/textbook_algo_anno/{args.test_name}/{args.test_name}_anno_check_template.dfy"
 
     program = get_clover_complete_program(program_path, doc_path)
     input_sample = get_clover_input_sample(input_sample_path)
@@ -529,6 +1015,8 @@ if __name__ == "__main__":
         input_sample,
         anno_check_template,
         args.dafny_path,
+        feedback_turn=3,
+        num_trial=args.num_trial,
         verbose=args.verbose,
         early_quit=args.early_quit,
         just_body=args.just_body
@@ -539,7 +1027,27 @@ if __name__ == "__main__":
         logger.info(f"{COLOR_SUCCESS}Passed the Clover test? {result}")
     else:
         logger.info(f"{COLOR_ERROR}Passed the Clover test? {result}")
+        
+        # Print detailed report for failures
+        if not args.just_body:
+            test_types = [
+                "Doc -> body reconstruction",
+                "Body -> doc reconstruction",
+                "Doc -> spec reconstruction",
+                "Spec -> doc reconstruction",
+                "Spec soundness verification",
+                "Spec -> body reconstruction"
+            ]
+            
+            print("\nDetailed Test Results:")
+            print("=====================")
+            for i, (test_result, test_name) in enumerate(zip(details, test_types)):
+                status = "✓" if test_result else "✗"
+                color = COLOR_SUCCESS if test_result else COLOR_ERROR
+                print(f"{i+1}. {color}{status} {test_name}{Style.RESET_ALL}")
+            print()
     
-    # Print cache stats with enhanced formatting
-    if hasattr(backend, 'get_cache_stats'):
-        print_cache_stats(backend, args.verbose)
+    # Print cache stats
+    if _llm_cache:
+        _llm_cache.print_stats()
+

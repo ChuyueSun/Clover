@@ -41,7 +41,7 @@ def ask_llm_equiv_test_doc(s, doc, new_doc, head):
         s += "Below is the signature of the Dafny program:\n" + head + "\n"
         s += "Below is the first docstring:\n" + doc + "\n"
         s += "Below is the second docstring:\n" + new_doc + "\n"
-    s += assistant(gen("doc_equiv"))
+    s += assistant(gen("doc_equiv", max_tokens=1024))
     return "YES" in s["doc_equiv"]
 
 
