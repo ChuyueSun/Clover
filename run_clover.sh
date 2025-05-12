@@ -1,7 +1,12 @@
 #!/bin/bash
 
-# Set OpenAI API Key
-export OPENAI_API_KEY="***REMOVED***"
+# Set OpenAI API Key - IMPORTANT: Don't hardcode the key here!
+# Set this in your environment before running or use: export OPENAI_API_KEY="your-key-here"
+if [ -z "$OPENAI_API_KEY" ]; then
+  echo "Error: OPENAI_API_KEY environment variable is not set."
+  echo "Please set it using: export OPENAI_API_KEY=\"your-key-here\""
+  exit 1
+fi
 
 # Enable LLM cache
 export ENABLE_LLM_CACHE=1

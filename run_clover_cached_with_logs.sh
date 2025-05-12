@@ -1,15 +1,15 @@
 #!/bin/bash
-# Simple wrapper script to run Clover with caching enabled
+# Modified wrapper script that runs Clover with caching enabled and pipes output to analyzer
 
 # Default configuration
 CACHE_DIR="llm_cache"
 ENABLE_CACHE=1
-VERBOSE=1
+VERBOSE=2  # Increased verbosity for more logging
 TEST_NAME="abs"
 # Use CloverBench instead of Dafny
 DATASET_DIR="dataset/CloverBench"
-# API key for OpenAI
-API_KEY="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"
+# API key for OpenAI - Don't hardcode the key here!
+API_KEY=${OPENAI_API_KEY:-""}
 
 # VS Code Dafny path - adjust if needed
 DAFNY_DLL="/home/chuyue/.cursor-server/extensions/dafny-lang.ide-vscode-3.4.4/out/resources/3.10.0/github/dafny/Dafny.dll"
@@ -47,21 +47,16 @@ while [[ $# -gt 0 ]]; do
       export ENABLE_LLM_INFERENCE=0
       shift
       ;;
-    --log-file)
-      LOG_FILE="$2"
-      shift 2
-      ;;
     --help)
       echo "Usage: $0 [options]"
       echo "Options:"
       echo "  --test NAME     Test name to run (default: abs)"
       echo "  --no-cache      Disable caching"
       echo "  --cache-dir DIR Cache directory (default: llm_cache)"
-      echo "  --verbose N     Verbosity level (default: 1)"
+      echo "  --verbose N     Verbosity level (default: 2)"
       echo "  --dataset DIR   Dataset directory (default: dataset/CloverBench)"
       echo "  --api-key KEY   OpenAI API key"
       echo "  --dummy         Run in dummy mode without making API calls"
-      echo "  --log-file FILE Log output to specified file"
       echo "  --help          Show this help message"
       exit 0
       ;;
@@ -75,12 +70,17 @@ done
 
 # Set environment variables
 export ENABLE_LLM_CACHE=$ENABLE_CACHE
-export OPENAI_API_KEY=$API_KEY
 
-# Set logging levels to suppress verbose OpenAI logs
-export OPENAI_LOG=error       # Set OpenAI logging to error level only
-export HTTPX_LOG=error        # Set HTTPX logging to error level only
-export HTTPCORE_LOG=error     # Set HTTPCore logging to error level only
+# Check for API key
+if [ -z "$API_KEY" ]; then
+  echo "Error: No OpenAI API key provided."
+  echo "Please either:"
+  echo "  1. Set OPENAI_API_KEY environment variable before running"
+  echo "  2. Use the --api-key parameter when running this script"
+  exit 1
+fi
+
+export OPENAI_API_KEY=$API_KEY
 
 # Make sure cache directory exists
 mkdir -p "$CACHE_DIR"
@@ -105,7 +105,7 @@ if [ ! -d "dataset/Dafny/textbook_algo/${TEST_NAME}" ]; then
 fi
 
 # Print configuration
-echo "===== Running Clover with LLM Cache ====="
+echo "===== Running Clover with LLM Cache and Log Analysis ====="
 echo "Test name: $TEST_NAME"
 echo "Cache: $([ $ENABLE_CACHE -eq 1 ] && echo "enabled" || echo "disabled")"
 echo "Cache directory: $CACHE_DIR"
@@ -113,35 +113,25 @@ echo "Dataset directory: $DATASET_DIR"
 echo "Verbosity level: $VERBOSE"
 echo "API key: ${API_KEY:0:8}... (${#API_KEY} chars)"
 echo "LLM inference: $([ -z "$ENABLE_LLM_INFERENCE" ] && echo "enabled" || echo "disabled")"
-if [ ! -z "$LOG_FILE" ]; then
-  echo "Log file: $LOG_FILE"
-fi
-echo "========================================"
+echo "=========================================================="
 
-# Enable standard terminal settings
+# Also enable colors for the script output
 export PYTHONIOENCODING=utf-8
-export PYTHONUNBUFFERED=1  # Disable output buffering
+export FORCE_COLOR=1
 
-# Set Python log level based on verbosity
-if [ $VERBOSE -ge 2 ]; then
-  export PYTHONLOGLEVEL=DEBUG
-else
-  export PYTHONLOGLEVEL=INFO
-fi
+# First run, store the output in a temporary file
+LOG_FILE=$(mktemp)
+echo "Running Clover with log capture to $LOG_FILE..."
 
-# Run Clover from the clover directory
-cd clover && python -u clover.py \
+# Run Clover with increased logging 
+(cd clover && python clover.py \
   --test-name "$TEST_NAME" \
   --verbose "$VERBOSE" \
   --cache-dir "../$CACHE_DIR" \
   --dafny-path "$DAFNY_PATH" \
-  $([ ! -z "$LOG_FILE" ] && echo "--log-file \"../$LOG_FILE\"") \
-  $([ $ENABLE_CACHE -eq 0 ] && echo "--disable-cache")
+  $([ $ENABLE_CACHE -eq 0 ] && echo "--disable-cache")) | tee $LOG_FILE
 
-EXIT_CODE=$?
-
-# Return to the main directory
-cd ..
+EXIT_CODE=${PIPESTATUS[0]}
 
 if [ $EXIT_CODE -eq 0 ]; then
   echo -e "\n✅ Clover completed successfully"
@@ -149,20 +139,16 @@ else
   echo -e "\n❌ Clover failed with exit code $EXIT_CODE"
 fi
 
-# Show cache stats using the improved cache_util.py
-if [ $ENABLE_CACHE -eq 1 ]; then
-  echo -e "\n===== Cache Statistics ====="
-  python cache_util.py --cache-dir "$CACHE_DIR" summary
-  
-  # If verbose is 2 or higher, show more detailed cache info
-  if [ $VERBOSE -ge 2 ]; then
-    echo -e "\n===== Recent Cache Entries ====="
-    python cache_util.py --cache-dir "$CACHE_DIR" list --detailed
-    
-    # Show one of the recent prompts if they exist
-    echo -e "\n===== Recent Prompt Example ====="
-    python cache_util.py --cache-dir "$CACHE_DIR" prompts --count 1
-  fi
-fi
+# Print cache file stats
+echo -e "\nCache Files:"
+echo "Cache files: $(find $CACHE_DIR -name "*.json" | wc -l)"
+echo "Cache size: $(du -sh $CACHE_DIR | cut -f1)"
+
+# Analyze the log file
+echo -e "\nAnalyzing cache logs..."
+python analyze_cache_logs.py --log-file $LOG_FILE
+
+# Cleanup
+rm $LOG_FILE
 
 exit $EXIT_CODE 
